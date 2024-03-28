@@ -1,0 +1,89 @@
+--- 
+title: "R for social science and business analytics"
+author: "[Raffaele Vacca](http://www.raffaelevacca.com/)"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+csl: apa.csl
+link-citations: yes
+description: "R for social science and business analytics"
+---
+
+# Overview and setup
+
+This is a series of four workshop sessions about R programming for social science research and business analytics:
+
+1.	[Introduction to R](#intro) (`01_basics.R` script): R objects, vectors and matrices, arithmetic and logical operations, subsetting and indexing, data frames and lists, R functions.
+2.	[Data wrangling and descriptive statistics](#wrangling) (`02_wrangling.R` script): importing data, subsetting, ordering cases and variables, transforming and recoding, joining and appending data frames; frequency tables and crosstabs, mean, standard deviation and other descriptive functions, descriptive statistics for data subsets.
+3.	[Data visualization](#visualization) (`03_visualization.R` script): the ggplot2 package and the grammar of graphics, geometries and aesthetics, visualizing univariate distributions (histograms, boxplots, simple bar plots etc.),  Visualizing associations between two or more variables (scatterplots, complex bar plots, etc.).
+4.	[Creating reproducible reports](#reproducible) (`04_reports.R` script): reproducible reports in different formats, RMarkdown basics, R code chunks, chunk options, inline R code. 
+
+## Workshop setup {#setup}
+
+To take this workshop you need to:
+
+1. Download the last version of **R** [here](https://cran.r-project.org/mirrors.html) 
+    * Select a location near you in the web page above
+    * Follow instructions to install R on your computer
+2. Download **RStudio** (free version) [here](https://www.rstudio.com/products/rstudio/download/)
+    * Follow instructions to install RStudio on your computer
+3. Bring your **laptop** to the workshop
+4. Download the **workshop folder** and save it to your computer: see [below](#materials) 
+    * I recommend that you do this in class at the beginning of the workshop so as to download the most updated version of the folder.
+5. Once in class, go to the workshop folder on your computer (point 4 above) and double-click on the **R project** file in it (`.Rproj` extension). 
+    * That will open RStudio: you're all set!
+
+**NOTE:** It's very important that you save the workshop folder _as downloaded_ to a location in your computer, and open the `.Rproj` _within that folder_. By doing so, you will be opening RStudio _and_ setting the workshop folder as your [R working directory](#starting-R-and-loading-packages). All our R scripts assume the workshop folder is your working directory. You can type `getwd()` in your R console to see the path to your R working directory and make sure that it's correctly pointing to the location of the workshop folder in your computer. 
+
+## Workshop materials {#materials}
+The materials for this workshop consist of this website and the workshop folder. 
+
+You can **download** the workshop folder from [this GitHub repository](https://github.com/raffaelevacca/egocentric-r-book): 
+
+1. Click on the _Code_ green button > Download ZIP
+2. Unzip the folder and save it to your computer
+
+The workshop folder contains several files and subfolders, but you only need to focus on the following: 
+
+* `scripts` subfolder: all the R code shown in this website. 
+* `data` subfolder: all the data we're going to use.
+* `r-social-business-analytics.Rproj`: the workshop's R project file (you use this to launch RStudio).
+
+The `scripts` subfolder includes different R script (.R) files. You can access and run the R code in each script by opening that .R file in RStudio. 
+
+## R settings
+
+### Required R packages {#packages}
+
+We'll install and load these in class: 
+
+* [`janitor`](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html)
+* [`skimr`](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html)
+* [`tidyverse`](https://www.tidyverse.org/)
+
+The tidyverse isn't a single package, it's a collection of packages that share a common set of functions and principles, including `dplyr`, `ggplot2`, and `purrr`. See the [tidyverse website](https://www.tidyverse.org/) for more information.
+
+### RStudio options
+
+RStudio gives you the ability to select and change various settings and features of its interface: see the `Preferences...` menu option. 
+
+These are some of the settings you should pay attention to:
+
+* `Preferences... > Code > Editing > Soft-wrap R source file`. Here you can decide whether or not to wrap long code lines in the editor. When code lines in a script are _not_ wrapped, some code will be hidden if script lines are longer than your editor window's width (you'll have to scroll right to see the rest of the code). With a script open in the editor, try both options (checked and unchecked) to see what you're more comfortable with.
+* `Preferences... > Code > Display > Highlight R function calls`. This allows you to highlight all pieces of code that call an R function ("command"). I find function highlights very helpful to navigate a script and suggest that you check this option.
+
+## Data
+
+This workshop uses an anonymized subset of the survey data collected for Valore D's [Oltre le generazioni](https://www.valored.it/ricerche/oltre-le-generazioni-esperienze-relazioni-lavoro/) study, limited to 1000 randomly selected cases (survey respondents, i.e. employees) and with fictitious company names. All data are in the `data` subfolder.  
+
+## Author and contacts
+
+I'm an assistant professor of sociology at the [University of Milan](https://www.unimi.it/en) in the [Deparment of Social and Political Sciences](http://eng.sps.unimi.it/ecm/home) and its [Behave Lab](https://behavelab.org/). My main research and teaching interests are social networks, migration, health inequalities, and studies of science. I also teach and do research on data science, statistics, and computational methods for the social sciences. More information about me, my work and my contact details is [here](http://www.raffaelevacca.com/). 
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

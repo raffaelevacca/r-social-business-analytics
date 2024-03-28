@@ -1,0 +1,7 @@
+# Data visualization {#visualization}
+
+```{r eval = FALSE, include=FALSE, cache=FALSE}
+knitr::read_chunk("./scripts/01_basics.R")
+```
+
+
