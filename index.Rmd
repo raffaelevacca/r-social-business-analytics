@@ -39,7 +39,7 @@ To take this workshop you need to:
 ## Workshop materials {#materials}
 The materials for this workshop consist of this website and the workshop folder. 
 
-You can **download** the workshop folder from [this GitHub repository](https://github.com/raffaelevacca/egocentric-r-book): 
+You can **download** the workshop folder from [this GitHub repository](https://github.com/raffaelevacca/r-social-business-analytics): 
 
 1. Click on the _Code_ green button > Download ZIP
 2. Unzip the folder and save it to your computer
