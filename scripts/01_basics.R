@@ -88,7 +88,7 @@ ls()
 
 # ---- end-objects
 ############################################################################## #
-###                     VECTORS, MATRICES, DATA FRAMES                      ====
+###                     VECTORS AND MATRICES                                ====
 ############################################################################## #
 ## ---- vectors 
 
@@ -112,6 +112,12 @@ adj
 
 # Notice the row and column numbers in square brackets. 
 
+# ---- end-vectors
+############################################################################## #
+###                      DATA FRAMES                                        ====
+############################################################################## #
+## ---- data-frames 
+
 # Normally we create data frames by importing data from external files, for
 # example csv files.
 data <- read_csv("./data/data.csv")
@@ -122,9 +128,58 @@ data
 # Note the different pieces of information that are displayed when printing a tibble
 # data frame.
 
-# ---- end-vectors
+# ---- end-data-frames
 ############################################################################## #
-###            ARITHMETIC, STATISTICAL, COMPARISON OPERATIONS               ====
+###                                 LISTS                                   ====
+############################################################################## #
+## ---- lists
+
+# Let's get some objects to put in a list.
+
+# A simple numeric vector.
+(num <- 1:10)
+
+# A matrix.
+(mat <- matrix(1:4, nrow=2, ncol=2))
+
+# A character vector.
+(char <- colors()[1:5])
+
+# Create a list that contains all these objects.
+L <- list(num, mat, char)
+
+# Display it
+L
+
+# Create a named list
+L <- list(numbers= num, matrix= mat, colors= char)  
+
+# Display it
+L
+
+# Type and class
+typeof(L)
+class(L)
+
+# Extract the first element of L
+# [ ] notation (result is a list containing the element).
+L[1]
+# [[ ]] notation (result is the element itself, no longer in a list).
+L[[1]]
+
+# $ notation (result is the element itself, no longer in a list).
+L$numbers
+
+# Name indexing.
+L[["numbers"]]
+
+# Types of elements in L.
+str(L)
+
+
+# ---- end-lists
+############################################################################## #
+###            ARITHMETIC, STATISTICAL, RELATIONAL OPERATIONS               ====
 ############################################################################## #
 ## ---- operations
 
@@ -341,7 +396,7 @@ identical(data.20[[5]], data.20$company)
 
 # ---- end-indexing
 ############################################################################## #
-###                       PIPES                              ====
+###                                      PIPES                              ====
 ############################################################################## #
 ## ---- pipes
 
@@ -364,9 +419,89 @@ gender |>
 
 
 # ---- end-pipes
-
 ############################################################################## #
-###                        OBJECT TYPES AND CLASSES                              ====
+###                         WRITING R FUNCTIONS                             ====
+############################################################################## #
+## ---- functions
+
+# Any piece of code you can write and run in R, you can also put in a function.
+
+# Let's write a trivial function that takes its argument and multiplies it by 2.
+times2 <- function(x) {
+  x*2
+}
+
+# Now we can run the function on any argument.
+times2(x= 3)
+times2(x= 10)
+times2(50)
+
+# A function that takes its argument and prints a sentence with it:
+myoutput <- function(word) {
+  print(paste("My output is", word))
+}
+
+# Let's run the function.
+myoutput("cat")
+myoutput(word= "table")
+myoutput("any word here")
+# Not a particularly useful function...
+
+# Note that the function output is the last object that is printed at the end
+# of the function code.
+times2 <- function(x) {
+  y <- x*2
+  y
+}
+times2(x=4)
+
+# If nothing is printed, then the function returns nothing.
+times2 <- function(x) {
+  y <- x*2
+}
+times2(x=4)
+
+# A function will return an error if it's executed on arguments that are not
+# suitable for the code inside the function. E.g., R can't multiply "a" by 2...
+times2 <- function(x) {
+  x*2
+}
+times2(x= "a")
+
+# Let's then specify that the function's argument must be numeric.
+times2 <- function(x) {
+  stopifnot(is.numeric(x))  
+  x*2
+}
+
+# Let's try it now.
+times2(x= "a")
+# This still throws and error, but it makes the error clearer to the user and 
+# it immediately indicates where the problem is.
+
+# Using if, we can also re-write the function so that it returns NA with a
+# warning if its argument is not numeric -- instead of just stopping with an
+# error.
+times2 <- function(x) {
+  # If x is not numeric
+  if(!is.numeric(x)) {
+    # Give the warning
+    warning("Your argument is not numeric!", call. = FALSE)
+    # Return missing value
+    return(NA)
+    # Otherwise, return x*2
+  } else {
+    return(x*2)
+  }
+}
+
+# Try the function
+times2(2)
+times2("a")
+
+## ---- end-functions
+############################################################################## #
+###                        OBJECT TYPES AND CLASSES                         ====
 ############################################################################## #
 ## ---- types
 
@@ -430,84 +565,3 @@ as.numeric(char)
 # but factors can.
 
 # ---- end-types
-############################################################################## #
-###                         WRITING R FUNCTIONS                             ====
-############################################################################## #
-## ---- functions
-
-# Any piece of code you can write and run in R, you can also put in a function.
-
-# Let's write a trivial function that takes its argument and multiplies it by 2.
-times2 <- function(x) {
-  x*2
-}
-
-# Now we can run the function on any argument.
-times2(x= 3)
-times2(x= 10)
-times2(50)
-
-# A function that takes its argument and prints a sentence with it:
-myoutput <- function(word) {
-  print(paste("My output is", word))
-}
-
-# Let's run the function.
-myoutput("cat")
-myoutput(word= "table")
-myoutput("any word here")
-# Not necessarily a useful function...
-
-# Note that the function output is the last object that is printed at the end
-# of the function code.
-times2 <- function(x) {
-  y <- x*2
-  y
-}
-times2(x=4)
-
-# If nothing is printed, then the function returns nothing.
-times2 <- function(x) {
-  y <- x*2
-}
-times2(x=4)
-
-# A function will return an error if it's executed on arguments that are not
-# suitable for the code inside the function. E.g., R can't multiply "a" by 2...
-times2 <- function(x) {
-  x*2
-}
-times2(x= "a")
-
-# Let's then specify that the function's argument must be numeric.
-times2 <- function(x) {
-  stopifnot(is.numeric(x))  
-  x*2
-}
-
-# Let's try it now.
-times2(x= "a")
-# This still throws and error, but it makes the error clearer to the user and 
-# it immidiately indicates where the problem is.
-
-# Using if, we can also re-write the function so that it returns NA with a
-# warning if its argument is not numeric -- instead of just stopping with an
-# error.
-times2 <- function(x) {
-  # If x is not numeric
-  if(!is.numeric(x)) {
-    # Give the warning
-    warning("Your argument is not numeric!", call. = FALSE)
-    # Return missing value
-    return(NA)
-    # Otherwise, return x*2
-  } else {
-    return(x*2)
-  }
-}
-
-# Try the function
-times2(2)
-times2("a")
-
-## ---- end-functions

@@ -15,6 +15,7 @@ the-workspace
 saving-and-removing-objects
 vector-and-matrix-objects
 dataframes
+lists
 arithmetic-statistical-and-relational-operations
 arithmetic-operations-and-recycling
 relational-operations-and-logical-vectors
@@ -23,8 +24,8 @@ missing-and-infinite-values
 subsetting
 index-df
 pipes-and-the-operator
-types-and-classes-of-objects
 functions
+types-and-classes-of-objects
 wrangling
 visualization
 reproducible

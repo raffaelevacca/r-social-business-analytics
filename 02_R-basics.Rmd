@@ -109,6 +109,9 @@ rm(list=ls())
 + To create a matrix: `matrix`. Its main arguments are the cell values (within `c()`), number of rows (`nrow`) and number of columns (`ncol`). Values are arranged in a `nrow` x `ncol` matrix _by column_. See `?matrix`.
 + When we `print` matrices, the numbers in square brackets indicate the row and column numbers.
 
+```{r vectors, message = FALSE, include=TRUE, cache=FALSE, tidy=FALSE}
+```
+
 ### Data frames {#dataframes}
 
 + "Data frame" is R's name for dataset. A dataset is a collection of cases (rows), and variables (columns) which are measured on those cases.
@@ -128,7 +131,25 @@ rm(list=ls())
 + Data can also be imported into R from most external file formats (SAS, SPSS, Stata, Excel, etc.) using the tidyverse packages  `readxl` and `haven`, or the `foreign` package in traditional R.
 + Note that you can click on a data frame's name in RStudio's Environment pane. That will open the data frame in a window, similar to SPSS's data view.
 
-```{r vectors, message = FALSE, include=TRUE, cache=FALSE, tidy=FALSE}
+```{r data-frames, message = FALSE, include=TRUE, cache=FALSE, tidy=FALSE}
+```
+
+### Lists {#lists}
+
++ A lists is simply a **collection** of objects. It can contain any kind of object, with no restriction. A list can contain other lists.
++ Lists have `list` as `type` _and_ `class`.
++ Data frames are a type of list. Other complex objects in R are also _stored_ as lists (have `list` as `type`), although their `class` is not `list`: for example, results from statistical estimations or network community detection procedures.
++ Use `str(list)` to display the types and lengths of elements in a list.
++ List may be _named_, that is, have element names. You can view or assign names with the `names` function (base R) or the `set_names` function (tidyverse).
++ **Three different notations to index lists**:
+    1. `[ ]` notation, e.g. `my.list[3]`. 
+    2. `[[ ]]` notation, e.g. `my.list[[3]]` or `my.list[["element.name"]]`. 
+    3. The `$` notation. This only works for named lists. E.g., `list$element.name`. This is the same as the `[[ ]]` notation: `list$element.name` is the same as `list[["element.name"]]` or `list[[i]]` (where `i` is the position of the element called _element.name_ in the list).
++ These three indexing methods work in exactly the same way as for data frames (see Section \@ref(index-df)).
++ **What we do in the following code**. 
+    * Create, display, and index a list.
+
+```{r lists, include=TRUE, cache=FALSE, tidy= FALSE}
 ```
 
 ## Arithmetic, statistical, and relational operations
@@ -256,6 +277,22 @@ Let's see how this works with some of our data objects.
 ```{r pipes, include=TRUE, cache=FALSE, tidy=FALSE, error=TRUE, message=FALSE}
 ```
 
+## Writing your own R functions {#functions}
+
++ One of the most powerful tools in R is the ability to **write your own functions**.
++ A function is a **piece of code** that operates on one or multiple **arguments** (the _input_), and returns an _output_ (the function  **value** in R terminology). Everything that happens in R is done by a function. 
++ Many R functions have **default values** for their arguments: if you don't specify the argument's value, the function will use the default.
++ Once you write a function and define its arguments, you can run that function on any argument values you want --- provided that the function code actually works on those argument values. 
++ R functions, combined with [functionals](https://adv-r.hadley.nz/functionals.html) and summarization methods, are the best way to run exactly the same code on many different objects. Functions are  **crucial for code reproducibility** in R. If you write functions, you won't need to re-write (copy and paste) the same code over and over again --- you just write it once in the function, then run the function any time and on any arguments you need. This yields clearer, shorter, more readable code with less errors.
++ New functions are also commonly used to  **redefine existing functions** by pre-setting the value of specific arguments. For example, if you want all your plots to have `red` as color, you can take R's existing plotting function `plot()`, and wrap it in a new function that always executes `plot()` with the argument `col="red"`. Your function would be something like  `my.plot <- function(...) {plot(..., col="red")}`.
++ **Tips and tricks** with functions:
+    * `stopifnot()` is useful to check that function arguments are of the type that was intended by the function author. It stops the function if a certain condition is not met by a function argument (e.g., argument is _not_ a `numeric` object, if the function was written for `numeric` objects).
+    * `return()` allows you to explicitly set the output that the function will return (clearer code). It is also used to stop function execution earlier under certain conditions. Note: If you don't use `return()`, the function value (output) is the last object that is printed at the end of the function code.
+    * `if` is a flow control tool that is frequently used within functions: it specifies what the function should do `if` a certain condition is met at one point.
+    * First think particular, then generalize. When you want to write a function, it's a good idea to first try the code on a "real", specific existing object in your workspace. If the code does what you want on that object, you can then wrap it into a general function to be run on any similar object (see examples in the code below).
+
+```{r functions, include=TRUE, cache=FALSE, tidy=FALSE, error=TRUE}
+```
 
 ## Types and classes of objects
 
@@ -287,21 +324,4 @@ This is a quick summary of the basics about **types** and **classes** of objects
     * `as.`_type_ functions convert objects between types or classes: e.g. `as.numeric()`, `as.character()`. If the conversion is impossible, the result is `NA`: e.g. `as.numeric("abc")` returns `NA`.
 
 ```{r types, include=TRUE, cache=FALSE, tidy= FALSE}
-```
-
-## Writing your own R functions {#functions}
-
-+ One of the most powerful tools in R is the ability to **write your own functions**.
-+ A function is a **piece of code** that operates on one or multiple **arguments** (the _input_), and returns an _output_ (the function  **value** in R terminology). Everything that happens in R is done by a function. 
-+ Many R functions have **default values** for their arguments: if you don't specify the argument's value, the function will use the default.
-+ Once you write a function and define its arguments, you can run that function on any argument values you want --- provided that the function code actually works on those argument values. 
-+ R functions, combined with [functionals](https://adv-r.hadley.nz/functionals.html) and summarization methods, are the best way to run exactly the same code on many different objects (for example, many different ego-networks). Functions are  **crucial for code reproducibility** in R. If you write functions, you won't need to re-write (copy and paste) the same code over and over again --- you just write it once in the function, then run the function any time and on any arguments you need. This yields clearer, shorter, more readable code with less errors.
-+ New functions are also commonly used to  **redefine existing functions** by pre-setting the value of specific arguments. For example, if you want all your plots to have `red` as color, you can take R's existing plotting function `plot`, and wrap it in a new function that always executes `plot` with the argument `col="red"`. Your function would be something like  `my.plot <- function(...) {plot(..., col="red")}` (examples below).
-+ **Tips and tricks** with functions:
-    * `stopifnot()` is useful to check that function arguments are of the type that was intended by the function author. It stops the function if a certain condition is not met by a function argument (e.g., argument is _not_ a `numeric` object, if the function was written for `numeric` objects).
-    * `return()` allows you to explicitly set the output that the function will return (clearer code). It is also used to stop function execution earlier under certain conditions. Note: If you don't use `return()`, the function value (output) is the last object that is printed at the end of the function code.
-    * `if` is a flow control tool that is frequently used within functions: it specifies what the function should do `if` a certain condition is met at one point.
-    * First think particular, then generalize. When you want to write a function, it's a good idea to first try the code on a "real", specific existing object in your workspace. If the code does what you want on that object, you can then wrap it into a general function to be run on any similar object (see examples in the code below).
-
-```{r functions, include=TRUE, cache=FALSE, tidy=FALSE, error=TRUE}
 ```
