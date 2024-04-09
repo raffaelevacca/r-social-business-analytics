@@ -27,5 +27,13 @@ pipes-and-the-operator
 functions
 types-and-classes-of-objects
 wrangling
+subsetting-and-renaming-variables
+recoding-cleaning-creating-variables
+filtering-and-rearranging-cases
+describing-or-summarizing-the-data
+with-dplyrsummarize
+with-specific-functions-for-descriptive-analysis
+descriptive-statistics-by-group
+export-results
 visualization
 reproducible

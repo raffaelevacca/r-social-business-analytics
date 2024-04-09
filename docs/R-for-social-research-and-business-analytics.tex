@@ -120,7 +120,7 @@
 
 \title{R for social science and business analytics}
 \author{\href{http://www.raffaelevacca.com/}{Raffaele Vacca}}
-\date{2024-04-02}
+\date{2024-04-09}
 
 \begin{document}
 \maketitle
@@ -1710,8 +1710,7 @@ In R, everything that \textbf{exists} is an object. Everything that \textbf{happ
 \CommentTok{\# {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} {-} }
 
 \CommentTok{\# We\textquotesingle{}ll use our data frame (just its first 20 rows).}
-\NormalTok{data}\FloatTok{.20} \OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{)}
+\NormalTok{data}\FloatTok{.20} \OtherTok{\textless{}{-}} \FunctionTok{slice}\NormalTok{(data, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{)}
 
 \CommentTok{\# Numeric subsetting works on data frames too: it allows you to index variables.}
 
@@ -2569,6 +2568,1614 @@ This is a quick summary of the basics about \textbf{types} and \textbf{classes} 
 
 \hypertarget{wrangling}{%
 \chapter{Data wrangling and descriptive statistics}\label{wrangling}}
+
+This workshop session is about data wrangling and obtaining summary or descriptive statistics about the data. We will mostly (but not exclusively) use tidyverse packages and functions.
+
+A lot of what's covered here is treated in more details in the \texttt{dplyr} package \href{https://dplyr.tidyverse.org/}{website}. Also see the \texttt{dplyr} \href{https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf}{cheat sheet} for a visually nice summary.
+
+For more information about the many different types of external sources from which (rectangular) data can be imported into R, see the \texttt{readr} package \href{https://readr.tidyverse.org/}{website}.
+
+Let's start by loading packages, clearing the workspace, and loading the data from external source.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load packages}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(skimr)}
+\FunctionTok{library}\NormalTok{(janitor)}
+
+\CommentTok{\# Clear the workspace}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+
+\CommentTok{\# Let\textquotesingle{}s read the data in as a tibble data frame.}
+\NormalTok{(data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"./data/data.csv"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 5
+##    1. Il tuo anno di nascita è..~1 2. Il tuo genere è..~2 4. Sei nato/a in Ita~3
+##                              <dbl> <chr>                  <chr>                 
+##  1                            1994 Uomo                   Sì                    
+##  2                            1968 Donna                  No                    
+##  3                            1969 Uomo                   Sì                    
+##  4                            1964 Uomo                   Sì                    
+##  5                            1971 Uomo                   Sì                    
+##  6                            1961 Preferisco non rispon~ Sì                    
+##  7                            1993 Donna                  Sì                    
+##  8                            1981 Uomo                   Sì                    
+##  9                            1979 Donna                  Sì                    
+## 10                            1971 Uomo                   Sì                    
+## # i 990 more rows
+## # i abbreviated names: 1: `1. Il tuo anno di nascita è...`,
+## #   2: `2. Il tuo genere è...`, 3: `4. Sei nato/a in Italia?`
+## # i 2 more variables:
+## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>
+\end{verbatim}
+
+\hypertarget{subsetting-and-renaming-variables}{%
+\section{Subsetting and renaming variables}\label{subsetting-and-renaming-variables}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{select()} verb.
+\item
+  Renaming variables (i.e., data columns).
+\item
+  Selecting (i.e., subsetting) variables.
+\item
+  Pulling one variable out of the data frame.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Give better names to the variables: by variable name.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{birth.y =} \StringTok{\textasciigrave{}}\AttributeTok{1. Il tuo anno di nascita è...}\StringTok{\textasciigrave{}}\NormalTok{,}
+    \AttributeTok{gender =} \StringTok{\textasciigrave{}}\AttributeTok{2. Il tuo genere è...}\StringTok{\textasciigrave{}}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 5
+##    birth.y gender          4. Sei nato/a in Ita~1 11. Il tuo ultimo ti~2 company
+##      <dbl> <chr>           <chr>                  <chr>                  <chr>  
+##  1    1994 Uomo            Sì                     Master post-laurea     My Veg~
+##  2    1968 Donna           No                     Laurea                 Urban ~
+##  3    1969 Uomo            Sì                     Diploma di scuola sup~ Office~
+##  4    1964 Uomo            Sì                     Diploma di scuola sup~ Raven  
+##  5    1971 Uomo            Sì                     Diploma di scuola sup~ Fix Gu~
+##  6    1961 Preferisco non~ Sì                     Laurea                 Office~
+##  7    1993 Donna           Sì                     Scuola di specializza~ House ~
+##  8    1981 Uomo            Sì                     Laurea                 Satan'~
+##  9    1979 Donna           Sì                     Laurea                 Fruity~
+## 10    1971 Uomo            Sì                     Diploma di scuola sup~ Coal K~
+## # i 990 more rows
+## # i abbreviated names: 1: `4. Sei nato/a in Italia?`,
+## #   2: `11. Il tuo ultimo titolo di studi conseguito è...`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Give better names to the variables: by variable position.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{birth.y =} \DecValTok{1}\NormalTok{,}
+    \AttributeTok{gender =} \DecValTok{2}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 5
+##    birth.y gender          4. Sei nato/a in Ita~1 11. Il tuo ultimo ti~2 company
+##      <dbl> <chr>           <chr>                  <chr>                  <chr>  
+##  1    1994 Uomo            Sì                     Master post-laurea     My Veg~
+##  2    1968 Donna           No                     Laurea                 Urban ~
+##  3    1969 Uomo            Sì                     Diploma di scuola sup~ Office~
+##  4    1964 Uomo            Sì                     Diploma di scuola sup~ Raven  
+##  5    1971 Uomo            Sì                     Diploma di scuola sup~ Fix Gu~
+##  6    1961 Preferisco non~ Sì                     Laurea                 Office~
+##  7    1993 Donna           Sì                     Scuola di specializza~ House ~
+##  8    1981 Uomo            Sì                     Laurea                 Satan'~
+##  9    1979 Donna           Sì                     Laurea                 Fruity~
+## 10    1971 Uomo            Sì                     Diploma di scuola sup~ Coal K~
+## # i 990 more rows
+## # i abbreviated names: 1: `4. Sei nato/a in Italia?`,
+## #   2: `11. Il tuo ultimo titolo di studi conseguito è...`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Rename all or a collection of variables with a function: .x represents each}
+\CommentTok{\# variable name}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename\_with}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{toupper}\NormalTok{(.x))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 5
+##    1. IL TUO ANNO DI NASCITA È..~1 2. IL TUO GENERE È..~2 4. SEI NATO/A IN ITA~3
+##                              <dbl> <chr>                  <chr>                 
+##  1                            1994 Uomo                   Sì                    
+##  2                            1968 Donna                  No                    
+##  3                            1969 Uomo                   Sì                    
+##  4                            1964 Uomo                   Sì                    
+##  5                            1971 Uomo                   Sì                    
+##  6                            1961 Preferisco non rispon~ Sì                    
+##  7                            1993 Donna                  Sì                    
+##  8                            1981 Uomo                   Sì                    
+##  9                            1979 Donna                  Sì                    
+## 10                            1971 Uomo                   Sì                    
+## # i 990 more rows
+## # i abbreviated names: 1: `1. IL TUO ANNO DI NASCITA È...`,
+## #   2: `2. IL TUO GENERE È...`, 3: `4. SEI NATO/A IN ITALIA?`
+## # i 2 more variables:
+## #   `11. IL TUO ULTIMO TITOLO DI STUDI CONSEGUITO È...` <chr>, COMPANY <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Final names }
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{birth.y =} \StringTok{\textasciigrave{}}\AttributeTok{1. Il tuo anno di nascita è...}\StringTok{\textasciigrave{}}\NormalTok{,}
+    \AttributeTok{gender =} \StringTok{\textasciigrave{}}\AttributeTok{2. Il tuo genere è...}\StringTok{\textasciigrave{}}\NormalTok{,}
+    \AttributeTok{nato.it =} \StringTok{\textasciigrave{}}\AttributeTok{4. Sei nato/a in Italia?}\StringTok{\textasciigrave{}}\NormalTok{,}
+    \AttributeTok{edu =} \StringTok{\textasciigrave{}}\AttributeTok{11. Il tuo ultimo titolo di studi conseguito è...}\StringTok{\textasciigrave{}}
+\NormalTok{  )}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 5
+##    birth.y gender                    nato.it edu                         company
+##      <dbl> <chr>                     <chr>   <chr>                       <chr>  
+##  1    1994 Uomo                      Sì      Master post-laurea          My Veg~
+##  2    1968 Donna                     No      Laurea                      Urban ~
+##  3    1969 Uomo                      Sì      Diploma di scuola superiore Office~
+##  4    1964 Uomo                      Sì      Diploma di scuola superiore Raven  
+##  5    1971 Uomo                      Sì      Diploma di scuola superiore Fix Gu~
+##  6    1961 Preferisco non rispondere Sì      Laurea                      Office~
+##  7    1993 Donna                     Sì      Scuola di specializzazione~ House ~
+##  8    1981 Uomo                      Sì      Laurea                      Satan'~
+##  9    1979 Donna                     Sì      Laurea                      Fruity~
+## 10    1971 Uomo                      Sì      Diploma di scuola superiore Coal K~
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Subset to specific variables of interest.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(gender, edu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 2
+##    gender                    edu                                   
+##    <chr>                     <chr>                                 
+##  1 Uomo                      Master post-laurea                    
+##  2 Donna                     Laurea                                
+##  3 Uomo                      Diploma di scuola superiore           
+##  4 Uomo                      Diploma di scuola superiore           
+##  5 Uomo                      Diploma di scuola superiore           
+##  6 Preferisco non rispondere Laurea                                
+##  7 Donna                     Scuola di specializzazione post-laurea
+##  8 Uomo                      Laurea                                
+##  9 Donna                     Laurea                                
+## 10 Uomo                      Diploma di scuola superiore           
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove certain variables}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 4
+##    birth.y nato.it edu                                    company             
+##      <dbl> <chr>   <chr>                                  <chr>               
+##  1    1994 Sì      Master post-laurea                     My Vegetarian Dinner
+##  2    1968 No      Laurea                                 Urban Gallery       
+##  3    1969 Sì      Diploma di scuola superiore            Office Tile         
+##  4    1964 Sì      Diploma di scuola superiore            Raven               
+##  5    1971 Sì      Diploma di scuola superiore            Fix Guru            
+##  6    1961 Sì      Laurea                                 Office Brush        
+##  7    1993 Sì      Scuola di specializzazione post-laurea House Brush         
+##  8    1981 Sì      Laurea                                 Satan's Sister      
+##  9    1979 Sì      Laurea                                 FruityFlix          
+## 10    1971 Sì      Diploma di scuola superiore            Coal Kings          
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(gender, edu))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 3
+##    birth.y nato.it company             
+##      <dbl> <chr>   <chr>               
+##  1    1994 Sì      My Vegetarian Dinner
+##  2    1968 No      Urban Gallery       
+##  3    1969 Sì      Office Tile         
+##  4    1964 Sì      Raven               
+##  5    1971 Sì      Fix Guru            
+##  6    1961 Sì      Office Brush        
+##  7    1993 Sì      House Brush         
+##  8    1981 Sì      Satan's Sister      
+##  9    1979 Sì      FruityFlix          
+## 10    1971 Sì      Coal Kings          
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Reorder variables.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(company, edu, gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 3
+##    company              edu                                    gender           
+##    <chr>                <chr>                                  <chr>            
+##  1 My Vegetarian Dinner Master post-laurea                     Uomo             
+##  2 Urban Gallery        Laurea                                 Donna            
+##  3 Office Tile          Diploma di scuola superiore            Uomo             
+##  4 Raven                Diploma di scuola superiore            Uomo             
+##  5 Fix Guru             Diploma di scuola superiore            Uomo             
+##  6 Office Brush         Laurea                                 Preferisco non r~
+##  7 House Brush          Scuola di specializzazione post-laurea Donna            
+##  8 Satan's Sister       Laurea                                 Uomo             
+##  9 FruityFlix           Laurea                                 Donna            
+## 10 Coal Kings           Diploma di scuola superiore            Uomo             
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Subset/reorder while renaming}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{company2 =}\NormalTok{ company, }\AttributeTok{education =}\NormalTok{ edu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 2
+##    company2             education                             
+##    <chr>                <chr>                                 
+##  1 My Vegetarian Dinner Master post-laurea                    
+##  2 Urban Gallery        Laurea                                
+##  3 Office Tile          Diploma di scuola superiore           
+##  4 Raven                Diploma di scuola superiore           
+##  5 Fix Guru             Diploma di scuola superiore           
+##  6 Office Brush         Laurea                                
+##  7 House Brush          Scuola di specializzazione post-laurea
+##  8 Satan's Sister       Laurea                                
+##  9 FruityFlix           Laurea                                
+## 10 Coal Kings           Diploma di scuola superiore           
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Select offers very flexible syntax to indicate variable names, for example:}
+\CommentTok{\# Select variables whose name ends with "y".}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{ends\_with}\NormalTok{(}\StringTok{"y"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 2
+##    birth.y company             
+##      <dbl> <chr>               
+##  1    1994 My Vegetarian Dinner
+##  2    1968 Urban Gallery       
+##  3    1969 Office Tile         
+##  4    1964 Raven               
+##  5    1971 Fix Guru            
+##  6    1961 Office Brush        
+##  7    1993 House Brush         
+##  8    1981 Satan's Sister      
+##  9    1979 FruityFlix          
+## 10    1971 Coal Kings          
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Select variables which are numeric.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.numeric))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 1
+##    birth.y
+##      <dbl>
+##  1    1994
+##  2    1968
+##  3    1969
+##  4    1964
+##  5    1971
+##  6    1961
+##  7    1993
+##  8    1981
+##  9    1979
+## 10    1971
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# See ?select for all options.}
+
+\CommentTok{\# Note the difference between these two types of subsetting.}
+
+\CommentTok{\# Option 1: keeping the data frame structure}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(birth.y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 1
+##    birth.y
+##      <dbl>
+##  1    1994
+##  2    1968
+##  3    1969
+##  4    1964
+##  5    1971
+##  6    1961
+##  7    1993
+##  8    1981
+##  9    1979
+## 10    1971
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This is the same as}
+\NormalTok{data[}\StringTok{"birth.y"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 1
+##    birth.y
+##      <dbl>
+##  1    1994
+##  2    1968
+##  3    1969
+##  4    1964
+##  5    1971
+##  6    1961
+##  7    1993
+##  8    1981
+##  9    1979
+## 10    1971
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Option 2: getting the inner vector out of the data frame structure (just print}
+\CommentTok{\# the first few values).}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(birth.y) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1994 1968 1969 1964 1971 1961
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This is the same as }
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{birth.y }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1994 1968 1969 1964 1971 1961
+\end{verbatim}
+
+\hypertarget{recoding-cleaning-creating-variables}{%
+\section{Recoding, cleaning, creating variables}\label{recoding-cleaning-creating-variables}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{mutate()} verb.
+\item
+  Creating new continuous (i.e., interval or ratio) variables.
+\item
+  Recoding continuous variables into categorical (i.e., ordinal or nominal), aka factors.
+\item
+  Recoding factors: relabeling factor levels (i.e., categories).
+\item
+  Reordering factor levels.
+\item
+  Recoding factors: combining multiple levels into one.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create new variable from existing continuous variable.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age =} \DecValTok{2023} \SpecialCharTok{{-}}\NormalTok{ birth.y}
+\NormalTok{  )}
+
+\CommentTok{\# See result.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(birth.y, age)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 2
+##    birth.y   age
+##      <dbl> <dbl>
+##  1    1994    29
+##  2    1968    55
+##  3    1969    54
+##  4    1964    59
+##  5    1971    52
+##  6    1961    62
+##  7    1993    30
+##  8    1981    42
+##  9    1979    44
+## 10    1971    52
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode continuous variable into categorical (i.e., factor).}
+
+\CommentTok{\# Age {-}\textgreater{} Generation}
+\CommentTok{\# Gen Z: 1996{-}2010 {-}\textgreater{} Fascia età 13{-}27}
+\CommentTok{\# Millennials: 1980{-}1995 {-}\textgreater{} Fascia età 28{-}43}
+\CommentTok{\# Gen X: 1965{-}1979 {-}\textgreater{} Fascia età 44{-}58}
+\CommentTok{\# Baby boomers: 1946{-}1964 {-}\textgreater{} Fascia età 59{-}77 (ma includiamo respondents fino a }
+\CommentTok{\# 80).}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gen1 =} \FunctionTok{cut}\NormalTok{(age, }\FunctionTok{c}\NormalTok{(}\DecValTok{13}\NormalTok{, }\DecValTok{27}\NormalTok{, }\DecValTok{43}\NormalTok{, }\DecValTok{58}\NormalTok{, }\DecValTok{80}\NormalTok{))}
+\NormalTok{  )}
+
+\CommentTok{\# View. Note the new variable is listed as \textless{}fct\textgreater{}.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(birth.y, age, gen1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 3
+##    birth.y   age gen1   
+##      <dbl> <dbl> <fct>  
+##  1    1994    29 (27,43]
+##  2    1968    55 (43,58]
+##  3    1969    54 (43,58]
+##  4    1964    59 (58,80]
+##  5    1971    52 (43,58]
+##  6    1961    62 (58,80]
+##  7    1993    30 (27,43]
+##  8    1981    42 (27,43]
+##  9    1979    44 (43,58]
+## 10    1971    52 (43,58]
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode factor: new labels for generations}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gen =} \FunctionTok{fct\_recode}\NormalTok{(gen1, }\StringTok{\textasciigrave{}}\AttributeTok{gen z}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(13,27]"}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{millennials}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(27,43]"}\NormalTok{, }
+                     \StringTok{\textasciigrave{}}\AttributeTok{gen x}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(43,58]"}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{baby boomers}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(58,80]"}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# View.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(age, gen1, gen)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 3
+##      age gen1    gen         
+##    <dbl> <fct>   <fct>       
+##  1    29 (27,43] millennials 
+##  2    55 (43,58] gen x       
+##  3    54 (43,58] gen x       
+##  4    59 (58,80] baby boomers
+##  5    52 (43,58] gen x       
+##  6    62 (58,80] baby boomers
+##  7    30 (27,43] millennials 
+##  8    42 (27,43] millennials 
+##  9    44 (43,58] gen x       
+## 10    52 (43,58] gen x       
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Factors have levels (i.e., categories). These are stored in a specific order.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(gen) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "gen z"        "millennials"  "gen x"        "baby boomers"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This order affects the output of certain functions, including those for }
+\CommentTok{\# producing summary tables and visualizations. For example:}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(gen)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           gen   n percent
+##         gen z  17   0.017
+##   millennials 297   0.297
+##         gen x 576   0.576
+##  baby boomers 110   0.110
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can change the order of levels.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gen =} \FunctionTok{fct\_relevel}\NormalTok{(gen, }\StringTok{"baby boomers"}\NormalTok{, }\StringTok{"gen x"}\NormalTok{, }\StringTok{"millennials"}\NormalTok{, }\StringTok{"gen z"}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# See the result.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(gen) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "baby boomers" "gen x"        "millennials"  "gen z"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Now the summary table has rows in a different order.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(gen)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           gen   n percent
+##  baby boomers 110   0.110
+##         gen x 576   0.576
+##   millennials 297   0.297
+##         gen z  17   0.017
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode age in a different way: 10{-}year age brackets.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age.br =} \FunctionTok{cut}\NormalTok{(age, }\FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{80}\NormalTok{))}
+\NormalTok{  )}
+
+\CommentTok{\# View.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(age, age.br)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 2
+##      age age.br 
+##    <dbl> <fct>  
+##  1    29 (20,30]
+##  2    55 (50,60]
+##  3    54 (50,60]
+##  4    59 (50,60]
+##  5    52 (50,60]
+##  6    62 (60,70]
+##  7    30 (20,30]
+##  8    42 (40,50]
+##  9    44 (40,50]
+## 10    52 (50,60]
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Levels of the new variable}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(age.br) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "(20,30]" "(30,40]" "(40,50]" "(50,60]" "(60,70]" "(70,80]"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode, i.e., re{-}label age brackets.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age.br.2 =} \FunctionTok{fct\_recode}\NormalTok{(age.br,}
+      \StringTok{\textasciigrave{}}\AttributeTok{21{-}30}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(20,30]"}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{31{-}40}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(30,40]"}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{41{-}50}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(40,50]"}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{51{-}60}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(50,60]"}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{61{-}70}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(60,70]"}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{71{-}80}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"(70,80]"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\# View results.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(age, age.br, age.br}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 3
+##      age age.br  age.br.2
+##    <dbl> <fct>   <fct>   
+##  1    29 (20,30] 21-30   
+##  2    55 (50,60] 51-60   
+##  3    54 (50,60] 51-60   
+##  4    59 (50,60] 51-60   
+##  5    52 (50,60] 51-60   
+##  6    62 (60,70] 61-70   
+##  7    30 (20,30] 21-30   
+##  8    42 (40,50] 41-50   
+##  9    44 (40,50] 41-50   
+## 10    52 (50,60] 51-60   
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Collapse 10{-}year brackets into 20{-}year.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age.br.3 =} \FunctionTok{fct\_collapse}\NormalTok{(age.br}\FloatTok{.2}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{21{-}40}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"21{-}30"}\NormalTok{, }\StringTok{"31{-}40"}\NormalTok{),}
+      \StringTok{\textasciigrave{}}\AttributeTok{41{-}60}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"41{-}50"}\NormalTok{, }\StringTok{"51{-}60"}\NormalTok{),}
+      \StringTok{\textasciigrave{}}\AttributeTok{61{-}80}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"61{-}70"}\NormalTok{, }\StringTok{"71{-}80"}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\# View results.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(age, age.br}\FloatTok{.2}\NormalTok{, age.br}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 3
+##      age age.br.2 age.br.3
+##    <dbl> <fct>    <fct>   
+##  1    29 21-30    21-40   
+##  2    55 51-60    41-60   
+##  3    54 51-60    41-60   
+##  4    59 51-60    41-60   
+##  5    52 51-60    41-60   
+##  6    62 61-70    61-80   
+##  7    30 21-30    21-40   
+##  8    42 41-50    41-60   
+##  9    44 41-50    41-60   
+## 10    52 51-60    41-60   
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check consistency with cross{-}tabulations. }
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(age.br}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  age.br.2   n percent
+##     21-30  58   0.058
+##     31-40 175   0.175
+##     41-50 325   0.325
+##     51-60 391   0.391
+##     61-70  50   0.050
+##     71-80   1   0.001
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(age.br}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  age.br.3   n percent
+##     21-40 233   0.233
+##     41-60 716   0.716
+##     61-80  51   0.051
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Is this what we should expect?}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(age.br}\FloatTok{.2}\NormalTok{, age.br}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  age.br.2 21-40 41-60 61-80
+##     21-30    58     0     0
+##     31-40   175     0     0
+##     41-50     0   325     0
+##     51-60     0   391     0
+##     61-70     0     0    50
+##     71-80     0     0     1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Another example of recoding/collapsing. Check out the original education }
+\CommentTok{\# categories (are they in the correct order?).}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                      edu   n percent
+##              Diploma di scuola superiore 416   0.416
+##      Diploma di scuole medie o inferiore  23   0.023
+##                                Dottorato  17   0.017
+##                                   Laurea 359   0.359
+##                       Master post-laurea 127   0.127
+##  Scuola di specializzazione post-diploma  31   0.031
+##   Scuola di specializzazione post-laurea  27   0.027
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode education. Note other\_level = ... argument.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{edu =} \FunctionTok{fct\_collapse}\NormalTok{(edu,}
+      \StringTok{\textasciigrave{}}\AttributeTok{Medie o meno}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Diploma di scuole medie o inferiore"}\NormalTok{,}
+      \AttributeTok{Superiori =} \StringTok{"Diploma di scuola superiore"}\NormalTok{,}
+      \AttributeTok{Laurea =} \StringTok{"Laurea"}\NormalTok{,}
+      \StringTok{\textasciigrave{}}\AttributeTok{Post{-}laurea}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Master post{-}laurea"}\NormalTok{, }\StringTok{"Dottorato"}\NormalTok{), }
+      \AttributeTok{other\_level =} \StringTok{"Altro"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\# Results:}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           edu   n percent
+##     Superiori 416   0.416
+##  Medie o meno  23   0.023
+##   Post-laurea 144   0.144
+##        Laurea 359   0.359
+##         Altro  58   0.058
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We still need to arrange levels (categories) in the right order.}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{edu =} \FunctionTok{fct\_relevel}\NormalTok{(edu, }\StringTok{"Medie o meno"}\NormalTok{, }\StringTok{"Superiori"}\NormalTok{, }\StringTok{"Laurea"}\NormalTok{, }\StringTok{"Post{-}laurea"}\NormalTok{, }\StringTok{"Altro"}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# See the new order of levels.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           edu   n percent
+##  Medie o meno  23   0.023
+##     Superiori 416   0.416
+##        Laurea 359   0.359
+##   Post-laurea 144   0.144
+##         Altro  58   0.058
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode gender.}
+
+\CommentTok{\# See unique (distinct) values of gender}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                     gender   n percent
+##  Altra identità di genere (transgender, non binario, ecc.)   3   0.003
+##                                                      Donna 522   0.522
+##                                  Preferisco non rispondere   8   0.008
+##                                                       Uomo 467   0.467
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recode and reorder levels in the same call}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gender =} \FunctionTok{fct\_recode}\NormalTok{(gender, }
+                        \AttributeTok{NR =} \StringTok{"Preferisco non rispondere"}\NormalTok{,}
+                        \StringTok{\textasciigrave{}}\AttributeTok{Altra identità}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Altra identità di genere (transgender, non binario, ecc.)"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+      \FunctionTok{fct\_relevel}\NormalTok{(}\StringTok{"Donna"}\NormalTok{, }\StringTok{"Uomo"}\NormalTok{, }\StringTok{"Altra identità"}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# View}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          gender   n percent
+##           Donna 522   0.522
+##            Uomo 467   0.467
+##  Altra identità   3   0.003
+##              NR   8   0.008
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Only keep variables of interest for the following.}
+\CommentTok{\# What is this code doing with the age.br variable?}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(birth.y, age, gen, }\AttributeTok{age.br =}\NormalTok{ age.br}\FloatTok{.2}\NormalTok{, gender, nato.it, edu, company)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{filtering-and-rearranging-cases}{%
+\section{Filtering and rearranging cases}\label{filtering-and-rearranging-cases}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{filter()} verb.
+\item
+  Filtering cases (i.e., data rows) based on logical conditions with relational operators.
+\item
+  Combining multiple logical conditions via intersection (\texttt{\&}) or union (\texttt{\textbar{}}).
+\item
+  Rearranging data rows.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Respondents whose age is exactly 40.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{==} \DecValTok{40}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 26 x 8
+##    birth.y   age gen         age.br gender nato.it edu         company         
+##      <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>       <chr>           
+##  1    1983    40 millennials 31-40  Uomo   Sì      Altro       Fix Guru        
+##  2    1983    40 millennials 31-40  Uomo   Sì      Superiori   Bloom Marketing 
+##  3    1983    40 millennials 31-40  Donna  Sì      Post-laurea Urban Philosophy
+##  4    1983    40 millennials 31-40  Donna  Sì      Laurea      Wood Works      
+##  5    1983    40 millennials 31-40  Uomo   Sì      Laurea      Office Tile     
+##  6    1983    40 millennials 31-40  Uomo   Sì      Laurea      The Spice Route 
+##  7    1983    40 millennials 31-40  Uomo   Sì      Superiori   The Zone        
+##  8    1983    40 millennials 31-40  Uomo   Sì      Superiori   Coal Kings      
+##  9    1983    40 millennials 31-40  Uomo   <NA>    Altro       FruityFlix      
+## 10    1983    40 millennials 31-40  Donna  Sì      Superiori   Raven           
+## # i 16 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# With education = Laurea}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(edu }\SpecialCharTok{==} \StringTok{"Laurea"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 359 x 8
+##    birth.y   age gen          age.br gender nato.it edu    company       
+##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>  <chr>         
+##  1    1968    55 gen x        51-60  Donna  No      Laurea Urban Gallery 
+##  2    1961    62 baby boomers 61-70  NR     Sì      Laurea Office Brush  
+##  3    1981    42 millennials  41-50  Uomo   Sì      Laurea Satan's Sister
+##  4    1979    44 gen x        41-50  Donna  Sì      Laurea FruityFlix    
+##  5    1975    48 gen x        41-50  Donna  Sì      Laurea Coal Kings    
+##  6    1978    45 gen x        41-50  Uomo   Sì      Laurea The Auto DNA  
+##  7    1972    51 gen x        51-60  Uomo   Sì      Laurea Wood Works    
+##  8    1987    36 millennials  31-40  Donna  Sì      Laurea Garden Store  
+##  9    1984    39 millennials  31-40  Uomo   Sì      Laurea FruityFlix    
+## 10    1981    42 millennials  41-50  Uomo   Sì      Laurea Wood Works    
+## # i 349 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The \%in\% operator is useful when you need to select multiple values.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(edu }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Superiori"}\NormalTok{, }\StringTok{"Laurea"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 775 x 8
+##    birth.y   age gen          age.br gender nato.it edu       company       
+##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>     <chr>         
+##  1    1968    55 gen x        51-60  Donna  No      Laurea    Urban Gallery 
+##  2    1969    54 gen x        51-60  Uomo   Sì      Superiori Office Tile   
+##  3    1964    59 baby boomers 51-60  Uomo   Sì      Superiori Raven         
+##  4    1971    52 gen x        51-60  Uomo   Sì      Superiori Fix Guru      
+##  5    1961    62 baby boomers 61-70  NR     Sì      Laurea    Office Brush  
+##  6    1981    42 millennials  41-50  Uomo   Sì      Laurea    Satan's Sister
+##  7    1979    44 gen x        41-50  Donna  Sì      Laurea    FruityFlix    
+##  8    1971    52 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
+##  9    1966    57 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
+## 10    1975    48 gen x        41-50  Donna  Sì      Laurea    Coal Kings    
+## # i 765 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# All education categories except "Medie o meno"}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(edu }\SpecialCharTok{!=} \StringTok{"Medie o meno"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 977 x 8
+##    birth.y   age gen          age.br gender nato.it edu         company         
+##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>       <chr>           
+##  1    1994    29 millennials  21-30  Uomo   Sì      Post-laurea My Vegetarian D~
+##  2    1968    55 gen x        51-60  Donna  No      Laurea      Urban Gallery   
+##  3    1969    54 gen x        51-60  Uomo   Sì      Superiori   Office Tile     
+##  4    1964    59 baby boomers 51-60  Uomo   Sì      Superiori   Raven           
+##  5    1971    52 gen x        51-60  Uomo   Sì      Superiori   Fix Guru        
+##  6    1961    62 baby boomers 61-70  NR     Sì      Laurea      Office Brush    
+##  7    1993    30 millennials  21-30  Donna  Sì      Altro       House Brush     
+##  8    1981    42 millennials  41-50  Uomo   Sì      Laurea      Satan's Sister  
+##  9    1979    44 gen x        41-50  Donna  Sì      Laurea      FruityFlix      
+## 10    1971    52 gen x        51-60  Uomo   Sì      Superiori   Coal Kings      
+## # i 967 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Missing value on nato.it}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(nato.it))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 8
+##   birth.y   age gen         age.br gender nato.it edu       company        
+##     <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>     <chr>          
+## 1    1967    56 gen x       51-60  Donna  <NA>    Superiori Fix Guru       
+## 2    1967    56 gen x       51-60  Donna  <NA>    Superiori Bloom Marketing
+## 3    1983    40 millennials 31-40  Uomo   <NA>    Altro     FruityFlix     
+## 4    1974    49 gen x       41-50  Uomo   <NA>    Superiori Art Fade
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Multiple conditions can be combined: intersection (\&, i.e. AND) or }
+\CommentTok{\# union (|, i.e. OR). }
+
+\CommentTok{\# Respondents between 30 and 40.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{\textgreater{}=} \DecValTok{30} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textless{}=}\DecValTok{40}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 190 x 8
+##    birth.y   age gen         age.br gender nato.it edu         company          
+##      <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>       <chr>            
+##  1    1993    30 millennials 21-30  Donna  Sì      Altro       House Brush      
+##  2    1984    39 millennials 31-40  Uomo   Sì      Superiori   Wood Works       
+##  3    1990    33 millennials 31-40  Uomo   Sì      Post-laurea Art Fade         
+##  4    1989    34 millennials 31-40  Donna  Sì      Post-laurea The Loop         
+##  5    1993    30 millennials 21-30  Donna  Sì      Post-laurea Service Scientist
+##  6    1988    35 millennials 31-40  Donna  Sì      Superiori   FruityFlix       
+##  7    1987    36 millennials 31-40  Donna  Sì      Laurea      Garden Store     
+##  8    1983    40 millennials 31-40  Uomo   Sì      Altro       Fix Guru         
+##  9    1984    39 millennials 31-40  Uomo   Sì      Laurea      FruityFlix       
+## 10    1988    35 millennials 31-40  NR     Sì      Post-laurea Wood Works       
+## # i 180 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Respondents who are either younger than 20 or older than 40.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{\textless{}} \DecValTok{20} \SpecialCharTok{|}\NormalTok{ age }\SpecialCharTok{\textgreater{}} \DecValTok{40}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 767 x 8
+##    birth.y   age gen          age.br gender nato.it edu       company       
+##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>     <chr>         
+##  1    1968    55 gen x        51-60  Donna  No      Laurea    Urban Gallery 
+##  2    1969    54 gen x        51-60  Uomo   Sì      Superiori Office Tile   
+##  3    1964    59 baby boomers 51-60  Uomo   Sì      Superiori Raven         
+##  4    1971    52 gen x        51-60  Uomo   Sì      Superiori Fix Guru      
+##  5    1961    62 baby boomers 61-70  NR     Sì      Laurea    Office Brush  
+##  6    1981    42 millennials  41-50  Uomo   Sì      Laurea    Satan's Sister
+##  7    1979    44 gen x        41-50  Donna  Sì      Laurea    FruityFlix    
+##  8    1971    52 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
+##  9    1966    57 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
+## 10    1975    48 gen x        41-50  Donna  Sì      Laurea    Coal Kings    
+## # i 757 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Respondents who are younger than 40 AND whose education is post{-}laurea}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{\textless{}} \DecValTok{40} \SpecialCharTok{\&}\NormalTok{ edu }\SpecialCharTok{==} \StringTok{"Post{-}laurea"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 51 x 8
+##    birth.y   age gen         age.br gender nato.it edu         company          
+##      <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>       <chr>            
+##  1    1994    29 millennials 21-30  Uomo   Sì      Post-laurea My Vegetarian Di~
+##  2    1990    33 millennials 31-40  Uomo   Sì      Post-laurea Art Fade         
+##  3    1989    34 millennials 31-40  Donna  Sì      Post-laurea The Loop         
+##  4    1993    30 millennials 21-30  Donna  Sì      Post-laurea Service Scientist
+##  5    1988    35 millennials 31-40  NR     Sì      Post-laurea Wood Works       
+##  6    1984    39 millennials 31-40  Donna  Sì      Post-laurea Raven            
+##  7    1987    36 millennials 31-40  Donna  Sì      Post-laurea The Zone         
+##  8    1985    38 millennials 31-40  Uomo   Sì      Post-laurea Coal Kings       
+##  9    1985    38 millennials 31-40  Uomo   Sì      Post-laurea Beep Sports      
+## 10    1997    26 gen z       21-30  Donna  No      Post-laurea Satan's Sister   
+## # i 41 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The filtered data can be saved to new objects, for example:}
+\NormalTok{data}\FloatTok{.40} \OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{\textless{}=} \DecValTok{40}\NormalTok{)}
+
+\CommentTok{\# Different dplyr verbs can be combined in a pipe chain:}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{\textless{}} \DecValTok{40}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(age, gen, edu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 207 x 3
+##      age gen         edu        
+##    <dbl> <fct>       <fct>      
+##  1    29 millennials Post-laurea
+##  2    30 millennials Altro      
+##  3    39 millennials Superiori  
+##  4    33 millennials Post-laurea
+##  5    34 millennials Post-laurea
+##  6    30 millennials Post-laurea
+##  7    35 millennials Superiori  
+##  8    36 millennials Laurea     
+##  9    39 millennials Laurea     
+## 10    35 millennials Post-laurea
+## # i 197 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Rearrange rows by increasing values on a variable.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(birth.y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 8
+##    birth.y   age gen          age.br gender nato.it edu          company        
+##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>        <chr>          
+##  1    1944    79 baby boomers 71-80  Uomo   Sì      Laurea       The Glow Up    
+##  2    1954    69 baby boomers 61-70  NR     Sì      Medie o meno Brunchies      
+##  3    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Raven          
+##  4    1958    65 baby boomers 61-70  Donna  Sì      Laurea       The Spice Route
+##  5    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       The Zone       
+##  6    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Raven          
+##  7    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Evergrow       
+##  8    1958    65 baby boomers 61-70  Donna  Sì      Superiori    Coal Kings     
+##  9    1958    65 baby boomers 61-70  Uomo   Sì      Altro        Raven          
+## 10    1959    64 baby boomers 61-70  Donna  Sì      Laurea       The Zone       
+## # i 990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# By decreasing value:}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(birth.y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,000 x 8
+##    birth.y   age gen   age.br gender nato.it edu         company             
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct>       <chr>               
+##  1    2002    21 gen z 21-30  Uomo   Sì      Superiori   Fix Guru            
+##  2    2000    23 gen z 21-30  Donna  Sì      Laurea      My Plumber          
+##  3    2000    23 gen z 21-30  Uomo   Sì      Superiori   Coal Kings          
+##  4    2000    23 gen z 21-30  Uomo   Sì      Superiori   Coal Kings          
+##  5    2000    23 gen z 21-30  Donna  Sì      Laurea      Beep Sports         
+##  6    2000    23 gen z 21-30  Uomo   Sì      Laurea      Raven               
+##  7    1998    25 gen z 21-30  Donna  Sì      Laurea      The Fresh Breakfast 
+##  8    1998    25 gen z 21-30  Donna  Sì      Laurea      My Vegetarian Dinner
+##  9    1997    26 gen z 21-30  Donna  No      Post-laurea Satan's Sister      
+## 10    1997    26 gen z 21-30  Uomo   Sì      Laurea      Art Fade            
+## # i 990 more rows
+\end{verbatim}
+
+\hypertarget{describing-or-summarizing-the-data}{%
+\section{Describing or summarizing the data}\label{describing-or-summarizing-the-data}}
+
+\hypertarget{with-dplyrsummarize}{%
+\subsection{\texorpdfstring{With \texttt{dplyr::summarize()}}{With dplyr::summarize()}}\label{with-dplyrsummarize}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{summarize()} function takes and applies it to one or multiple variables. We can use existing R functions or any new function we have defined.
+\item
+  Remember what \texttt{sum()} and \texttt{mean()} do to a logical vector. We can use this to calculate absolute or relative frequencies of specific levels (categories) of factors.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Mean of one continuous variable}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{avg.age =} \FunctionTok{mean}\NormalTok{(age))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   avg.age
+##     <dbl>
+## 1    47.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Number of unique or distinct values in edu.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n.edu =} \FunctionTok{n\_distinct}\NormalTok{(edu))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   n.edu
+##   <int>
+## 1     5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Absolute frequency of women.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{count.women =} \FunctionTok{sum}\NormalTok{(gender }\SpecialCharTok{==} \StringTok{"Donna"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   count.women
+##         <int>
+## 1         522
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can obtain a battery of multiple summary statistics.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{min.year =} \FunctionTok{min}\NormalTok{(birth.y),}
+    \AttributeTok{avg.age =} \FunctionTok{mean}\NormalTok{(age),}
+    \AttributeTok{sd.age =} \FunctionTok{sd}\NormalTok{(age),}
+    \AttributeTok{count.women =} \FunctionTok{sum}\NormalTok{(gender }\SpecialCharTok{==} \StringTok{"Donna"}\NormalTok{),}
+    \CommentTok{\# What am I doing in this last line?}
+    \AttributeTok{prop.foreign =} \FunctionTok{mean}\NormalTok{(nato.it }\SpecialCharTok{==} \StringTok{"No"}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 5
+##   min.year avg.age sd.age count.women prop.foreign
+##      <dbl>   <dbl>  <dbl>       <int>        <dbl>
+## 1     1944    47.6   9.39         522       0.0221
+\end{verbatim}
+
+\hypertarget{with-specific-functions-for-descriptive-analysis}{%
+\subsection{With specific functions for descriptive analysis}\label{with-specific-functions-for-descriptive-analysis}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{skimr} for descriptive statistics on continuous variable
+\item
+  \texttt{janitor} for tabulations of categorical variables.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Battery of descriptive statistics on age.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{  skimr}\SpecialCharTok{::}\FunctionTok{skim\_tee}\NormalTok{(age)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Data Summary ------------------------
+##                            Values
+## Name                       data  
+## Number of rows             1000  
+## Number of columns          8     
+## _______________________          
+## Column type frequency:           
+##   numeric                  1     
+## ________________________         
+## Group variables            None  
+## 
+## -- Variable type: numeric ------------------------------------------------------
+##   skim_variable n_missing complete_rate mean   sd p0  p25 p50 p75 p100 hist 
+## 1 age                   0             1 47.6 9.39 21 41.8  49  55   79 ▂▅▇▅▁
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Tabulation for gender}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{tabyl}\NormalTok{(gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          gender   n percent
+##           Donna 522   0.522
+##            Uomo 467   0.467
+##  Altra identità   3   0.003
+##              NR   8   0.008
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Note that count() gives us similar information.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{count}\NormalTok{(gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 2
+##   gender             n
+##   <fct>          <int>
+## 1 Donna            522
+## 2 Uomo             467
+## 3 Altra identità     3
+## 4 NR                 8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Cross{-}tabulation for education and gender}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu, gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           edu Donna Uomo Altra identità NR
+##  Medie o meno     5   15              0  3
+##     Superiori   196  218              1  1
+##        Laurea   207  150              0  2
+##   Post-laurea    85   57              1  1
+##         Altro    29   27              1  1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{janitor} offers different ways of customizing tabulations.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Add column totals.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_totals}\NormalTok{(}\AttributeTok{where =} \StringTok{"row"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          gender    n percent
+##           Donna  522   0.522
+##            Uomo  467   0.467
+##  Altra identità    3   0.003
+##              NR    8   0.008
+##           Total 1000   1.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Format percentage}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_totals}\NormalTok{(}\AttributeTok{where =} \StringTok{"row"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_pct\_formatting}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          gender    n percent
+##           Donna  522   52.2%
+##            Uomo  467   46.7%
+##  Altra identità    3    0.3%
+##              NR    8    0.8%
+##           Total 1000  100.0%
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Note that both \texttt{skimr} and \texttt{janitor} output objects can be converted to tibbles for further manipulation.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{  skimr}\SpecialCharTok{::}\FunctionTok{skim}\NormalTok{(age) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{variable =}\NormalTok{ skim\_variable, }\AttributeTok{mean =}\NormalTok{ numeric.mean, }\AttributeTok{sd =}\NormalTok{ numeric.sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   variable  mean    sd
+##   <chr>    <dbl> <dbl>
+## 1 age       47.6  9.39
+\end{verbatim}
+
+\hypertarget{descriptive-statistics-by-group}{%
+\subsection{Descriptive statistics by group}\label{descriptive-statistics-by-group}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{group\_by()} function allows us to run any descriptive analysis by data subsets.
+\item
+  These subsets may come from the categories of a single factor or a combination of categories from multiple factors.
+\item
+  Both \texttt{summarize()} and \texttt{skimr} are compatible with \texttt{group\_by()}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Let\textquotesingle{}s run summarize() as above, but now by gender. What are the results telling us?}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{min.year =} \FunctionTok{min}\NormalTok{(birth.y),}
+    \AttributeTok{avg.age =} \FunctionTok{mean}\NormalTok{(age),}
+    \AttributeTok{sd.age =} \FunctionTok{sd}\NormalTok{(age),}
+    \AttributeTok{prop.foreign =} \FunctionTok{mean}\NormalTok{(nato.it }\SpecialCharTok{==} \StringTok{"No"}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   gender         min.year avg.age sd.age prop.foreign
+##   <fct>             <dbl>   <dbl>  <dbl>        <dbl>
+## 1 Donna              1958    46.7   9.07       0.025 
+## 2 Uomo               1944    48.6   9.64       0.0194
+## 3 Altra identità     1964    48     9.64       0     
+## 4 NR                 1954    50.6  11.1        0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Average age in each company}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(company) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{avg.age =} \FunctionTok{mean}\NormalTok{(age))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 53 x 2
+##    company            avg.age
+##    <chr>                <dbl>
+##  1 Active Body           48.1
+##  2 Art Fade              44.2
+##  3 Bean Morning          50.1
+##  4 Beep Sports           43.1
+##  5 Bloom Marketing       47.2
+##  6 Brew Bean             35  
+##  7 Brunchies             69  
+##  8 Clean Scissor         46  
+##  9 Coal Kings            52.3
+## 10 Death By Milkshake    43.8
+## # i 43 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Let\textquotesingle{}s now only keep Donna and Uomo as gender, and re{-}run by groups given by }
+\CommentTok{\# combinations of gender and education categories.}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(gender }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Donna"}\NormalTok{, }\StringTok{"Uomo"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(gender, edu) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{min.year =} \FunctionTok{min}\NormalTok{(birth.y),}
+    \AttributeTok{avg.age =} \FunctionTok{mean}\NormalTok{(age),}
+    \AttributeTok{sd.age =} \FunctionTok{sd}\NormalTok{(age),}
+    \AttributeTok{prop.foreign =} \FunctionTok{mean}\NormalTok{(nato.it }\SpecialCharTok{==} \StringTok{"No"}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'gender'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 10 x 6
+## # Groups:   gender [2]
+##    gender edu          min.year avg.age sd.age prop.foreign
+##    <fct>  <fct>           <dbl>   <dbl>  <dbl>        <dbl>
+##  1 Donna  Medie o meno     1960    53.6   7.80      0      
+##  2 Donna  Superiori        1958    50.1   7.13      0.0206 
+##  3 Donna  Laurea           1958    44.9   9.81      0.0290 
+##  4 Donna  Post-laurea      1963    43.3   8.63      0.0353 
+##  5 Donna  Altro            1964    45.7   9.06      0      
+##  6 Uomo   Medie o meno     1964    52.9   4.89      0.0667 
+##  7 Uomo   Superiori        1959    51.7   8.19      0.0276 
+##  8 Uomo   Laurea           1944    45.1  10.2       0.00667
+##  9 Uomo   Post-laurea      1963    43     9.24      0.0175 
+## 10 Uomo   Altro            1958    52.6   7.83      0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# skimr functions are also compatible with group\_by().}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{skim\_tee}\NormalTok{(age)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Data Summary ------------------------
+##                            Values
+## Name                       data  
+## Number of rows             1000  
+## Number of columns          8     
+## _______________________          
+## Column type frequency:           
+##   numeric                  1     
+## ________________________         
+## Group variables            gender
+## 
+## -- Variable type: numeric ------------------------------------------------------
+##   skim_variable gender         n_missing complete_rate mean    sd p0  p25 p50
+## 1 age           Donna                  0             1 46.7  9.07 23 41    48
+## 2 age           Uomo                   0             1 48.6  9.64 21 42    51
+## 3 age           Altra identità         0             1 48    9.64 41 42.5  44
+## 4 age           NR                     0             1 50.6 11.1  35 44    49
+##    p75 p100 hist 
+## 1 54     65 ▂▃▇▇▃
+## 2 56     79 ▂▆▇▆▁
+## 3 51.5   59 ▇▁▁▁▃
+## 4 56.8   69 ▇▇▇▃▃
+\end{verbatim}
+
+\hypertarget{export-results}{%
+\subsection{Export results}\label{export-results}}
+
+\begin{itemize}
+\tightlist
+\item
+  Descriptive results from \texttt{summarize()}, \texttt{skimr} or \texttt{janitor} can be exported to external file (e.g., csv). In a later session we'll see how to directly output them into a report (e.g.~in html or pdf).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(gender }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Donna"}\NormalTok{, }\StringTok{"Uomo"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(gender, edu) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{min.year =} \FunctionTok{min}\NormalTok{(birth.y),}
+    \AttributeTok{avg.age =} \FunctionTok{mean}\NormalTok{(age),}
+    \AttributeTok{sd.age =} \FunctionTok{sd}\NormalTok{(age),}
+    \AttributeTok{prop.foreign =} \FunctionTok{mean}\NormalTok{(nato.it }\SpecialCharTok{==} \StringTok{"No"}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{write\_csv}\NormalTok{(}\StringTok{"summarize\_by\_gender{-}edu.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'gender'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{skim}\NormalTok{(age) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{write\_csv}\NormalTok{(}\StringTok{"skim\_by\_gender.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{visualization}{%
 \chapter{Data visualization}\label{visualization}}

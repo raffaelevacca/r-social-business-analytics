@@ -343,8 +343,7 @@ age[age > 40 & age < 60]
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # We'll use our data frame (just its first 20 rows).
-data.20 <- data |> 
-  slice(1:20)
+data.20 <- slice(data, 1:20)
 
 # Numeric subsetting works on data frames too: it allows you to index variables.
 
@@ -392,7 +391,6 @@ identical(data.20[[5]], data.20$company)
 # vector. Finally, use this indexing to remove all NA values from var.
 #
 # *****
-
 
 # ---- end-indexing
 ############################################################################## #

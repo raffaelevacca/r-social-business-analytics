@@ -49,3 +49,7 @@ rsconnect/
 data-setup/
 
 .DS_Store
+
+# Temporary results files
+skim_by_gender.csv
+summarize_by_gender-edu.csv
