@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-04-09" />
+<meta name="date" content="2024-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,15 +187,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="wrangling.html"><a href="wrangling.html#subsetting-and-renaming-variables"><i class="fa fa-check"></i><b>3.1</b> Subsetting and renaming variables</a></li>
 <li class="chapter" data-level="3.2" data-path="wrangling.html"><a href="wrangling.html#recoding-cleaning-creating-variables"><i class="fa fa-check"></i><b>3.2</b> Recoding, cleaning, creating variables</a></li>
 <li class="chapter" data-level="3.3" data-path="wrangling.html"><a href="wrangling.html#filtering-and-rearranging-cases"><i class="fa fa-check"></i><b>3.3</b> Filtering and rearranging cases</a></li>
-<li class="chapter" data-level="3.4" data-path="wrangling.html"><a href="wrangling.html#describing-or-summarizing-the-data"><i class="fa fa-check"></i><b>3.4</b> Describing or summarizing the data</a>
+<li class="chapter" data-level="3.4" data-path="wrangling.html"><a href="wrangling.html#saving-the-data"><i class="fa fa-check"></i><b>3.4</b> Saving the data</a></li>
+<li class="chapter" data-level="3.5" data-path="wrangling.html"><a href="wrangling.html#describing-or-summarizing-the-data"><i class="fa fa-check"></i><b>3.5</b> Describing or summarizing the data</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="wrangling.html"><a href="wrangling.html#with-dplyrsummarize"><i class="fa fa-check"></i><b>3.4.1</b> With <code>dplyr::summarize()</code></a></li>
-<li class="chapter" data-level="3.4.2" data-path="wrangling.html"><a href="wrangling.html#with-specific-functions-for-descriptive-analysis"><i class="fa fa-check"></i><b>3.4.2</b> With specific functions for descriptive analysis</a></li>
-<li class="chapter" data-level="3.4.3" data-path="wrangling.html"><a href="wrangling.html#descriptive-statistics-by-group"><i class="fa fa-check"></i><b>3.4.3</b> Descriptive statistics by group</a></li>
-<li class="chapter" data-level="3.4.4" data-path="wrangling.html"><a href="wrangling.html#export-results"><i class="fa fa-check"></i><b>3.4.4</b> Export results</a></li>
+<li class="chapter" data-level="3.5.1" data-path="wrangling.html"><a href="wrangling.html#with-dplyrsummarize"><i class="fa fa-check"></i><b>3.5.1</b> With <code>dplyr::summarize()</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="wrangling.html"><a href="wrangling.html#with-specific-functions-for-descriptive-analysis"><i class="fa fa-check"></i><b>3.5.2</b> With specific functions for descriptive analysis</a></li>
+<li class="chapter" data-level="3.5.3" data-path="wrangling.html"><a href="wrangling.html#descriptive-statistics-by-group"><i class="fa fa-check"></i><b>3.5.3</b> Descriptive statistics by group</a></li>
+<li class="chapter" data-level="3.5.4" data-path="wrangling.html"><a href="wrangling.html#export-results"><i class="fa fa-check"></i><b>3.5.4</b> Export results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Data visualization</a></li>
+<li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Data visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#univariate-distributions"><i class="fa fa-check"></i><b>4.1</b> Univariate distributions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#continuous-variables"><i class="fa fa-check"></i><b>4.1.1</b> Continuous variables</a></li>
+<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#categorical-variables"><i class="fa fa-check"></i><b>4.1.2</b> Categorical variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#associations-between-two-variables"><i class="fa fa-check"></i><b>4.2</b> Associations between two variables</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="visualization.html"><a href="visualization.html#two-continuous-variables-scatterplots"><i class="fa fa-check"></i><b>4.2.1</b> Two continuous variables: scatterplots</a></li>
+<li class="chapter" data-level="4.2.2" data-path="visualization.html"><a href="visualization.html#two-categorical-variables-complext-bar-plots"><i class="fa fa-check"></i><b>4.2.2</b> Two categorical variables: complext bar plots</a></li>
+<li class="chapter" data-level="4.2.3" data-path="visualization.html"><a href="visualization.html#one-continuous-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.2.3</b> One continuous and one categorical variable</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="reproducible.html"><a href="reproducible.html"><i class="fa fa-check"></i><b>5</b> Creating reproducible reports</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -256,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>The <code>select()</code> verb.</li>
 <li>Renaming variables (i.e., data columns).</li>
-<li>Selecting (i.e., subsetting) variables.</li>
+<li>Selecting variables (i.e., subsetting a data frame’s columns).</li>
 <li>Pulling one variable out of the data frame.</li>
 </ul>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="wrangling.html#cb224-1" tabindex="-1"></a><span class="co"># Give better names to the variables: by variable name.</span></span>
@@ -520,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>The <code>mutate()</code> verb.</li>
 <li>Creating new continuous (i.e., interval or ratio) variables.</li>
-<li>Recoding continuous variables into categorical (i.e., ordinal or nominal), aka factors.</li>
+<li>Recoding continuous variables into categorical (i.e., ordinal or nominal), that is, factors.</li>
 <li>Recoding factors: relabeling factor levels (i.e., categories).</li>
 <li>Reordering factor levels.</li>
 <li>Recoding factors: combining multiple levels into one.</li>
@@ -1023,59 +1037,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10    1997    26 gen z 21-30  Uomo   Sì      Laurea      Art Fade            
 ## # ℹ 990 more rows</code></pre>
 </div>
-<div id="describing-or-summarizing-the-data" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Describing or summarizing the data<a href="wrangling.html#describing-or-summarizing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="with-dplyrsummarize" class="section level3 hasAnchor" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> With <code>dplyr::summarize()</code><a href="wrangling.html#with-dplyrsummarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="saving-the-data" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Saving the data<a href="wrangling.html#saving-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It’s often useful to save the “final” (clean, recoded, etc.) version of your data to an external R file for re-use in other sessions or scripts.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="wrangling.html#cb315-1" tabindex="-1"></a><span class="fu">save</span>(data, <span class="at">file =</span> <span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
+</div>
+<div id="describing-or-summarizing-the-data" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Describing or summarizing the data<a href="wrangling.html#describing-or-summarizing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="with-dplyrsummarize" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> With <code>dplyr::summarize()</code><a href="wrangling.html#with-dplyrsummarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>summarize()</code> function takes and applies it to one or multiple variables. We can use existing R functions or any new function we have defined.</li>
 <li>Remember what <code>sum()</code> and <code>mean()</code> do to a logical vector. We can use this to calculate absolute or relative frequencies of specific levels (categories) of factors.</li>
 </ul>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="wrangling.html#cb315-1" tabindex="-1"></a><span class="co"># Mean of one continuous variable</span></span>
-<span id="cb315-2"><a href="wrangling.html#cb315-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb315-3"><a href="wrangling.html#cb315-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg.age =</span> <span class="fu">mean</span>(age))</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="wrangling.html#cb316-1" tabindex="-1"></a><span class="co"># Mean of one continuous variable</span></span>
+<span id="cb316-2"><a href="wrangling.html#cb316-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb316-3"><a href="wrangling.html#cb316-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg.age =</span> <span class="fu">mean</span>(age))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   avg.age
 ##     &lt;dbl&gt;
 ## 1    47.6</code></pre>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="wrangling.html#cb317-1" tabindex="-1"></a><span class="co"># Number of unique or distinct values in edu.</span></span>
-<span id="cb317-2"><a href="wrangling.html#cb317-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb317-3"><a href="wrangling.html#cb317-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n.edu =</span> <span class="fu">n_distinct</span>(edu))</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="wrangling.html#cb318-1" tabindex="-1"></a><span class="co"># Number of unique or distinct values in edu.</span></span>
+<span id="cb318-2"><a href="wrangling.html#cb318-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb318-3"><a href="wrangling.html#cb318-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n.edu =</span> <span class="fu">n_distinct</span>(edu))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   n.edu
 ##   &lt;int&gt;
 ## 1     5</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="wrangling.html#cb319-1" tabindex="-1"></a><span class="co"># Absolute frequency of women.</span></span>
-<span id="cb319-2"><a href="wrangling.html#cb319-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb319-3"><a href="wrangling.html#cb319-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count.women =</span> <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Donna&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="wrangling.html#cb320-1" tabindex="-1"></a><span class="co"># Absolute frequency of women.</span></span>
+<span id="cb320-2"><a href="wrangling.html#cb320-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb320-3"><a href="wrangling.html#cb320-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count.women =</span> <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Donna&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   count.women
 ##         &lt;int&gt;
 ## 1         522</code></pre>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="wrangling.html#cb321-1" tabindex="-1"></a><span class="co"># We can obtain a battery of multiple summary statistics.</span></span>
-<span id="cb321-2"><a href="wrangling.html#cb321-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb321-3"><a href="wrangling.html#cb321-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb321-4"><a href="wrangling.html#cb321-4" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
-<span id="cb321-5"><a href="wrangling.html#cb321-5" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
-<span id="cb321-6"><a href="wrangling.html#cb321-6" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
-<span id="cb321-7"><a href="wrangling.html#cb321-7" tabindex="-1"></a>    <span class="at">count.women =</span> <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Donna&quot;</span>),</span>
-<span id="cb321-8"><a href="wrangling.html#cb321-8" tabindex="-1"></a>    <span class="co"># What am I doing in this last line?</span></span>
-<span id="cb321-9"><a href="wrangling.html#cb321-9" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb321-10"><a href="wrangling.html#cb321-10" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="wrangling.html#cb322-1" tabindex="-1"></a><span class="co"># We can obtain a battery of multiple summary statistics.</span></span>
+<span id="cb322-2"><a href="wrangling.html#cb322-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb322-3"><a href="wrangling.html#cb322-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb322-4"><a href="wrangling.html#cb322-4" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
+<span id="cb322-5"><a href="wrangling.html#cb322-5" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
+<span id="cb322-6"><a href="wrangling.html#cb322-6" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
+<span id="cb322-7"><a href="wrangling.html#cb322-7" tabindex="-1"></a>    <span class="at">count.women =</span> <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Donna&quot;</span>),</span>
+<span id="cb322-8"><a href="wrangling.html#cb322-8" tabindex="-1"></a>    <span class="co"># What am I doing in this last line?</span></span>
+<span id="cb322-9"><a href="wrangling.html#cb322-9" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb322-10"><a href="wrangling.html#cb322-10" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   min.year avg.age sd.age count.women prop.foreign
 ##      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;       &lt;int&gt;        &lt;dbl&gt;
 ## 1     1944    47.6   9.39         522       0.0221</code></pre>
 </div>
-<div id="with-specific-functions-for-descriptive-analysis" class="section level3 hasAnchor" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> With specific functions for descriptive analysis<a href="wrangling.html#with-specific-functions-for-descriptive-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="with-specific-functions-for-descriptive-analysis" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> With specific functions for descriptive analysis<a href="wrangling.html#with-specific-functions-for-descriptive-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><code>skimr</code> for descriptive statistics on continuous variable</li>
 <li><code>janitor</code> for tabulations of categorical variables.</li>
 </ul>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="wrangling.html#cb323-1" tabindex="-1"></a><span class="co"># Battery of descriptive statistics on age.</span></span>
-<span id="cb323-2"><a href="wrangling.html#cb323-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb323-3"><a href="wrangling.html#cb323-3" tabindex="-1"></a>  skimr<span class="sc">::</span><span class="fu">skim_tee</span>(age)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="wrangling.html#cb324-1" tabindex="-1"></a><span class="co"># Battery of descriptive statistics on age.</span></span>
+<span id="cb324-2"><a href="wrangling.html#cb324-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb324-3"><a href="wrangling.html#cb324-3" tabindex="-1"></a>  skimr<span class="sc">::</span><span class="fu">skim_tee</span>(age)</span></code></pre></div>
 <pre><code>## ── Data Summary ────────────────────────
 ##                            Values
 ## Name                       data  
@@ -1090,17 +1109,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ── Variable type: numeric ──────────────────────────────────────────────────────
 ##   skim_variable n_missing complete_rate mean   sd p0  p25 p50 p75 p100 hist 
 ## 1 age                   0             1 47.6 9.39 21 41.8  49  55   79 ▂▅▇▅▁</code></pre>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="wrangling.html#cb325-1" tabindex="-1"></a><span class="co"># Tabulation for gender</span></span>
-<span id="cb325-2"><a href="wrangling.html#cb325-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb325-3"><a href="wrangling.html#cb325-3" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">tabyl</span>(gender)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="wrangling.html#cb326-1" tabindex="-1"></a><span class="co"># Tabulation for gender</span></span>
+<span id="cb326-2"><a href="wrangling.html#cb326-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb326-3"><a href="wrangling.html#cb326-3" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">tabyl</span>(gender)</span></code></pre></div>
 <pre><code>##          gender   n percent
 ##           Donna 522   0.522
 ##            Uomo 467   0.467
 ##  Altra identità   3   0.003
 ##              NR   8   0.008</code></pre>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="wrangling.html#cb327-1" tabindex="-1"></a><span class="co"># Note that count() gives us similar information.</span></span>
-<span id="cb327-2"><a href="wrangling.html#cb327-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb327-3"><a href="wrangling.html#cb327-3" tabindex="-1"></a>  <span class="fu">count</span>(gender)</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="wrangling.html#cb328-1" tabindex="-1"></a><span class="co"># Note that count() gives us similar information.</span></span>
+<span id="cb328-2"><a href="wrangling.html#cb328-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb328-3"><a href="wrangling.html#cb328-3" tabindex="-1"></a>  <span class="fu">count</span>(gender)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##   gender             n
 ##   &lt;fct&gt;          &lt;int&gt;
@@ -1108,9 +1127,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Uomo             467
 ## 3 Altra identità     3
 ## 4 NR                 8</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="wrangling.html#cb329-1" tabindex="-1"></a><span class="co"># Cross-tabulation for education and gender</span></span>
-<span id="cb329-2"><a href="wrangling.html#cb329-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb329-3"><a href="wrangling.html#cb329-3" tabindex="-1"></a>  <span class="fu">tabyl</span>(edu, gender)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="wrangling.html#cb330-1" tabindex="-1"></a><span class="co"># Cross-tabulation for education and gender</span></span>
+<span id="cb330-2"><a href="wrangling.html#cb330-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb330-3"><a href="wrangling.html#cb330-3" tabindex="-1"></a>  <span class="fu">tabyl</span>(edu, gender)</span></code></pre></div>
 <pre><code>##           edu Donna Uomo Altra identità NR
 ##  Medie o meno     5   15              0  3
 ##     Superiori   196  218              1  1
@@ -1120,21 +1139,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>janitor</code> offers different ways of customizing tabulations.</li>
 </ul>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="wrangling.html#cb331-1" tabindex="-1"></a><span class="co"># Add column totals.</span></span>
-<span id="cb331-2"><a href="wrangling.html#cb331-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb331-3"><a href="wrangling.html#cb331-3" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb331-4"><a href="wrangling.html#cb331-4" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="at">where =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="wrangling.html#cb332-1" tabindex="-1"></a><span class="co"># Add column totals.</span></span>
+<span id="cb332-2"><a href="wrangling.html#cb332-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb332-3"><a href="wrangling.html#cb332-3" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender) <span class="sc">|&gt;</span> </span>
+<span id="cb332-4"><a href="wrangling.html#cb332-4" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="at">where =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
 <pre><code>##          gender    n percent
 ##           Donna  522   0.522
 ##            Uomo  467   0.467
 ##  Altra identità    3   0.003
 ##              NR    8   0.008
 ##           Total 1000   1.000</code></pre>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="wrangling.html#cb333-1" tabindex="-1"></a><span class="co"># Format percentage</span></span>
-<span id="cb333-2"><a href="wrangling.html#cb333-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb333-3"><a href="wrangling.html#cb333-3" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb333-4"><a href="wrangling.html#cb333-4" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="at">where =</span> <span class="st">&quot;row&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb333-5"><a href="wrangling.html#cb333-5" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="wrangling.html#cb334-1" tabindex="-1"></a><span class="co"># Format percentage</span></span>
+<span id="cb334-2"><a href="wrangling.html#cb334-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb334-3"><a href="wrangling.html#cb334-3" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender) <span class="sc">|&gt;</span> </span>
+<span id="cb334-4"><a href="wrangling.html#cb334-4" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="at">where =</span> <span class="st">&quot;row&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb334-5"><a href="wrangling.html#cb334-5" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code></pre></div>
 <pre><code>##          gender    n percent
 ##           Donna  522   52.2%
 ##            Uomo  467   46.7%
@@ -1144,31 +1163,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Note that both <code>skimr</code> and <code>janitor</code> output objects can be converted to tibbles for further manipulation.</li>
 </ul>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="wrangling.html#cb335-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb335-2"><a href="wrangling.html#cb335-2" tabindex="-1"></a>  skimr<span class="sc">::</span><span class="fu">skim</span>(age) <span class="sc">|&gt;</span> </span>
-<span id="cb335-3"><a href="wrangling.html#cb335-3" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb335-4"><a href="wrangling.html#cb335-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">variable =</span> skim_variable, <span class="at">mean =</span> numeric.mean, <span class="at">sd =</span> numeric.sd)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="wrangling.html#cb336-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb336-2"><a href="wrangling.html#cb336-2" tabindex="-1"></a>  skimr<span class="sc">::</span><span class="fu">skim</span>(age) <span class="sc">|&gt;</span> </span>
+<span id="cb336-3"><a href="wrangling.html#cb336-3" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb336-4"><a href="wrangling.html#cb336-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">variable =</span> skim_variable, <span class="at">mean =</span> numeric.mean, <span class="at">sd =</span> numeric.sd)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   variable  mean    sd
 ##   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
 ## 1 age       47.6  9.39</code></pre>
 </div>
-<div id="descriptive-statistics-by-group" class="section level3 hasAnchor" number="3.4.3">
-<h3><span class="header-section-number">3.4.3</span> Descriptive statistics by group<a href="wrangling.html#descriptive-statistics-by-group" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="descriptive-statistics-by-group" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Descriptive statistics by group<a href="wrangling.html#descriptive-statistics-by-group" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>group_by()</code> function allows us to run any descriptive analysis by data subsets.</li>
 <li>These subsets may come from the categories of a single factor or a combination of categories from multiple factors.</li>
 <li>Both <code>summarize()</code> and <code>skimr</code> are compatible with <code>group_by()</code></li>
 </ul>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="wrangling.html#cb337-1" tabindex="-1"></a><span class="co"># Let&#39;s run summarize() as above, but now by gender. What are the results telling us?</span></span>
-<span id="cb337-2"><a href="wrangling.html#cb337-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb337-3"><a href="wrangling.html#cb337-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb337-4"><a href="wrangling.html#cb337-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb337-5"><a href="wrangling.html#cb337-5" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
-<span id="cb337-6"><a href="wrangling.html#cb337-6" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
-<span id="cb337-7"><a href="wrangling.html#cb337-7" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
-<span id="cb337-8"><a href="wrangling.html#cb337-8" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb337-9"><a href="wrangling.html#cb337-9" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="wrangling.html#cb338-1" tabindex="-1"></a><span class="co"># Let&#39;s run summarize() as above, but now by gender. What are the results telling us?</span></span>
+<span id="cb338-2"><a href="wrangling.html#cb338-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb338-3"><a href="wrangling.html#cb338-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
+<span id="cb338-4"><a href="wrangling.html#cb338-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb338-5"><a href="wrangling.html#cb338-5" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
+<span id="cb338-6"><a href="wrangling.html#cb338-6" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
+<span id="cb338-7"><a href="wrangling.html#cb338-7" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
+<span id="cb338-8"><a href="wrangling.html#cb338-8" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb338-9"><a href="wrangling.html#cb338-9" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   gender         min.year avg.age sd.age prop.foreign
 ##   &lt;fct&gt;             &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;
@@ -1176,10 +1195,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Uomo               1944    48.6   9.64       0.0194
 ## 3 Altra identità     1964    48     9.64       0     
 ## 4 NR                 1954    50.6  11.1        0</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="wrangling.html#cb339-1" tabindex="-1"></a><span class="co"># Average age in each company</span></span>
-<span id="cb339-2"><a href="wrangling.html#cb339-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb339-3"><a href="wrangling.html#cb339-3" tabindex="-1"></a>  <span class="fu">group_by</span>(company) <span class="sc">|&gt;</span> </span>
-<span id="cb339-4"><a href="wrangling.html#cb339-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg.age =</span> <span class="fu">mean</span>(age))</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="wrangling.html#cb340-1" tabindex="-1"></a><span class="co"># Average age in each company</span></span>
+<span id="cb340-2"><a href="wrangling.html#cb340-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb340-3"><a href="wrangling.html#cb340-3" tabindex="-1"></a>  <span class="fu">group_by</span>(company) <span class="sc">|&gt;</span> </span>
+<span id="cb340-4"><a href="wrangling.html#cb340-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg.age =</span> <span class="fu">mean</span>(age))</span></code></pre></div>
 <pre><code>## # A tibble: 53 × 2
 ##    company            avg.age
 ##    &lt;chr&gt;                &lt;dbl&gt;
@@ -1194,17 +1213,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 Coal Kings            52.3
 ## 10 Death By Milkshake    43.8
 ## # ℹ 43 more rows</code></pre>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="wrangling.html#cb341-1" tabindex="-1"></a><span class="co"># Let&#39;s now only keep Donna and Uomo as gender, and re-run by groups given by </span></span>
-<span id="cb341-2"><a href="wrangling.html#cb341-2" tabindex="-1"></a><span class="co"># combinations of gender and education categories.</span></span>
-<span id="cb341-3"><a href="wrangling.html#cb341-3" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb341-4"><a href="wrangling.html#cb341-4" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Donna&quot;</span>, <span class="st">&quot;Uomo&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb341-5"><a href="wrangling.html#cb341-5" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, edu) <span class="sc">|&gt;</span> </span>
-<span id="cb341-6"><a href="wrangling.html#cb341-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb341-7"><a href="wrangling.html#cb341-7" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
-<span id="cb341-8"><a href="wrangling.html#cb341-8" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
-<span id="cb341-9"><a href="wrangling.html#cb341-9" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
-<span id="cb341-10"><a href="wrangling.html#cb341-10" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb341-11"><a href="wrangling.html#cb341-11" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="wrangling.html#cb342-1" tabindex="-1"></a><span class="co"># Let&#39;s now only keep Donna and Uomo as gender, and re-run by groups given by </span></span>
+<span id="cb342-2"><a href="wrangling.html#cb342-2" tabindex="-1"></a><span class="co"># combinations of gender and education categories.</span></span>
+<span id="cb342-3"><a href="wrangling.html#cb342-3" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb342-4"><a href="wrangling.html#cb342-4" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Donna&quot;</span>, <span class="st">&quot;Uomo&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb342-5"><a href="wrangling.html#cb342-5" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, edu) <span class="sc">|&gt;</span> </span>
+<span id="cb342-6"><a href="wrangling.html#cb342-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb342-7"><a href="wrangling.html#cb342-7" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
+<span id="cb342-8"><a href="wrangling.html#cb342-8" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
+<span id="cb342-9"><a href="wrangling.html#cb342-9" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
+<span id="cb342-10"><a href="wrangling.html#cb342-10" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb342-11"><a href="wrangling.html#cb342-11" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;gender&#39;. You can override using the
 ## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 10 × 6
@@ -1221,10 +1240,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 Uomo   Laurea           1944    45.1  10.2       0.00667
 ##  9 Uomo   Post-laurea      1963    43     9.24      0.0175 
 ## 10 Uomo   Altro            1958    52.6   7.83      0</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="wrangling.html#cb344-1" tabindex="-1"></a><span class="co"># skimr functions are also compatible with group_by().</span></span>
-<span id="cb344-2"><a href="wrangling.html#cb344-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb344-3"><a href="wrangling.html#cb344-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb344-4"><a href="wrangling.html#cb344-4" tabindex="-1"></a>  <span class="fu">skim_tee</span>(age)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="wrangling.html#cb345-1" tabindex="-1"></a><span class="co"># skimr functions are also compatible with group_by().</span></span>
+<span id="cb345-2"><a href="wrangling.html#cb345-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb345-3"><a href="wrangling.html#cb345-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
+<span id="cb345-4"><a href="wrangling.html#cb345-4" tabindex="-1"></a>  <span class="fu">skim_tee</span>(age)</span></code></pre></div>
 <pre><code>## ── Data Summary ────────────────────────
 ##                            Values
 ## Name                       data  
@@ -1248,28 +1267,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 51.5   59 ▇▁▁▁▃
 ## 4 56.8   69 ▇▇▇▃▃</code></pre>
 </div>
-<div id="export-results" class="section level3 hasAnchor" number="3.4.4">
-<h3><span class="header-section-number">3.4.4</span> Export results<a href="wrangling.html#export-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="export-results" class="section level3 hasAnchor" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Export results<a href="wrangling.html#export-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Descriptive results from <code>summarize()</code>, <code>skimr</code> or <code>janitor</code> can be exported to external file (e.g., csv). In a later session we’ll see how to directly output them into a report (e.g. in html or pdf).</li>
 </ul>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="wrangling.html#cb346-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb346-2"><a href="wrangling.html#cb346-2" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Donna&quot;</span>, <span class="st">&quot;Uomo&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb346-3"><a href="wrangling.html#cb346-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, edu) <span class="sc">|&gt;</span> </span>
-<span id="cb346-4"><a href="wrangling.html#cb346-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb346-5"><a href="wrangling.html#cb346-5" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
-<span id="cb346-6"><a href="wrangling.html#cb346-6" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
-<span id="cb346-7"><a href="wrangling.html#cb346-7" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
-<span id="cb346-8"><a href="wrangling.html#cb346-8" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb346-9"><a href="wrangling.html#cb346-9" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb346-10"><a href="wrangling.html#cb346-10" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;summarize_by_gender-edu.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="wrangling.html#cb347-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb347-2"><a href="wrangling.html#cb347-2" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Donna&quot;</span>, <span class="st">&quot;Uomo&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb347-3"><a href="wrangling.html#cb347-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, edu) <span class="sc">|&gt;</span> </span>
+<span id="cb347-4"><a href="wrangling.html#cb347-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb347-5"><a href="wrangling.html#cb347-5" tabindex="-1"></a>    <span class="at">min.year =</span> <span class="fu">min</span>(birth.y),</span>
+<span id="cb347-6"><a href="wrangling.html#cb347-6" tabindex="-1"></a>    <span class="at">avg.age =</span> <span class="fu">mean</span>(age),</span>
+<span id="cb347-7"><a href="wrangling.html#cb347-7" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
+<span id="cb347-8"><a href="wrangling.html#cb347-8" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb347-9"><a href="wrangling.html#cb347-9" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb347-10"><a href="wrangling.html#cb347-10" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;summarize_by_gender-edu.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;gender&#39;. You can override using the
 ## `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="wrangling.html#cb348-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb348-2"><a href="wrangling.html#cb348-2" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb348-3"><a href="wrangling.html#cb348-3" tabindex="-1"></a>  <span class="fu">skim</span>(age) <span class="sc">|&gt;</span> </span>
-<span id="cb348-4"><a href="wrangling.html#cb348-4" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb348-5"><a href="wrangling.html#cb348-5" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;skim_by_gender.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="wrangling.html#cb349-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb349-2"><a href="wrangling.html#cb349-2" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
+<span id="cb349-3"><a href="wrangling.html#cb349-3" tabindex="-1"></a>  <span class="fu">skim</span>(age) <span class="sc">|&gt;</span> </span>
+<span id="cb349-4"><a href="wrangling.html#cb349-4" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb349-5"><a href="wrangling.html#cb349-5" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;skim_by_gender.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

@@ -120,7 +120,7 @@
 
 \title{R for social science and business analytics}
 \author{\href{http://www.raffaelevacca.com/}{Raffaele Vacca}}
-\date{2024-04-09}
+\date{2024-04-19}
 
 \begin{document}
 \maketitle
@@ -2623,7 +2623,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \item
   Renaming variables (i.e., data columns).
 \item
-  Selecting (i.e., subsetting) variables.
+  Selecting variables (i.e., subsetting a data frame's columns).
 \item
   Pulling one variable out of the data frame.
 \end{itemize}
@@ -3013,7 +3013,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \item
   Creating new continuous (i.e., interval or ratio) variables.
 \item
-  Recoding continuous variables into categorical (i.e., ordinal or nominal), aka factors.
+  Recoding continuous variables into categorical (i.e., ordinal or nominal), that is, factors.
 \item
   Recoding factors: relabeling factor levels (i.e., categories).
 \item
@@ -3770,6 +3770,17 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 ## # i 990 more rows
 \end{verbatim}
 
+\hypertarget{saving-the-data}{%
+\section{Saving the data}\label{saving-the-data}}
+
+It's often useful to save the ``final'' (clean, recoded, etc.) version of your data to an external R file for re-use in other sessions or scripts.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{save}\NormalTok{(data, }\AttributeTok{file =} \StringTok{"my\_data.rda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{describing-or-summarizing-the-data}{%
 \section{Describing or summarizing the data}\label{describing-or-summarizing-the-data}}
 
@@ -4179,6 +4190,261 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 
 \hypertarget{visualization}{%
 \chapter{Data visualization}\label{visualization}}
+
+We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter relies heavily on the \href{https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..}{ggplot2 Cheat Sheet}. To learn more, also consult the \href{https://ggplot2.tidyverse.org/}{ggplot2 website} and \href{https://r4ds.had.co.nz/data-visualisation.html}{this chapter} from Wickham and Grolemund's \emph{R for Data Science}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load packages}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\CommentTok{\# library(skimr)}
+\CommentTok{\# library(janitor)}
+
+\CommentTok{\# Clear the workspace}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+
+\CommentTok{\# Let\textquotesingle{}s load the data we cleaned in the previous chapter}
+\FunctionTok{load}\NormalTok{(}\StringTok{"my\_data.rda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+In its simplest form, any ggplot2 graph is created with the following type of code:
+
+\begin{verbatim}
+ggplot(data = <Data>) +
+  <Geom_Function>(mapping = aes(<Mappings>)) +
+  <Scale_Function> +
+  <Theme_Function>
+\end{verbatim}
+
+We will now discuss the five graph components that are visible in that code:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\textless{}Data\textgreater{}}: the underlying data.
+\item
+  \texttt{\textless{}Geom\_Function\textgreater{}}: geometrical objects (or geoms). A plot consists of one or more geoms (one in each \emph{layer} of the plot).
+\item
+  \texttt{\textless{}Mappings\textgreater{}}: an aesthetic mapping from variables in the data to visual properties (i.e., \emph{aesthetics}) of a geom. Each geom has one or more aesthetic mappings.
+\item
+  \texttt{\textless{}Scale\_Function\textgreater{}}: a scale that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.
+\item
+  \texttt{\textless{}Theme\_Function\textgreater{}}: general, non-data graphical elements of the plot (e.g., background color, text fonts, etc.).
+\end{itemize}
+
+\hypertarget{univariate-distributions}{%
+\section{Univariate distributions}\label{univariate-distributions}}
+
+\hypertarget{continuous-variables}{%
+\subsection{Continuous variables}\label{continuous-variables}}
+
+\textbf{Histograms}.
+
+Here we only have one aesthetic mapping in \texttt{aes()}: values of \texttt{age} are mapped to values of \texttt{x} (the horizontal axis).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+Modify the \emph{statistical transformation} of the data before plotting: pick a different width for the histogram bins.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age), }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+Modify visual properties of the plot: bin color and fill.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age), }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{,}
+                 \AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+Modify the scale of the \texttt{x} aesthetic mapping.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age), }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{,}
+                 \AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\AttributeTok{by =} \DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+Modify the general theme of the plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age), }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{,}
+                 \AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\AttributeTok{by =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+Let's add another geom in a new layer: a density plot. Note that now the bin height and y axis are not count values but density values: this is specified by setting the \texttt{y} aesthetic in \texttt{aes()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =} \FunctionTok{after\_stat}\NormalTok{(density)), }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{,}
+                 \AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age), }\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\AttributeTok{by =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\textbf{Boxplots}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+In a new layer, we can use a new geom to add the actual data points on top of the boxplot (with some vertical jittering).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{194}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =} \DecValTok{0}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{,}
+             \AttributeTok{position =} \FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{h =} \FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age), }\AttributeTok{fill =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+\hypertarget{categorical-variables}{%
+\subsection{Categorical variables}\label{categorical-variables}}
+
+\textbf{Simple bar plots}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ edu))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+Two aesthetics (\texttt{x} and \texttt{fill}) for the same variable (\texttt{edu}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ edu, }\AttributeTok{fill =}\NormalTok{ edu))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+Note the importance of the order of levels in \texttt{edu} factor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Original level order}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{edu }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Medie o meno" "Superiori"    "Laurea"       "Post-laurea"  "Altro"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Let\textquotesingle{}s change it to this:}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{edu }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{fct\_rev}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Altro"        "Post-laurea"  "Laurea"       "Superiori"    "Medie o meno"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make the change in the data}
+\NormalTok{data.rev }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{edu =} \FunctionTok{fct\_rev}\NormalTok{(edu))}
+
+\CommentTok{\# Not plot with the new level order}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data.rev) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ edu, }\AttributeTok{fill =}\NormalTok{ edu))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+Back to the original level order, modify the fill color scale (and theme).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ edu, }\AttributeTok{fill =}\NormalTok{ edu)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Medie o meno}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"\#002e4e"}\NormalTok{, }
+                               \AttributeTok{Superiori =} \StringTok{"\#afe1da"}\NormalTok{, }
+                               \AttributeTok{Laurea =} \StringTok{"\#ff4639"}\NormalTok{, }
+                               \StringTok{\textasciigrave{}}\AttributeTok{Post{-}laurea}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"\#b4abd7"}\NormalTok{, }
+                               \AttributeTok{Altro =} \StringTok{"\#fad774"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\hypertarget{associations-between-two-variables}{%
+\section{Associations between two variables}\label{associations-between-two-variables}}
+
+\hypertarget{two-continuous-variables-scatterplots}{%
+\subsection{Two continuous variables: scatterplots}\label{two-continuous-variables-scatterplots}}
+
+\hypertarget{two-categorical-variables-complext-bar-plots}{%
+\subsection{Two categorical variables: complext bar plots}\label{two-categorical-variables-complext-bar-plots}}
+
+\hypertarget{one-continuous-and-one-categorical-variable}{%
+\subsection{One continuous and one categorical variable}\label{one-continuous-and-one-categorical-variable}}
+
+\textbf{Boxplots}.
+
+\textbf{Faceted histograms}.
 
 \hypertarget{reproducible}{%
 \chapter{Creating reproducible reports}\label{reproducible}}

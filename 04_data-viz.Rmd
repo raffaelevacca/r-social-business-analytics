@@ -1,7 +1,170 @@
 # Data visualization {#visualization}
 
-```{r eval = FALSE, include=FALSE, cache=FALSE}
-knitr::read_chunk("./scripts/01_basics.R")
+We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter relies heavily on the [ggplot2 Cheat Sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..). To learn more, also consult the [ggplot2 website](https://ggplot2.tidyverse.org/) and [this chapter](https://r4ds.had.co.nz/data-visualisation.html) from Wickham and Grolemund's _R for Data Science_.
+
+```{r, message=FALSE}
+# Load packages
+library(tidyverse)
+# library(skimr)
+# library(janitor)
+
+# Clear the workspace
+rm(list = ls())
+
+# Let's load the data we cleaned in the previous chapter
+load("my_data.rda")
 ```
 
+In its simplest form, any ggplot2 graph is created with the following type of code:
 
+```
+ggplot(data = <Data>) +
+  <Geom_Function>(mapping = aes(<Mappings>)) +
+  <Scale_Function> +
+  <Theme_Function>
+```
+
+We will now discuss the five graph components that are visible in that code:
+
+* `<Data>`: the underlying data.
+* `<Geom_Function>`: geometrical objects (or geoms). A plot consists of one or more geoms (one in each _layer_ of the plot).
+* `<Mappings>`: an aesthetic mapping from variables in the data to visual properties (i.e., _aesthetics_) of a geom. Each geom has one or more aesthetic mappings.
+* `<Scale_Function>`: a scale that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.
+* `<Theme_Function>`: general, non-data graphical elements of the plot (e.g., background color, text fonts, etc.). 
+
+## Univariate distributions
+
+### Continuous variables
+
+**Histograms**.
+
+Here we only have one aesthetic mapping in `aes()`: values of `age` are mapped to values of `x` (the horizontal axis).
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = age))
+```
+
+Modify the _statistical transformation_ of the data before plotting: pick a different width for the histogram bins.
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = age), binwidth = 1)
+```
+
+Modify visual properties of the plot: bin color and fill.
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = age), binwidth = 1,
+                 color = "white", fill = "black")
+```
+
+Modify the scale of the `x` aesthetic mapping.
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = age), binwidth = 1,
+                 color = "white", fill = "black") +
+  scale_x_continuous(breaks = seq(20, 80, by = 10))
+```
+
+Modify the general theme of the plot.
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = age), binwidth = 1,
+                 color = "white", fill = "black") +
+  scale_x_continuous(breaks = seq(20, 80, by = 10)) +
+  theme_bw()
+```
+
+Let's add another geom in a new layer: a density plot. Note that now the bin height and y axis are not count values but density values: this is specified by setting the `y` aesthetic in `aes()`.
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = age, y = after_stat(density)), binwidth = 1,
+                 color = "white", fill = "black") +
+  geom_density(aes(x = age), linewidth = 1, color = "red") +
+  scale_x_continuous(breaks = seq(20, 80, by = 10)) +
+  theme_bw()
+```
+
+**Boxplots**.
+
+```{r}
+ggplot(data = data) +
+  geom_boxplot(aes(x = age))
+```
+
+In a new layer, we can use a new geom to add the actual data points on top of the boxplot (with some vertical jittering).
+
+```{r}
+set.seed(194)
+ggplot(data = data) +
+  geom_point(aes(x = age, y = 0), 
+             shape = 21,
+             position = position_jitter(h = 0.2)) +
+  geom_boxplot(aes(x = age), fill = NA, color = "red")
+```
+
+### Categorical variables
+
+**Simple bar plots**.
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = edu))
+```
+
+Two aesthetics (`x` and `fill`) for the same variable (`edu`).
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = edu, fill = edu))
+```
+
+Note the importance of the order of levels in `edu` factor.
+
+```{r}
+# Original level order
+data$edu |> 
+  levels()
+
+# Let's change it to this:
+data$edu |>
+  fct_rev() |> 
+  levels()
+# Make the change in the data
+data.rev <- data |> 
+  mutate(edu = fct_rev(edu))
+
+# Not plot with the new level order
+ggplot(data = data.rev) +
+  geom_bar(aes(x = edu, fill = edu))
+```
+
+Back to the original level order, modify the fill color scale (and theme).
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = edu, fill = edu)) +
+  scale_fill_manual(values = c(`Medie o meno` = "#002e4e", 
+                               Superiori = "#afe1da", 
+                               Laurea = "#ff4639", 
+                               `Post-laurea` = "#b4abd7", 
+                               Altro = "#fad774")) +
+  theme_minimal()
+```
+
+## Associations between two variables
+
+### Two continuous variables: scatterplots
+
+### Two categorical variables: complext bar plots
+
+### One continuous and one categorical variable
+
+**Boxplots**.
+
+**Faceted histograms**.

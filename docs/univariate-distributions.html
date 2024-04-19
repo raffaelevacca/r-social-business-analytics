@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Univariate distributions | R for social science and business analytics</title>
+  <meta name="description" content="Chapter 5 Univariate distributions | R for social science and business analytics" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Univariate distributions | R for social science and business analytics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 5 Univariate distributions | R for social science and business analytics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Univariate distributions | R for social science and business analytics" />
+  
+  <meta name="twitter:description" content="Chapter 5 Univariate distributions | R for social science and business analytics" />
+  
+
+<meta name="author" content="Raffaele Vacca" />
+
+
+<meta name="date" content="2024-04-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="visualization.html"/>
+<link rel="next" href="associations-between-two-variables.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Contents</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview and setup</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i><b>1.1</b> Workshop setup</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#materials"><i class="fa fa-check"></i><b>1.2</b> Workshop materials</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-settings"><i class="fa fa-check"></i><b>1.3</b> R settings</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.3.1</b> Required R packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#rstudio-options"><i class="fa fa-check"></i><b>1.3.2</b> RStudio options</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#data"><i class="fa fa-check"></i><b>1.4</b> Data</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#author-and-contacts"><i class="fa fa-check"></i><b>1.5</b> Author and contacts</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#starting-R-and-loading-packages"><i class="fa fa-check"></i><b>2.1</b> Starting R and loading packages</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="intro.html"><a href="intro.html#console-vs-scripts"><i class="fa fa-check"></i><b>2.1.1</b> Console vs scripts</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intro.html"><a href="intro.html#getting-help"><i class="fa fa-check"></i><b>2.1.2</b> Getting help</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#objects-in-r"><i class="fa fa-check"></i><b>2.2</b> Objects in R</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#the-workspace"><i class="fa fa-check"></i><b>2.2.1</b> The workspace</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#saving-and-removing-objects"><i class="fa fa-check"></i><b>2.2.2</b> Saving and removing objects</a></li>
+<li class="chapter" data-level="2.2.3" data-path="intro.html"><a href="intro.html#vector-and-matrix-objects"><i class="fa fa-check"></i><b>2.2.3</b> Vector and matrix objects</a></li>
+<li class="chapter" data-level="2.2.4" data-path="intro.html"><a href="intro.html#dataframes"><i class="fa fa-check"></i><b>2.2.4</b> Data frames</a></li>
+<li class="chapter" data-level="2.2.5" data-path="intro.html"><a href="intro.html#lists"><i class="fa fa-check"></i><b>2.2.5</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#arithmetic-statistical-and-relational-operations"><i class="fa fa-check"></i><b>2.3</b> Arithmetic, statistical, and relational operations</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="intro.html"><a href="intro.html#arithmetic-operations-and-recycling"><i class="fa fa-check"></i><b>2.3.1</b> Arithmetic operations and recycling</a></li>
+<li class="chapter" data-level="2.3.2" data-path="intro.html"><a href="intro.html#relational-operations-and-logical-vectors"><i class="fa fa-check"></i><b>2.3.2</b> Relational operations and logical vectors</a></li>
+<li class="chapter" data-level="2.3.3" data-path="intro.html"><a href="intro.html#examples-of-arithmetic-and-statistical-functions"><i class="fa fa-check"></i><b>2.3.3</b> Examples of arithmetic and statistical functions</a></li>
+<li class="chapter" data-level="2.3.4" data-path="intro.html"><a href="intro.html#missing-and-infinite-values"><i class="fa fa-check"></i><b>2.3.4</b> Missing and infinite values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#subsetting"><i class="fa fa-check"></i><b>2.4</b> Subsetting</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="intro.html"><a href="intro.html#index-df"><i class="fa fa-check"></i><b>2.4.1</b> Subsetting data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pipes-and-the-operator"><i class="fa fa-check"></i><b>2.5</b> Pipes and the <code>|&gt;</code> operator</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#functions"><i class="fa fa-check"></i><b>2.6</b> Writing your own R functions</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#types-and-classes-of-objects"><i class="fa fa-check"></i><b>2.7</b> Types and classes of objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="wrangling.html"><a href="wrangling.html"><i class="fa fa-check"></i><b>3</b> Data wrangling and descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="wrangling.html"><a href="wrangling.html#subsetting-and-renaming-variables"><i class="fa fa-check"></i><b>3.1</b> Subsetting and renaming variables</a></li>
+<li class="chapter" data-level="3.2" data-path="wrangling.html"><a href="wrangling.html#recoding-cleaning-creating-variables"><i class="fa fa-check"></i><b>3.2</b> Recoding, cleaning, creating variables</a></li>
+<li class="chapter" data-level="3.3" data-path="wrangling.html"><a href="wrangling.html#filtering-and-rearranging-cases"><i class="fa fa-check"></i><b>3.3</b> Filtering and rearranging cases</a></li>
+<li class="chapter" data-level="3.4" data-path="wrangling.html"><a href="wrangling.html#saving-the-data"><i class="fa fa-check"></i><b>3.4</b> Saving the data</a></li>
+<li class="chapter" data-level="3.5" data-path="wrangling.html"><a href="wrangling.html#describing-or-summarizing-the-data"><i class="fa fa-check"></i><b>3.5</b> Describing or summarizing the data</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="wrangling.html"><a href="wrangling.html#with-dplyrsummarize"><i class="fa fa-check"></i><b>3.5.1</b> With <code>dplyr::summarize()</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="wrangling.html"><a href="wrangling.html#with-specific-functions-for-descriptive-analysis"><i class="fa fa-check"></i><b>3.5.2</b> With specific functions for descriptive analysis</a></li>
+<li class="chapter" data-level="3.5.3" data-path="wrangling.html"><a href="wrangling.html#descriptive-statistics-by-group"><i class="fa fa-check"></i><b>3.5.3</b> Descriptive statistics by group</a></li>
+<li class="chapter" data-level="3.5.4" data-path="wrangling.html"><a href="wrangling.html#export-results"><i class="fa fa-check"></i><b>3.5.4</b> Export results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Data visualization</a></li>
+<li class="chapter" data-level="5" data-path="univariate-distributions.html"><a href="univariate-distributions.html"><i class="fa fa-check"></i><b>5</b> Univariate distributions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="univariate-distributions.html"><a href="univariate-distributions.html#continuous-variables"><i class="fa fa-check"></i><b>5.1</b> Continuous variables</a></li>
+<li class="chapter" data-level="5.2" data-path="univariate-distributions.html"><a href="univariate-distributions.html#categorical-variables"><i class="fa fa-check"></i><b>5.2</b> Categorical variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="associations-between-two-variables.html"><a href="associations-between-two-variables.html"><i class="fa fa-check"></i><b>6</b> Associations between two variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="associations-between-two-variables.html"><a href="associations-between-two-variables.html#two-continuous-variables-scatterplots"><i class="fa fa-check"></i><b>6.1</b> Two continuous variables: scatterplots</a></li>
+<li class="chapter" data-level="6.2" data-path="associations-between-two-variables.html"><a href="associations-between-two-variables.html#two-categorical-variables-complext-bar-plots"><i class="fa fa-check"></i><b>6.2</b> Two categorical variables: complext bar plots</a></li>
+<li class="chapter" data-level="6.3" data-path="associations-between-two-variables.html"><a href="associations-between-two-variables.html#one-continuous-and-one-categorical-variable"><i class="fa fa-check"></i><b>6.3</b> One continuous and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="reproducible.html"><a href="reproducible.html"><i class="fa fa-check"></i><b>7</b> Creating reproducible reports</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for social science and business analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="univariate-distributions" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Univariate distributions<a href="univariate-distributions.html#univariate-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="continuous-variables" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Continuous variables<a href="univariate-distributions.html#continuous-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Histograms</em>.</p>
+<p>Here we only have one aesthetic mapping (<code>aes</code>): values of <code>age</code> are mapped to values of <code>x</code> (the horizontal axis).</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="univariate-distributions.html#cb352-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb352-2"><a href="univariate-distributions.html#cb352-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Modify the <em>statistical transformation</em> of the data before plotting: pick a different width for the histogram bins.</p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="univariate-distributions.html#cb354-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb354-2"><a href="univariate-distributions.html#cb354-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Modify visual properties of the plot: bin color and fill.</p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="univariate-distributions.html#cb355-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb355-2"><a href="univariate-distributions.html#cb355-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb355-3"><a href="univariate-distributions.html#cb355-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Modify the scale of the aesthetic mapping <code>x</code>.</p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="univariate-distributions.html#cb356-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb356-2"><a href="univariate-distributions.html#cb356-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb356-3"><a href="univariate-distributions.html#cb356-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb356-4"><a href="univariate-distributions.html#cb356-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Modify the general theme of the plot.</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="univariate-distributions.html#cb357-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb357-2"><a href="univariate-distributions.html#cb357-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb357-3"><a href="univariate-distributions.html#cb357-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb357-4"><a href="univariate-distributions.html#cb357-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb357-5"><a href="univariate-distributions.html#cb357-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Let’s add another geom in a new layer: a density plot. Note that now the bin height and y axis are not count values but density values: this is specified by setting the <code>y</code> aesthetic in <code>aes()</code>.</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="univariate-distributions.html#cb358-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb358-2"><a href="univariate-distributions.html#cb358-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb358-3"><a href="univariate-distributions.html#cb358-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb358-4"><a href="univariate-distributions.html#cb358-4" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb358-5"><a href="univariate-distributions.html#cb358-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb358-6"><a href="univariate-distributions.html#cb358-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><em>Boxplots</em>.</p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="univariate-distributions.html#cb359-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb359-2"><a href="univariate-distributions.html#cb359-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>In a new layer, we can use a new geom to add the actual data points on top of the boxplot (with some vertical jittering).</p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="univariate-distributions.html#cb360-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">194</span>)</span>
+<span id="cb360-2"><a href="univariate-distributions.html#cb360-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb360-3"><a href="univariate-distributions.html#cb360-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="dv">0</span>), </span>
+<span id="cb360-4"><a href="univariate-distributions.html#cb360-4" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb360-5"><a href="univariate-distributions.html#cb360-5" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">h =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb360-6"><a href="univariate-distributions.html#cb360-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+<div id="categorical-variables" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Categorical variables<a href="univariate-distributions.html#categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Simple bar plots</em>.</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="univariate-distributions.html#cb361-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb361-2"><a href="univariate-distributions.html#cb361-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Two aesthetics (<code>x</code> and <code>fill</code>) for the same variable (<code>edu</code>).</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="univariate-distributions.html#cb362-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb362-2"><a href="univariate-distributions.html#cb362-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Modify the fill color scale (and theme).</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="univariate-distributions.html#cb363-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb363-2"><a href="univariate-distributions.html#cb363-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu)) <span class="sc">+</span></span>
+<span id="cb363-3"><a href="univariate-distributions.html#cb363-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Medie o meno</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#002e4e&quot;</span>, </span>
+<span id="cb363-4"><a href="univariate-distributions.html#cb363-4" tabindex="-1"></a>                               <span class="at">Superiori =</span> <span class="st">&quot;#afe1da&quot;</span>, </span>
+<span id="cb363-5"><a href="univariate-distributions.html#cb363-5" tabindex="-1"></a>                               <span class="at">Laurea =</span> <span class="st">&quot;#ff4639&quot;</span>, </span>
+<span id="cb363-6"><a href="univariate-distributions.html#cb363-6" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Post-laurea</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#b4abd7&quot;</span>, </span>
+<span id="cb363-7"><a href="univariate-distributions.html#cb363-7" tabindex="-1"></a>                               <span class="at">Altro =</span> <span class="st">&quot;#fad774&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb363-8"><a href="univariate-distributions.html#cb363-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>Note the importance of the order of levels in <code>edu</code> factor.</p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="univariate-distributions.html#cb364-1" tabindex="-1"></a><span class="co"># Original level order</span></span>
+<span id="cb364-2"><a href="univariate-distributions.html#cb364-2" tabindex="-1"></a>data<span class="sc">$</span>edu <span class="sc">|&gt;</span> </span>
+<span id="cb364-3"><a href="univariate-distributions.html#cb364-3" tabindex="-1"></a>  <span class="fu">levels</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;Medie o meno&quot; &quot;Superiori&quot;    &quot;Laurea&quot;       &quot;Post-laurea&quot;  &quot;Altro&quot;</code></pre>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="univariate-distributions.html#cb366-1" tabindex="-1"></a><span class="co"># Let&#39;s change it to this:</span></span>
+<span id="cb366-2"><a href="univariate-distributions.html#cb366-2" tabindex="-1"></a>data<span class="sc">$</span>edu <span class="sc">|&gt;</span></span>
+<span id="cb366-3"><a href="univariate-distributions.html#cb366-3" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb366-4"><a href="univariate-distributions.html#cb366-4" tabindex="-1"></a>  <span class="fu">levels</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;Altro&quot;        &quot;Post-laurea&quot;  &quot;Laurea&quot;       &quot;Superiori&quot;    &quot;Medie o meno&quot;</code></pre>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="univariate-distributions.html#cb368-1" tabindex="-1"></a><span class="co"># Make the change in the data</span></span>
+<span id="cb368-2"><a href="univariate-distributions.html#cb368-2" tabindex="-1"></a>data.rev <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb368-3"><a href="univariate-distributions.html#cb368-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edu =</span> <span class="fu">fct_rev</span>(edu))</span>
+<span id="cb368-4"><a href="univariate-distributions.html#cb368-4" tabindex="-1"></a></span>
+<span id="cb368-5"><a href="univariate-distributions.html#cb368-5" tabindex="-1"></a><span class="co"># Not plot with the new level order</span></span>
+<span id="cb368-6"><a href="univariate-distributions.html#cb368-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data.rev) <span class="sc">+</span></span>
+<span id="cb368-7"><a href="univariate-distributions.html#cb368-7" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="associations-between-two-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R for social research and business analytics.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
