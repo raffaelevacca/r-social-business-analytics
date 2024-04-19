@@ -26,7 +26,7 @@ rm(list = ls())
 
 * The `select()` verb.
 * Renaming variables (i.e., data columns).
-* Selecting (i.e., subsetting) variables.
+* Selecting variables (i.e., subsetting a data frame's columns).
 * Pulling one variable out of the data frame.
 
 ```{r}
@@ -111,7 +111,7 @@ data$birth.y |>
 
 * The `mutate()` verb.
 * Creating new continuous (i.e., interval or ratio) variables.
-* Recoding continuous variables into categorical (i.e., ordinal or nominal), aka factors.
+* Recoding continuous variables into categorical (i.e., ordinal or nominal), that is, factors.
 * Recoding factors: relabeling factor levels (i.e., categories).
 * Reordering factor levels.
 * Recoding factors: combining multiple levels into one.
@@ -351,6 +351,15 @@ data |>
 data |> 
   arrange(desc(birth.y))
 ```
+
+## Saving the data
+
+It's often useful to save the "final" (clean, recoded, etc.) version of your data to an external R file for re-use in other sessions or scripts.
+
+```{r}
+save(data, file = "my_data.rda")
+```
+
 
 ## Describing or summarizing the data
 
