@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-04-19" />
+<meta name="date" content="2024-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1047,7 +1047,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="with-dplyrsummarize" class="section level3 hasAnchor" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> With <code>dplyr::summarize()</code><a href="wrangling.html#with-dplyrsummarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>The <code>summarize()</code> function takes and applies it to one or multiple variables. We can use existing R functions or any new function we have defined.</li>
+<li>The <code>summarize()</code> function takes another function and applies it to one or multiple variables. We can use existing R functions within <code>summarize()</code>, or any new function we have created.</li>
 <li>Remember what <code>sum()</code> and <code>mean()</code> do to a logical vector. We can use this to calculate absolute or relative frequencies of specific levels (categories) of factors.</li>
 </ul>
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="wrangling.html#cb316-1" tabindex="-1"></a><span class="co"># Mean of one continuous variable</span></span>

@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-04-19" />
+<meta name="date" content="2024-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -233,17 +233,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="visualization" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Data visualization<a href="visualization.html#visualization" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter relies heavily on the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..">ggplot2 Cheat Sheet</a>. To learn more, also consult the <a href="https://ggplot2.tidyverse.org/">ggplot2 website</a> and <a href="https://r4ds.had.co.nz/data-visualisation.html">this chapter</a> from Wickham and Grolemund’s <em>R for Data Science</em>.</p>
+<p>We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter draws from the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..">ggplot2 Cheat Sheet</a>, the <a href="https://ggplot2.tidyverse.org/">ggplot2 website</a>, the <a href="https://r4ds.hadley.nz/data-visualize.html">visualization chapter</a> from Wickham and Grolemund’s <em>R for Data Science</em>, and the third edition (in progress) of Wickham’s <a href="https://ggplot2-book.org/">ggplot2 textbook</a>.</p>
 <div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="visualization.html#cb350-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb350-2"><a href="visualization.html#cb350-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb350-3"><a href="visualization.html#cb350-3" tabindex="-1"></a><span class="co"># library(skimr)</span></span>
-<span id="cb350-4"><a href="visualization.html#cb350-4" tabindex="-1"></a><span class="co"># library(janitor)</span></span>
-<span id="cb350-5"><a href="visualization.html#cb350-5" tabindex="-1"></a></span>
-<span id="cb350-6"><a href="visualization.html#cb350-6" tabindex="-1"></a><span class="co"># Clear the workspace</span></span>
-<span id="cb350-7"><a href="visualization.html#cb350-7" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb350-8"><a href="visualization.html#cb350-8" tabindex="-1"></a></span>
-<span id="cb350-9"><a href="visualization.html#cb350-9" tabindex="-1"></a><span class="co"># Let&#39;s load the data we cleaned in the previous chapter</span></span>
-<span id="cb350-10"><a href="visualization.html#cb350-10" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
+<span id="cb350-3"><a href="visualization.html#cb350-3" tabindex="-1"></a></span>
+<span id="cb350-4"><a href="visualization.html#cb350-4" tabindex="-1"></a><span class="co"># Clear the workspace</span></span>
+<span id="cb350-5"><a href="visualization.html#cb350-5" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb350-6"><a href="visualization.html#cb350-6" tabindex="-1"></a></span>
+<span id="cb350-7"><a href="visualization.html#cb350-7" tabindex="-1"></a><span class="co"># Let&#39;s load the data we cleaned in the previous chapter</span></span>
+<span id="cb350-8"><a href="visualization.html#cb350-8" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
 <p>In its simplest form, any ggplot2 graph is created with the following type of code:</p>
 <pre><code>ggplot(data = &lt;Data&gt;) +
   &lt;Geom_Function&gt;(mapping = aes(&lt;Mappings&gt;)) +
@@ -267,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb352-2"><a href="visualization.html#cb352-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p>Modify the <em>statistical transformation</em> of the data before plotting: pick a different width for the histogram bins.</p>
+<p>Note that there is also a <em>statistical transformation</em> being applied to the data before plotting (<em>which one?</em>). We can modify that transformation of the data: for example, pick a different width for the histogram bins.</p>
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="visualization.html#cb354-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
 <span id="cb354-2"><a href="visualization.html#cb354-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>

@@ -1,12 +1,10 @@
 # Data visualization {#visualization}
 
-We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter relies heavily on the [ggplot2 Cheat Sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..). To learn more, also consult the [ggplot2 website](https://ggplot2.tidyverse.org/) and [this chapter](https://r4ds.had.co.nz/data-visualisation.html) from Wickham and Grolemund's _R for Data Science_.
+We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter draws from the [ggplot2 Cheat Sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..), the [ggplot2 website](https://ggplot2.tidyverse.org/), the [visualization chapter](https://r4ds.hadley.nz/data-visualize.html) from Wickham and Grolemund's _R for Data Science_, and the third edition (in progress) of Wickham's [ggplot2 textbook](https://ggplot2-book.org/).
 
 ```{r, message=FALSE}
 # Load packages
 library(tidyverse)
-# library(skimr)
-# library(janitor)
 
 # Clear the workspace
 rm(list = ls())
@@ -45,7 +43,7 @@ ggplot(data = data) +
   geom_histogram(aes(x = age))
 ```
 
-Modify the _statistical transformation_ of the data before plotting: pick a different width for the histogram bins.
+Note that there is also a _statistical transformation_ being applied to the data before plotting (_which one?_). We can modify that transformation of the data: for example, pick a different width for the histogram bins.
 
 ```{r}
 ggplot(data = data) +

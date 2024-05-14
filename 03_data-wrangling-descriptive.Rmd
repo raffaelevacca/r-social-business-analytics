@@ -365,7 +365,7 @@ save(data, file = "my_data.rda")
 
 ### With `dplyr::summarize()`
 
-* The `summarize()` function takes and applies it to one or multiple variables. We can use existing R functions or any new function we have defined.
+* The `summarize()` function takes another function and applies it to one or multiple variables. We can use existing R functions within `summarize()`, or any new function we have created.
 * Remember what `sum()` and `mean()` do to a logical vector. We can use this to calculate absolute or relative frequencies of specific levels (categories) of factors.
 
 ```{r}

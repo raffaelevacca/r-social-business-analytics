@@ -120,7 +120,7 @@
 
 \title{R for social science and business analytics}
 \author{\href{http://www.raffaelevacca.com/}{Raffaele Vacca}}
-\date{2024-04-19}
+\date{2024-05-14}
 
 \begin{document}
 \maketitle
@@ -3790,7 +3790,7 @@ It's often useful to save the ``final'' (clean, recoded, etc.) version of your d
 \begin{itemize}
 \tightlist
 \item
-  The \texttt{summarize()} function takes and applies it to one or multiple variables. We can use existing R functions or any new function we have defined.
+  The \texttt{summarize()} function takes another function and applies it to one or multiple variables. We can use existing R functions within \texttt{summarize()}, or any new function we have created.
 \item
   Remember what \texttt{sum()} and \texttt{mean()} do to a logical vector. We can use this to calculate absolute or relative frequencies of specific levels (categories) of factors.
 \end{itemize}
@@ -4191,14 +4191,12 @@ It's often useful to save the ``final'' (clean, recoded, etc.) version of your d
 \hypertarget{visualization}{%
 \chapter{Data visualization}\label{visualization}}
 
-We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter relies heavily on the \href{https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..}{ggplot2 Cheat Sheet}. To learn more, also consult the \href{https://ggplot2.tidyverse.org/}{ggplot2 website} and \href{https://r4ds.had.co.nz/data-visualisation.html}{this chapter} from Wickham and Grolemund's \emph{R for Data Science}.
+We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter draws from the \href{https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..}{ggplot2 Cheat Sheet}, the \href{https://ggplot2.tidyverse.org/}{ggplot2 website}, the \href{https://r4ds.hadley.nz/data-visualize.html}{visualization chapter} from Wickham and Grolemund's \emph{R for Data Science}, and the third edition (in progress) of Wickham's \href{https://ggplot2-book.org/}{ggplot2 textbook}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Load packages}
 \FunctionTok{library}\NormalTok{(tidyverse)}
-\CommentTok{\# library(skimr)}
-\CommentTok{\# library(janitor)}
 
 \CommentTok{\# Clear the workspace}
 \FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
@@ -4256,7 +4254,7 @@ Here we only have one aesthetic mapping in \texttt{aes()}: values of \texttt{age
 
 \includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-17-1.pdf}
 
-Modify the \emph{statistical transformation} of the data before plotting: pick a different width for the histogram bins.
+Note that there is also a \emph{statistical transformation} being applied to the data before plotting (\emph{which one?}). We can modify that transformation of the data: for example, pick a different width for the histogram bins.
 
 \begin{Shaded}
 \begin{Highlighting}[]
