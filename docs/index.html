@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-05-14" />
+<meta name="date" content="2024-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -234,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">R for social science and business analytics</h1>
 <p class="author"><em><a href="http://www.raffaelevacca.com/">Raffaele Vacca</a></em></p>
-<p class="date"><em>2024-05-14</em></p>
+<p class="date"><em>2024-05-15</em></p>
 </div>
 <div id="overview-and-setup" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Overview and setup<a href="index.html#overview-and-setup" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -315,6 +315,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="author-and-contacts" class="section level2 hasAnchor" number="1.5">
 <h2><span class="header-section-number">1.5</span> Author and contacts<a href="index.html#author-and-contacts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I’m an assistant professor of sociology at the <a href="https://www.unimi.it/en">University of Milan</a> in the <a href="http://eng.sps.unimi.it/ecm/home">Deparment of Social and Political Sciences</a> and its <a href="https://behavelab.org/">Behave Lab</a>. My main research and teaching interests are social networks, migration, health inequalities, and studies of science. I also teach and do research on data science, statistics, and computational methods for the social sciences. More information about me, my work and my contact details is <a href="http://www.raffaelevacca.com/">here</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="co"># Copy all R code to separate R files.</span></span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">purl</span>(<span class="at">input =</span> <span class="st">&quot;03_data-wrangling-descriptive.Rmd&quot;</span>,</span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a>            <span class="at">output =</span> <span class="st">&quot;./scripts/02_wrangling.R&quot;</span>)</span>
+<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">purl</span>(<span class="at">input =</span> <span class="st">&quot;04_data-viz.Rmd&quot;</span>,</span>
+<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a>            <span class="at">output =</span> <span class="st">&quot;./scripts/03_visualization.R&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

@@ -503,11 +503,3 @@ data |>
   as_tibble() |> 
   write_csv("skim_by_gender.csv")
 ```
-
-```{r, include=FALSE, purl=FALSE}
-# Copy all R code in this file to separate R file.
-library(knitr)
-knitr::purl(input = "03_data-wrangling-descriptive.Rmd",
-            output = "./scripts/02_wrangling.R")
-```
-

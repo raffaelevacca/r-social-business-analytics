@@ -120,7 +120,7 @@
 
 \title{R for social science and business analytics}
 \author{\href{http://www.raffaelevacca.com/}{Raffaele Vacca}}
-\date{2024-05-14}
+\date{2024-05-15}
 
 \begin{document}
 \maketitle
@@ -269,6 +269,17 @@ This workshop uses an anonymized subset of the survey data collected for Valore 
 \section{Author and contacts}\label{author-and-contacts}}
 
 I'm an assistant professor of sociology at the \href{https://www.unimi.it/en}{University of Milan} in the \href{http://eng.sps.unimi.it/ecm/home}{Deparment of Social and Political Sciences} and its \href{https://behavelab.org/}{Behave Lab}. My main research and teaching interests are social networks, migration, health inequalities, and studies of science. I also teach and do research on data science, statistics, and computational methods for the social sciences. More information about me, my work and my contact details is \href{http://www.raffaelevacca.com/}{here}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(knitr)}
+\CommentTok{\# Copy all R code to separate R files.}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{purl}\NormalTok{(}\AttributeTok{input =} \StringTok{"03\_data{-}wrangling{-}descriptive.Rmd"}\NormalTok{,}
+            \AttributeTok{output =} \StringTok{"./scripts/02\_wrangling.R"}\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{purl}\NormalTok{(}\AttributeTok{input =} \StringTok{"04\_data{-}viz.Rmd"}\NormalTok{,}
+            \AttributeTok{output =} \StringTok{"./scripts/03\_visualization.R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{intro}{%
 \chapter{Introduction to R}\label{intro}}

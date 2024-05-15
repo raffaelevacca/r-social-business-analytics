@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-05-14" />
+<meta name="date" content="2024-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -234,14 +234,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="visualization" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Data visualization<a href="visualization.html#visualization" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter draws from the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..">ggplot2 Cheat Sheet</a>, the <a href="https://ggplot2.tidyverse.org/">ggplot2 website</a>, the <a href="https://r4ds.hadley.nz/data-visualize.html">visualization chapter</a> from Wickham and Grolemund’s <em>R for Data Science</em>, and the third edition (in progress) of Wickham’s <a href="https://ggplot2-book.org/">ggplot2 textbook</a>.</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="visualization.html#cb350-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb350-2"><a href="visualization.html#cb350-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb350-3"><a href="visualization.html#cb350-3" tabindex="-1"></a></span>
-<span id="cb350-4"><a href="visualization.html#cb350-4" tabindex="-1"></a><span class="co"># Clear the workspace</span></span>
-<span id="cb350-5"><a href="visualization.html#cb350-5" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb350-6"><a href="visualization.html#cb350-6" tabindex="-1"></a></span>
-<span id="cb350-7"><a href="visualization.html#cb350-7" tabindex="-1"></a><span class="co"># Let&#39;s load the data we cleaned in the previous chapter</span></span>
-<span id="cb350-8"><a href="visualization.html#cb350-8" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="visualization.html#cb351-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb351-2"><a href="visualization.html#cb351-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb351-3"><a href="visualization.html#cb351-3" tabindex="-1"></a></span>
+<span id="cb351-4"><a href="visualization.html#cb351-4" tabindex="-1"></a><span class="co"># Clear the workspace</span></span>
+<span id="cb351-5"><a href="visualization.html#cb351-5" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb351-6"><a href="visualization.html#cb351-6" tabindex="-1"></a></span>
+<span id="cb351-7"><a href="visualization.html#cb351-7" tabindex="-1"></a><span class="co"># Let&#39;s load the data we cleaned in the previous chapter</span></span>
+<span id="cb351-8"><a href="visualization.html#cb351-8" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
 <p>In its simplest form, any ggplot2 graph is created with the following type of code:</p>
 <pre><code>ggplot(data = &lt;Data&gt;) +
   &lt;Geom_Function&gt;(mapping = aes(&lt;Mappings&gt;)) +
@@ -261,90 +261,90 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.1.1</span> Continuous variables<a href="visualization.html#continuous-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Histograms</strong>.</p>
 <p>Here we only have one aesthetic mapping in <code>aes()</code>: values of <code>age</code> are mapped to values of <code>x</code> (the horizontal axis).</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="visualization.html#cb352-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb352-2"><a href="visualization.html#cb352-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="visualization.html#cb353-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb353-2"><a href="visualization.html#cb353-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Note that there is also a <em>statistical transformation</em> being applied to the data before plotting (<em>which one?</em>). We can modify that transformation of the data: for example, pick a different width for the histogram bins.</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="visualization.html#cb354-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb354-2"><a href="visualization.html#cb354-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="visualization.html#cb355-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb355-2"><a href="visualization.html#cb355-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Modify visual properties of the plot: bin color and fill.</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="visualization.html#cb355-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb355-2"><a href="visualization.html#cb355-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb355-3"><a href="visualization.html#cb355-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>Modify the scale of the <code>x</code> aesthetic mapping.</p>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="visualization.html#cb356-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
 <span id="cb356-2"><a href="visualization.html#cb356-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb356-3"><a href="visualization.html#cb356-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb356-4"><a href="visualization.html#cb356-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>))</span></code></pre></div>
-<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<p>Modify the general theme of the plot.</p>
+<span id="cb356-3"><a href="visualization.html#cb356-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Modify the scale of the <code>x</code> aesthetic mapping.</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="visualization.html#cb357-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
 <span id="cb357-2"><a href="visualization.html#cb357-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
 <span id="cb357-3"><a href="visualization.html#cb357-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb357-4"><a href="visualization.html#cb357-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb357-5"><a href="visualization.html#cb357-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<span id="cb357-4"><a href="visualization.html#cb357-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Modify the general theme of the plot.</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="visualization.html#cb358-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb358-2"><a href="visualization.html#cb358-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb358-3"><a href="visualization.html#cb358-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb358-4"><a href="visualization.html#cb358-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb358-5"><a href="visualization.html#cb358-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Let’s add another geom in a new layer: a density plot. Note that now the bin height and y axis are not count values but density values: this is specified by setting the <code>y</code> aesthetic in <code>aes()</code>.</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="visualization.html#cb358-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb358-2"><a href="visualization.html#cb358-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb358-3"><a href="visualization.html#cb358-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb358-4"><a href="visualization.html#cb358-4" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb358-5"><a href="visualization.html#cb358-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb358-6"><a href="visualization.html#cb358-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="visualization.html#cb359-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb359-2"><a href="visualization.html#cb359-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb359-3"><a href="visualization.html#cb359-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb359-4"><a href="visualization.html#cb359-4" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb359-5"><a href="visualization.html#cb359-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb359-6"><a href="visualization.html#cb359-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p><strong>Boxplots</strong>.</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="visualization.html#cb359-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb359-2"><a href="visualization.html#cb359-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="visualization.html#cb360-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb360-2"><a href="visualization.html#cb360-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>In a new layer, we can use a new geom to add the actual data points on top of the boxplot (with some vertical jittering).</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="visualization.html#cb360-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">194</span>)</span>
-<span id="cb360-2"><a href="visualization.html#cb360-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb360-3"><a href="visualization.html#cb360-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="dv">0</span>), </span>
-<span id="cb360-4"><a href="visualization.html#cb360-4" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb360-5"><a href="visualization.html#cb360-5" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">h =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb360-6"><a href="visualization.html#cb360-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="visualization.html#cb361-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">194</span>)</span>
+<span id="cb361-2"><a href="visualization.html#cb361-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb361-3"><a href="visualization.html#cb361-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="dv">0</span>), </span>
+<span id="cb361-4"><a href="visualization.html#cb361-4" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb361-5"><a href="visualization.html#cb361-5" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">h =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb361-6"><a href="visualization.html#cb361-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 </div>
 <div id="categorical-variables" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Categorical variables<a href="visualization.html#categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Simple bar plots</strong>.</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="visualization.html#cb361-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb361-2"><a href="visualization.html#cb361-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu))</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="visualization.html#cb362-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb362-2"><a href="visualization.html#cb362-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu))</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>Two aesthetics (<code>x</code> and <code>fill</code>) for the same variable (<code>edu</code>).</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="visualization.html#cb362-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb362-2"><a href="visualization.html#cb362-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu))</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="visualization.html#cb363-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb363-2"><a href="visualization.html#cb363-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu))</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>Note the importance of the order of levels in <code>edu</code> factor.</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="visualization.html#cb363-1" tabindex="-1"></a><span class="co"># Original level order</span></span>
-<span id="cb363-2"><a href="visualization.html#cb363-2" tabindex="-1"></a>data<span class="sc">$</span>edu <span class="sc">|&gt;</span> </span>
-<span id="cb363-3"><a href="visualization.html#cb363-3" tabindex="-1"></a>  <span class="fu">levels</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="visualization.html#cb364-1" tabindex="-1"></a><span class="co"># Original level order</span></span>
+<span id="cb364-2"><a href="visualization.html#cb364-2" tabindex="-1"></a>data<span class="sc">$</span>edu <span class="sc">|&gt;</span> </span>
+<span id="cb364-3"><a href="visualization.html#cb364-3" tabindex="-1"></a>  <span class="fu">levels</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;Medie o meno&quot; &quot;Superiori&quot;    &quot;Laurea&quot;       &quot;Post-laurea&quot;  &quot;Altro&quot;</code></pre>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="visualization.html#cb365-1" tabindex="-1"></a><span class="co"># Let&#39;s change it to this:</span></span>
-<span id="cb365-2"><a href="visualization.html#cb365-2" tabindex="-1"></a>data<span class="sc">$</span>edu <span class="sc">|&gt;</span></span>
-<span id="cb365-3"><a href="visualization.html#cb365-3" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb365-4"><a href="visualization.html#cb365-4" tabindex="-1"></a>  <span class="fu">levels</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="visualization.html#cb366-1" tabindex="-1"></a><span class="co"># Let&#39;s change it to this:</span></span>
+<span id="cb366-2"><a href="visualization.html#cb366-2" tabindex="-1"></a>data<span class="sc">$</span>edu <span class="sc">|&gt;</span></span>
+<span id="cb366-3"><a href="visualization.html#cb366-3" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb366-4"><a href="visualization.html#cb366-4" tabindex="-1"></a>  <span class="fu">levels</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;Altro&quot;        &quot;Post-laurea&quot;  &quot;Laurea&quot;       &quot;Superiori&quot;    &quot;Medie o meno&quot;</code></pre>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="visualization.html#cb367-1" tabindex="-1"></a><span class="co"># Make the change in the data</span></span>
-<span id="cb367-2"><a href="visualization.html#cb367-2" tabindex="-1"></a>data.rev <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb367-3"><a href="visualization.html#cb367-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edu =</span> <span class="fu">fct_rev</span>(edu))</span>
-<span id="cb367-4"><a href="visualization.html#cb367-4" tabindex="-1"></a></span>
-<span id="cb367-5"><a href="visualization.html#cb367-5" tabindex="-1"></a><span class="co"># Not plot with the new level order</span></span>
-<span id="cb367-6"><a href="visualization.html#cb367-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data.rev) <span class="sc">+</span></span>
-<span id="cb367-7"><a href="visualization.html#cb367-7" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu))</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="visualization.html#cb368-1" tabindex="-1"></a><span class="co"># Make the change in the data</span></span>
+<span id="cb368-2"><a href="visualization.html#cb368-2" tabindex="-1"></a>data.rev <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb368-3"><a href="visualization.html#cb368-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edu =</span> <span class="fu">fct_rev</span>(edu))</span>
+<span id="cb368-4"><a href="visualization.html#cb368-4" tabindex="-1"></a></span>
+<span id="cb368-5"><a href="visualization.html#cb368-5" tabindex="-1"></a><span class="co"># Not plot with the new level order</span></span>
+<span id="cb368-6"><a href="visualization.html#cb368-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data.rev) <span class="sc">+</span></span>
+<span id="cb368-7"><a href="visualization.html#cb368-7" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu))</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Back to the original level order, modify the fill color scale (and theme).</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="visualization.html#cb368-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
-<span id="cb368-2"><a href="visualization.html#cb368-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu)) <span class="sc">+</span></span>
-<span id="cb368-3"><a href="visualization.html#cb368-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Medie o meno</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#002e4e&quot;</span>, </span>
-<span id="cb368-4"><a href="visualization.html#cb368-4" tabindex="-1"></a>                               <span class="at">Superiori =</span> <span class="st">&quot;#afe1da&quot;</span>, </span>
-<span id="cb368-5"><a href="visualization.html#cb368-5" tabindex="-1"></a>                               <span class="at">Laurea =</span> <span class="st">&quot;#ff4639&quot;</span>, </span>
-<span id="cb368-6"><a href="visualization.html#cb368-6" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Post-laurea</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#b4abd7&quot;</span>, </span>
-<span id="cb368-7"><a href="visualization.html#cb368-7" tabindex="-1"></a>                               <span class="at">Altro =</span> <span class="st">&quot;#fad774&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb368-8"><a href="visualization.html#cb368-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="visualization.html#cb369-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb369-2"><a href="visualization.html#cb369-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> edu)) <span class="sc">+</span></span>
+<span id="cb369-3"><a href="visualization.html#cb369-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Medie o meno</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#002e4e&quot;</span>, </span>
+<span id="cb369-4"><a href="visualization.html#cb369-4" tabindex="-1"></a>                               <span class="at">Superiori =</span> <span class="st">&quot;#afe1da&quot;</span>, </span>
+<span id="cb369-5"><a href="visualization.html#cb369-5" tabindex="-1"></a>                               <span class="at">Laurea =</span> <span class="st">&quot;#ff4639&quot;</span>, </span>
+<span id="cb369-6"><a href="visualization.html#cb369-6" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Post-laurea</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#b4abd7&quot;</span>, </span>
+<span id="cb369-7"><a href="visualization.html#cb369-7" tabindex="-1"></a>                               <span class="at">Altro =</span> <span class="st">&quot;#fad774&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb369-8"><a href="visualization.html#cb369-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 </div>

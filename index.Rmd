@@ -81,6 +81,15 @@ This workshop uses an anonymized subset of the survey data collected for Valore 
 
 I'm an assistant professor of sociology at the [University of Milan](https://www.unimi.it/en) in the [Deparment of Social and Political Sciences](http://eng.sps.unimi.it/ecm/home) and its [Behave Lab](https://behavelab.org/). My main research and teaching interests are social networks, migration, health inequalities, and studies of science. I also teach and do research on data science, statistics, and computational methods for the social sciences. More information about me, my work and my contact details is [here](http://www.raffaelevacca.com/). 
 
+```{r, eval=FALSE, purl=FALSE}
+library(knitr)
+# Copy all R code to separate R files.
+knitr::purl(input = "03_data-wrangling-descriptive.Rmd",
+            output = "./scripts/02_wrangling.R")
+knitr::purl(input = "04_data-viz.Rmd",
+            output = "./scripts/03_visualization.R")
+```
+
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
