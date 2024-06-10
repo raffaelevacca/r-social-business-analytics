@@ -1,4 +1,4 @@
-## ----message=FALSE------------------------------------------------------------
+## ----message=FALSE-------------------------------------------------------------------------
 # Load packages
 library(tidyverse)
 library(skimr)
@@ -11,7 +11,7 @@ rm(list = ls())
 (data <- read_csv("./data/data.csv"))
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Give better names to the variables: by variable name.
 data |> 
   rename(
@@ -89,7 +89,7 @@ data$birth.y |>
   head()
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Create new variable from existing continuous variable.
 data <- data |> 
   mutate(
@@ -258,13 +258,13 @@ data <- data |>
 data |> 
   tabyl(gender)
 
-# Only keep variables of interest for the following.
+# Only keep variables of interest for the following analyses.
 # What is this code doing with the age.br variable?
 data <- data |> 
-  select(birth.y, age, gen, age.br = age.br.2, gender, nato.it, edu, company)
+  select(birth.y, age, gen, age.br = age.br.2, gender, nato.it, edu, company, work.exp.y, driver.sum)
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Respondents whose age is exactly 40.
 data |> 
   filter(age == 40)
@@ -318,11 +318,11 @@ data |>
   arrange(desc(birth.y))
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 save(data, file = "my_data.rda")
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Mean of one continuous variable
 data |> 
   summarize(avg.age = mean(age))
@@ -347,7 +347,7 @@ data |>
   )
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Battery of descriptive statistics on age.
 data |> 
   skimr::skim_tee(age)
@@ -365,7 +365,7 @@ data |>
   tabyl(edu, gender)
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Add column totals.
 data |> 
   tabyl(gender) |> 
@@ -378,14 +378,14 @@ data |>
   adorn_pct_formatting()
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 data |> 
   skimr::skim(age) |> 
   as_tibble() |> 
   select(variable = skim_variable, mean = numeric.mean, sd = numeric.sd)
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 # Let's run summarize() as above, but now by gender. What are the results telling us?
 data |> 
   group_by(gender) |> 
@@ -419,7 +419,7 @@ data |>
   skim_tee(age)
 
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------
 data |> 
   filter(gender %in% c("Donna", "Uomo")) |> 
   group_by(gender, edu) |> 

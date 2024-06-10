@@ -120,7 +120,7 @@
 
 \title{R for social science and business analytics}
 \author{\href{http://www.raffaelevacca.com/}{Raffaele Vacca}}
-\date{2024-05-15}
+\date{2024-06-10}
 
 \begin{document}
 \maketitle
@@ -781,7 +781,7 @@ In R, everything that \textbf{exists} is an object. Everything that \textbf{happ
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 5
+## # A tibble: 1,000 x 7
 ##    1. Il tuo anno di nascita è..~1 2. Il tuo genere è..~2 4. Sei nato/a in Ita~3
 ##                              <dbl> <chr>                  <chr>                 
 ##  1                            1994 Uomo                   Sì                    
@@ -797,8 +797,9 @@ In R, everything that \textbf{exists} is an object. Everything that \textbf{happ
 ## # i 990 more rows
 ## # i abbreviated names: 1: `1. Il tuo anno di nascita è...`,
 ## #   2: `2. Il tuo genere è...`, 3: `4. Sei nato/a in Italia?`
-## # i 2 more variables:
-## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>
+## # i 4 more variables:
+## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>,
+## #   work.exp.y <dbl>, driver.sum <dbl>
 \end{verbatim}
 
 \begin{Shaded}
@@ -1835,7 +1836,7 @@ In R, everything that \textbf{exists} is an object. Everything that \textbf{happ
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 3 x 5
+## # A tibble: 3 x 7
 ##   `1. Il tuo anno di nascita è...` 2. Il tuo genere è..~1 4. Sei nato/a in Ita~2
 ##                              <dbl> <chr>                  <chr>                 
 ## 1                             1994 Uomo                   Sì                    
@@ -1843,8 +1844,9 @@ In R, everything that \textbf{exists} is an object. Everything that \textbf{happ
 ## 3                             1969 Uomo                   Sì                    
 ## # i abbreviated names: 1: `2. Il tuo genere è...`,
 ## #   2: `4. Sei nato/a in Italia?`
-## # i 2 more variables:
-## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>
+## # i 4 more variables:
+## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>,
+## #   work.exp.y <dbl>, driver.sum <dbl>
 \end{verbatim}
 
 \begin{Shaded}
@@ -2604,7 +2606,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 5
+## # A tibble: 1,000 x 7
 ##    1. Il tuo anno di nascita è..~1 2. Il tuo genere è..~2 4. Sei nato/a in Ita~3
 ##                              <dbl> <chr>                  <chr>                 
 ##  1                            1994 Uomo                   Sì                    
@@ -2620,8 +2622,9 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 ## # i 990 more rows
 ## # i abbreviated names: 1: `1. Il tuo anno di nascita è...`,
 ## #   2: `2. Il tuo genere è...`, 3: `4. Sei nato/a in Italia?`
-## # i 2 more variables:
-## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>
+## # i 4 more variables:
+## #   `11. Il tuo ultimo titolo di studi conseguito è...` <chr>, company <chr>,
+## #   work.exp.y <dbl>, driver.sum <dbl>
 \end{verbatim}
 
 \hypertarget{subsetting-and-renaming-variables}{%
@@ -2651,7 +2654,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 5
+## # A tibble: 1,000 x 7
 ##    birth.y gender          4. Sei nato/a in Ita~1 11. Il tuo ultimo ti~2 company
 ##      <dbl> <chr>           <chr>                  <chr>                  <chr>  
 ##  1    1994 Uomo            Sì                     Master post-laurea     My Veg~
@@ -2667,6 +2670,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 ## # i 990 more rows
 ## # i abbreviated names: 1: `4. Sei nato/a in Italia?`,
 ## #   2: `11. Il tuo ultimo titolo di studi conseguito è...`
+## # i 2 more variables: work.exp.y <dbl>, driver.sum <dbl>
 \end{verbatim}
 
 \begin{Shaded}
@@ -2681,7 +2685,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 5
+## # A tibble: 1,000 x 7
 ##    birth.y gender          4. Sei nato/a in Ita~1 11. Il tuo ultimo ti~2 company
 ##      <dbl> <chr>           <chr>                  <chr>                  <chr>  
 ##  1    1994 Uomo            Sì                     Master post-laurea     My Veg~
@@ -2697,6 +2701,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 ## # i 990 more rows
 ## # i abbreviated names: 1: `4. Sei nato/a in Italia?`,
 ## #   2: `11. Il tuo ultimo titolo di studi conseguito è...`
+## # i 2 more variables: work.exp.y <dbl>, driver.sum <dbl>
 \end{verbatim}
 
 \begin{Shaded}
@@ -2709,7 +2714,7 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 5
+## # A tibble: 1,000 x 7
 ##    1. IL TUO ANNO DI NASCITA È..~1 2. IL TUO GENERE È..~2 4. SEI NATO/A IN ITA~3
 ##                              <dbl> <chr>                  <chr>                 
 ##  1                            1994 Uomo                   Sì                    
@@ -2725,8 +2730,9 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 ## # i 990 more rows
 ## # i abbreviated names: 1: `1. IL TUO ANNO DI NASCITA È...`,
 ## #   2: `2. IL TUO GENERE È...`, 3: `4. SEI NATO/A IN ITALIA?`
-## # i 2 more variables:
-## #   `11. IL TUO ULTIMO TITOLO DI STUDI CONSEGUITO È...` <chr>, COMPANY <chr>
+## # i 4 more variables:
+## #   `11. IL TUO ULTIMO TITOLO DI STUDI CONSEGUITO È...` <chr>, COMPANY <chr>,
+## #   WORK.EXP.Y <dbl>, DRIVER.SUM <dbl>
 \end{verbatim}
 
 \begin{Shaded}
@@ -2744,19 +2750,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 5
-##    birth.y gender                    nato.it edu                         company
-##      <dbl> <chr>                     <chr>   <chr>                       <chr>  
-##  1    1994 Uomo                      Sì      Master post-laurea          My Veg~
-##  2    1968 Donna                     No      Laurea                      Urban ~
-##  3    1969 Uomo                      Sì      Diploma di scuola superiore Office~
-##  4    1964 Uomo                      Sì      Diploma di scuola superiore Raven  
-##  5    1971 Uomo                      Sì      Diploma di scuola superiore Fix Gu~
-##  6    1961 Preferisco non rispondere Sì      Laurea                      Office~
-##  7    1993 Donna                     Sì      Scuola di specializzazione~ House ~
-##  8    1981 Uomo                      Sì      Laurea                      Satan'~
-##  9    1979 Donna                     Sì      Laurea                      Fruity~
-## 10    1971 Uomo                      Sì      Diploma di scuola superiore Coal K~
+## # A tibble: 1,000 x 7
+##    birth.y gender                    nato.it edu   company work.exp.y driver.sum
+##      <dbl> <chr>                     <chr>   <chr> <chr>        <dbl>      <dbl>
+##  1    1994 Uomo                      Sì      Mast~ My Veg~          2         88
+##  2    1968 Donna                     No      Laur~ Urban ~         21        117
+##  3    1969 Uomo                      Sì      Dipl~ Office~         32         85
+##  4    1964 Uomo                      Sì      Dipl~ Raven            7        116
+##  5    1971 Uomo                      Sì      Dipl~ Fix Gu~         22         97
+##  6    1961 Preferisco non rispondere Sì      Laur~ Office~         35        109
+##  7    1993 Donna                     Sì      Scuo~ House ~          2        112
+##  8    1981 Uomo                      Sì      Laur~ Satan'~         15        119
+##  9    1979 Donna                     Sì      Laur~ Fruity~          0        107
+## 10    1971 Uomo                      Sì      Dipl~ Coal K~         30         88
 ## # i 990 more rows
 \end{verbatim}
 
@@ -2794,19 +2800,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 4
-##    birth.y nato.it edu                                    company             
-##      <dbl> <chr>   <chr>                                  <chr>               
-##  1    1994 Sì      Master post-laurea                     My Vegetarian Dinner
-##  2    1968 No      Laurea                                 Urban Gallery       
-##  3    1969 Sì      Diploma di scuola superiore            Office Tile         
-##  4    1964 Sì      Diploma di scuola superiore            Raven               
-##  5    1971 Sì      Diploma di scuola superiore            Fix Guru            
-##  6    1961 Sì      Laurea                                 Office Brush        
-##  7    1993 Sì      Scuola di specializzazione post-laurea House Brush         
-##  8    1981 Sì      Laurea                                 Satan's Sister      
-##  9    1979 Sì      Laurea                                 FruityFlix          
-## 10    1971 Sì      Diploma di scuola superiore            Coal Kings          
+## # A tibble: 1,000 x 6
+##    birth.y nato.it edu                             company work.exp.y driver.sum
+##      <dbl> <chr>   <chr>                           <chr>        <dbl>      <dbl>
+##  1    1994 Sì      Master post-laurea              My Veg~          2         88
+##  2    1968 No      Laurea                          Urban ~         21        117
+##  3    1969 Sì      Diploma di scuola superiore     Office~         32         85
+##  4    1964 Sì      Diploma di scuola superiore     Raven            7        116
+##  5    1971 Sì      Diploma di scuola superiore     Fix Gu~         22         97
+##  6    1961 Sì      Laurea                          Office~         35        109
+##  7    1993 Sì      Scuola di specializzazione pos~ House ~          2        112
+##  8    1981 Sì      Laurea                          Satan'~         15        119
+##  9    1979 Sì      Laurea                          Fruity~          0        107
+## 10    1971 Sì      Diploma di scuola superiore     Coal K~         30         88
 ## # i 990 more rows
 \end{verbatim}
 
@@ -2818,19 +2824,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 3
-##    birth.y nato.it company             
-##      <dbl> <chr>   <chr>               
-##  1    1994 Sì      My Vegetarian Dinner
-##  2    1968 No      Urban Gallery       
-##  3    1969 Sì      Office Tile         
-##  4    1964 Sì      Raven               
-##  5    1971 Sì      Fix Guru            
-##  6    1961 Sì      Office Brush        
-##  7    1993 Sì      House Brush         
-##  8    1981 Sì      Satan's Sister      
-##  9    1979 Sì      FruityFlix          
-## 10    1971 Sì      Coal Kings          
+## # A tibble: 1,000 x 5
+##    birth.y nato.it company              work.exp.y driver.sum
+##      <dbl> <chr>   <chr>                     <dbl>      <dbl>
+##  1    1994 Sì      My Vegetarian Dinner          2         88
+##  2    1968 No      Urban Gallery                21        117
+##  3    1969 Sì      Office Tile                  32         85
+##  4    1964 Sì      Raven                         7        116
+##  5    1971 Sì      Fix Guru                     22         97
+##  6    1961 Sì      Office Brush                 35        109
+##  7    1993 Sì      House Brush                   2        112
+##  8    1981 Sì      Satan's Sister               15        119
+##  9    1979 Sì      FruityFlix                    0        107
+## 10    1971 Sì      Coal Kings                   30         88
 ## # i 990 more rows
 \end{verbatim}
 
@@ -2894,19 +2900,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 2
-##    birth.y company             
-##      <dbl> <chr>               
-##  1    1994 My Vegetarian Dinner
-##  2    1968 Urban Gallery       
-##  3    1969 Office Tile         
-##  4    1964 Raven               
-##  5    1971 Fix Guru            
-##  6    1961 Office Brush        
-##  7    1993 House Brush         
-##  8    1981 Satan's Sister      
-##  9    1979 FruityFlix          
-## 10    1971 Coal Kings          
+## # A tibble: 1,000 x 3
+##    birth.y company              work.exp.y
+##      <dbl> <chr>                     <dbl>
+##  1    1994 My Vegetarian Dinner          2
+##  2    1968 Urban Gallery                21
+##  3    1969 Office Tile                  32
+##  4    1964 Raven                         7
+##  5    1971 Fix Guru                     22
+##  6    1961 Office Brush                 35
+##  7    1993 House Brush                   2
+##  8    1981 Satan's Sister               15
+##  9    1979 FruityFlix                    0
+## 10    1971 Coal Kings                   30
 ## # i 990 more rows
 \end{verbatim}
 
@@ -2919,19 +2925,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 1
-##    birth.y
-##      <dbl>
-##  1    1994
-##  2    1968
-##  3    1969
-##  4    1964
-##  5    1971
-##  6    1961
-##  7    1993
-##  8    1981
-##  9    1979
-## 10    1971
+## # A tibble: 1,000 x 3
+##    birth.y work.exp.y driver.sum
+##      <dbl>      <dbl>      <dbl>
+##  1    1994          2         88
+##  2    1968         21        117
+##  3    1969         32         85
+##  4    1964          7        116
+##  5    1971         22         97
+##  6    1961         35        109
+##  7    1993          2        112
+##  8    1981         15        119
+##  9    1979          0        107
+## 10    1971         30         88
 ## # i 990 more rows
 \end{verbatim}
 
@@ -3483,10 +3489,10 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Only keep variables of interest for the following.}
+\CommentTok{\# Only keep variables of interest for the following analyses.}
 \CommentTok{\# What is this code doing with the age.br variable?}
 \NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{select}\NormalTok{(birth.y, age, gen, }\AttributeTok{age.br =}\NormalTok{ age.br}\FloatTok{.2}\NormalTok{, gender, nato.it, edu, company)}
+  \FunctionTok{select}\NormalTok{(birth.y, age, gen, }\AttributeTok{age.br =}\NormalTok{ age.br}\FloatTok{.2}\NormalTok{, gender, nato.it, edu, company, work.exp.y, driver.sum)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3514,19 +3520,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 26 x 8
-##    birth.y   age gen         age.br gender nato.it edu         company         
-##      <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>       <chr>           
-##  1    1983    40 millennials 31-40  Uomo   Sì      Altro       Fix Guru        
-##  2    1983    40 millennials 31-40  Uomo   Sì      Superiori   Bloom Marketing 
-##  3    1983    40 millennials 31-40  Donna  Sì      Post-laurea Urban Philosophy
-##  4    1983    40 millennials 31-40  Donna  Sì      Laurea      Wood Works      
-##  5    1983    40 millennials 31-40  Uomo   Sì      Laurea      Office Tile     
-##  6    1983    40 millennials 31-40  Uomo   Sì      Laurea      The Spice Route 
-##  7    1983    40 millennials 31-40  Uomo   Sì      Superiori   The Zone        
-##  8    1983    40 millennials 31-40  Uomo   Sì      Superiori   Coal Kings      
-##  9    1983    40 millennials 31-40  Uomo   <NA>    Altro       FruityFlix      
-## 10    1983    40 millennials 31-40  Donna  Sì      Superiori   Raven           
+## # A tibble: 26 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1983    40 mill~ 31-40  Uomo   Sì      Altro Fix Gu~         17         98
+##  2    1983    40 mill~ 31-40  Uomo   Sì      Supe~ Bloom ~         18        104
+##  3    1983    40 mill~ 31-40  Donna  Sì      Post~ Urban ~          4         97
+##  4    1983    40 mill~ 31-40  Donna  Sì      Laur~ Wood W~          9        104
+##  5    1983    40 mill~ 31-40  Uomo   Sì      Laur~ Office~         16        110
+##  6    1983    40 mill~ 31-40  Uomo   Sì      Laur~ The Sp~          1        103
+##  7    1983    40 mill~ 31-40  Uomo   Sì      Supe~ The Zo~         20         73
+##  8    1983    40 mill~ 31-40  Uomo   Sì      Supe~ Coal K~         18        108
+##  9    1983    40 mill~ 31-40  Uomo   <NA>    Altro Fruity~          8        112
+## 10    1983    40 mill~ 31-40  Donna  Sì      Supe~ Raven           17         91
 ## # i 16 more rows
 \end{verbatim}
 
@@ -3539,19 +3545,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 359 x 8
-##    birth.y   age gen          age.br gender nato.it edu    company       
-##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>  <chr>         
-##  1    1968    55 gen x        51-60  Donna  No      Laurea Urban Gallery 
-##  2    1961    62 baby boomers 61-70  NR     Sì      Laurea Office Brush  
-##  3    1981    42 millennials  41-50  Uomo   Sì      Laurea Satan's Sister
-##  4    1979    44 gen x        41-50  Donna  Sì      Laurea FruityFlix    
-##  5    1975    48 gen x        41-50  Donna  Sì      Laurea Coal Kings    
-##  6    1978    45 gen x        41-50  Uomo   Sì      Laurea The Auto DNA  
-##  7    1972    51 gen x        51-60  Uomo   Sì      Laurea Wood Works    
-##  8    1987    36 millennials  31-40  Donna  Sì      Laurea Garden Store  
-##  9    1984    39 millennials  31-40  Uomo   Sì      Laurea FruityFlix    
-## 10    1981    42 millennials  41-50  Uomo   Sì      Laurea Wood Works    
+## # A tibble: 359 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1968    55 gen x 51-60  Donna  No      Laur~ Urban ~         21        117
+##  2    1961    62 baby~ 61-70  NR     Sì      Laur~ Office~         35        109
+##  3    1981    42 mill~ 41-50  Uomo   Sì      Laur~ Satan'~         15        119
+##  4    1979    44 gen x 41-50  Donna  Sì      Laur~ Fruity~          0        107
+##  5    1975    48 gen x 41-50  Donna  Sì      Laur~ Coal K~          2        109
+##  6    1978    45 gen x 41-50  Uomo   Sì      Laur~ The Au~          5        100
+##  7    1972    51 gen x 51-60  Uomo   Sì      Laur~ Wood W~         13        112
+##  8    1987    36 mill~ 31-40  Donna  Sì      Laur~ Garden~          5        104
+##  9    1984    39 mill~ 31-40  Uomo   Sì      Laur~ Fruity~          1        112
+## 10    1981    42 mill~ 41-50  Uomo   Sì      Laur~ Wood W~          2         99
 ## # i 349 more rows
 \end{verbatim}
 
@@ -3564,19 +3570,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 775 x 8
-##    birth.y   age gen          age.br gender nato.it edu       company       
-##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>     <chr>         
-##  1    1968    55 gen x        51-60  Donna  No      Laurea    Urban Gallery 
-##  2    1969    54 gen x        51-60  Uomo   Sì      Superiori Office Tile   
-##  3    1964    59 baby boomers 51-60  Uomo   Sì      Superiori Raven         
-##  4    1971    52 gen x        51-60  Uomo   Sì      Superiori Fix Guru      
-##  5    1961    62 baby boomers 61-70  NR     Sì      Laurea    Office Brush  
-##  6    1981    42 millennials  41-50  Uomo   Sì      Laurea    Satan's Sister
-##  7    1979    44 gen x        41-50  Donna  Sì      Laurea    FruityFlix    
-##  8    1971    52 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-##  9    1966    57 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-## 10    1975    48 gen x        41-50  Donna  Sì      Laurea    Coal Kings    
+## # A tibble: 775 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1968    55 gen x 51-60  Donna  No      Laur~ Urban ~         21        117
+##  2    1969    54 gen x 51-60  Uomo   Sì      Supe~ Office~         32         85
+##  3    1964    59 baby~ 51-60  Uomo   Sì      Supe~ Raven            7        116
+##  4    1971    52 gen x 51-60  Uomo   Sì      Supe~ Fix Gu~         22         97
+##  5    1961    62 baby~ 61-70  NR     Sì      Laur~ Office~         35        109
+##  6    1981    42 mill~ 41-50  Uomo   Sì      Laur~ Satan'~         15        119
+##  7    1979    44 gen x 41-50  Donna  Sì      Laur~ Fruity~          0        107
+##  8    1971    52 gen x 51-60  Uomo   Sì      Supe~ Coal K~         30         88
+##  9    1966    57 gen x 51-60  Uomo   Sì      Supe~ Coal K~         35         93
+## 10    1975    48 gen x 41-50  Donna  Sì      Laur~ Coal K~          2        109
 ## # i 765 more rows
 \end{verbatim}
 
@@ -3589,19 +3595,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 977 x 8
-##    birth.y   age gen          age.br gender nato.it edu         company         
-##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>       <chr>           
-##  1    1994    29 millennials  21-30  Uomo   Sì      Post-laurea My Vegetarian D~
-##  2    1968    55 gen x        51-60  Donna  No      Laurea      Urban Gallery   
-##  3    1969    54 gen x        51-60  Uomo   Sì      Superiori   Office Tile     
-##  4    1964    59 baby boomers 51-60  Uomo   Sì      Superiori   Raven           
-##  5    1971    52 gen x        51-60  Uomo   Sì      Superiori   Fix Guru        
-##  6    1961    62 baby boomers 61-70  NR     Sì      Laurea      Office Brush    
-##  7    1993    30 millennials  21-30  Donna  Sì      Altro       House Brush     
-##  8    1981    42 millennials  41-50  Uomo   Sì      Laurea      Satan's Sister  
-##  9    1979    44 gen x        41-50  Donna  Sì      Laurea      FruityFlix      
-## 10    1971    52 gen x        51-60  Uomo   Sì      Superiori   Coal Kings      
+## # A tibble: 977 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1994    29 mill~ 21-30  Uomo   Sì      Post~ My Veg~          2         88
+##  2    1968    55 gen x 51-60  Donna  No      Laur~ Urban ~         21        117
+##  3    1969    54 gen x 51-60  Uomo   Sì      Supe~ Office~         32         85
+##  4    1964    59 baby~ 51-60  Uomo   Sì      Supe~ Raven            7        116
+##  5    1971    52 gen x 51-60  Uomo   Sì      Supe~ Fix Gu~         22         97
+##  6    1961    62 baby~ 61-70  NR     Sì      Laur~ Office~         35        109
+##  7    1993    30 mill~ 21-30  Donna  Sì      Altro House ~          2        112
+##  8    1981    42 mill~ 41-50  Uomo   Sì      Laur~ Satan'~         15        119
+##  9    1979    44 gen x 41-50  Donna  Sì      Laur~ Fruity~          0        107
+## 10    1971    52 gen x 51-60  Uomo   Sì      Supe~ Coal K~         30         88
 ## # i 967 more rows
 \end{verbatim}
 
@@ -3614,13 +3620,13 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 4 x 8
-##   birth.y   age gen         age.br gender nato.it edu       company        
-##     <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>     <chr>          
-## 1    1967    56 gen x       51-60  Donna  <NA>    Superiori Fix Guru       
-## 2    1967    56 gen x       51-60  Donna  <NA>    Superiori Bloom Marketing
-## 3    1983    40 millennials 31-40  Uomo   <NA>    Altro     FruityFlix     
-## 4    1974    49 gen x       41-50  Uomo   <NA>    Superiori Art Fade
+## # A tibble: 4 x 10
+##   birth.y   age gen    age.br gender nato.it edu   company work.exp.y driver.sum
+##     <dbl> <dbl> <fct>  <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+## 1    1967    56 gen x  51-60  Donna  <NA>    Supe~ Fix Gu~         33        109
+## 2    1967    56 gen x  51-60  Donna  <NA>    Supe~ Bloom ~         23         92
+## 3    1983    40 mille~ 31-40  Uomo   <NA>    Altro Fruity~          8        112
+## 4    1974    49 gen x  41-50  Uomo   <NA>    Supe~ Art Fa~         29        120
 \end{verbatim}
 
 \begin{Shaded}
@@ -3635,19 +3641,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 190 x 8
-##    birth.y   age gen         age.br gender nato.it edu         company          
-##      <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>       <chr>            
-##  1    1993    30 millennials 21-30  Donna  Sì      Altro       House Brush      
-##  2    1984    39 millennials 31-40  Uomo   Sì      Superiori   Wood Works       
-##  3    1990    33 millennials 31-40  Uomo   Sì      Post-laurea Art Fade         
-##  4    1989    34 millennials 31-40  Donna  Sì      Post-laurea The Loop         
-##  5    1993    30 millennials 21-30  Donna  Sì      Post-laurea Service Scientist
-##  6    1988    35 millennials 31-40  Donna  Sì      Superiori   FruityFlix       
-##  7    1987    36 millennials 31-40  Donna  Sì      Laurea      Garden Store     
-##  8    1983    40 millennials 31-40  Uomo   Sì      Altro       Fix Guru         
-##  9    1984    39 millennials 31-40  Uomo   Sì      Laurea      FruityFlix       
-## 10    1988    35 millennials 31-40  NR     Sì      Post-laurea Wood Works       
+## # A tibble: 190 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1993    30 mill~ 21-30  Donna  Sì      Altro House ~          2        112
+##  2    1984    39 mill~ 31-40  Uomo   Sì      Supe~ Wood W~          4        107
+##  3    1990    33 mill~ 31-40  Uomo   Sì      Post~ Art Fa~          7         98
+##  4    1989    34 mill~ 31-40  Donna  Sì      Post~ The Lo~          3        117
+##  5    1993    30 mill~ 21-30  Donna  Sì      Post~ Servic~          0        108
+##  6    1988    35 mill~ 31-40  Donna  Sì      Supe~ Fruity~         10        116
+##  7    1987    36 mill~ 31-40  Donna  Sì      Laur~ Garden~          5        104
+##  8    1983    40 mill~ 31-40  Uomo   Sì      Altro Fix Gu~         17         98
+##  9    1984    39 mill~ 31-40  Uomo   Sì      Laur~ Fruity~          1        112
+## 10    1988    35 mill~ 31-40  NR     Sì      Post~ Wood W~          4        112
 ## # i 180 more rows
 \end{verbatim}
 
@@ -3660,19 +3666,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 767 x 8
-##    birth.y   age gen          age.br gender nato.it edu       company       
-##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>     <chr>         
-##  1    1968    55 gen x        51-60  Donna  No      Laurea    Urban Gallery 
-##  2    1969    54 gen x        51-60  Uomo   Sì      Superiori Office Tile   
-##  3    1964    59 baby boomers 51-60  Uomo   Sì      Superiori Raven         
-##  4    1971    52 gen x        51-60  Uomo   Sì      Superiori Fix Guru      
-##  5    1961    62 baby boomers 61-70  NR     Sì      Laurea    Office Brush  
-##  6    1981    42 millennials  41-50  Uomo   Sì      Laurea    Satan's Sister
-##  7    1979    44 gen x        41-50  Donna  Sì      Laurea    FruityFlix    
-##  8    1971    52 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-##  9    1966    57 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-## 10    1975    48 gen x        41-50  Donna  Sì      Laurea    Coal Kings    
+## # A tibble: 767 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1968    55 gen x 51-60  Donna  No      Laur~ Urban ~         21        117
+##  2    1969    54 gen x 51-60  Uomo   Sì      Supe~ Office~         32         85
+##  3    1964    59 baby~ 51-60  Uomo   Sì      Supe~ Raven            7        116
+##  4    1971    52 gen x 51-60  Uomo   Sì      Supe~ Fix Gu~         22         97
+##  5    1961    62 baby~ 61-70  NR     Sì      Laur~ Office~         35        109
+##  6    1981    42 mill~ 41-50  Uomo   Sì      Laur~ Satan'~         15        119
+##  7    1979    44 gen x 41-50  Donna  Sì      Laur~ Fruity~          0        107
+##  8    1971    52 gen x 51-60  Uomo   Sì      Supe~ Coal K~         30         88
+##  9    1966    57 gen x 51-60  Uomo   Sì      Supe~ Coal K~         35         93
+## 10    1975    48 gen x 41-50  Donna  Sì      Laur~ Coal K~          2        109
 ## # i 757 more rows
 \end{verbatim}
 
@@ -3685,19 +3691,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 51 x 8
-##    birth.y   age gen         age.br gender nato.it edu         company          
-##      <dbl> <dbl> <fct>       <fct>  <fct>  <chr>   <fct>       <chr>            
-##  1    1994    29 millennials 21-30  Uomo   Sì      Post-laurea My Vegetarian Di~
-##  2    1990    33 millennials 31-40  Uomo   Sì      Post-laurea Art Fade         
-##  3    1989    34 millennials 31-40  Donna  Sì      Post-laurea The Loop         
-##  4    1993    30 millennials 21-30  Donna  Sì      Post-laurea Service Scientist
-##  5    1988    35 millennials 31-40  NR     Sì      Post-laurea Wood Works       
-##  6    1984    39 millennials 31-40  Donna  Sì      Post-laurea Raven            
-##  7    1987    36 millennials 31-40  Donna  Sì      Post-laurea The Zone         
-##  8    1985    38 millennials 31-40  Uomo   Sì      Post-laurea Coal Kings       
-##  9    1985    38 millennials 31-40  Uomo   Sì      Post-laurea Beep Sports      
-## 10    1997    26 gen z       21-30  Donna  No      Post-laurea Satan's Sister   
+## # A tibble: 51 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1994    29 mill~ 21-30  Uomo   Sì      Post~ My Veg~          2         88
+##  2    1990    33 mill~ 31-40  Uomo   Sì      Post~ Art Fa~          7         98
+##  3    1989    34 mill~ 31-40  Donna  Sì      Post~ The Lo~          3        117
+##  4    1993    30 mill~ 21-30  Donna  Sì      Post~ Servic~          0        108
+##  5    1988    35 mill~ 31-40  NR     Sì      Post~ Wood W~          4        112
+##  6    1984    39 mill~ 31-40  Donna  Sì      Post~ Raven           11         93
+##  7    1987    36 mill~ 31-40  Donna  Sì      Post~ The Zo~         11        109
+##  8    1985    38 mill~ 31-40  Uomo   Sì      Post~ Coal K~         18        116
+##  9    1985    38 mill~ 31-40  Uomo   Sì      Post~ Beep S~         13        104
+## 10    1997    26 gen z 21-30  Donna  No      Post~ Satan'~          1        104
 ## # i 41 more rows
 \end{verbatim}
 
@@ -3740,19 +3746,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 8
-##    birth.y   age gen          age.br gender nato.it edu          company        
-##      <dbl> <dbl> <fct>        <fct>  <fct>  <chr>   <fct>        <chr>          
-##  1    1944    79 baby boomers 71-80  Uomo   Sì      Laurea       The Glow Up    
-##  2    1954    69 baby boomers 61-70  NR     Sì      Medie o meno Brunchies      
-##  3    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Raven          
-##  4    1958    65 baby boomers 61-70  Donna  Sì      Laurea       The Spice Route
-##  5    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       The Zone       
-##  6    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Raven          
-##  7    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Evergrow       
-##  8    1958    65 baby boomers 61-70  Donna  Sì      Superiori    Coal Kings     
-##  9    1958    65 baby boomers 61-70  Uomo   Sì      Altro        Raven          
-## 10    1959    64 baby boomers 61-70  Donna  Sì      Laurea       The Zone       
+## # A tibble: 1,000 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    1944    79 baby~ 71-80  Uomo   Sì      Laur~ The Gl~         13         83
+##  2    1954    69 baby~ 61-70  NR     Sì      Medi~ Brunch~         50         72
+##  3    1958    65 baby~ 61-70  Uomo   Sì      Laur~ Raven           32        113
+##  4    1958    65 baby~ 61-70  Donna  Sì      Laur~ The Sp~         20        113
+##  5    1958    65 baby~ 61-70  Uomo   Sì      Laur~ The Zo~         17         84
+##  6    1958    65 baby~ 61-70  Uomo   Sì      Laur~ Raven           40        106
+##  7    1958    65 baby~ 61-70  Uomo   Sì      Laur~ Evergr~          6         99
+##  8    1958    65 baby~ 61-70  Donna  Sì      Supe~ Coal K~         35        113
+##  9    1958    65 baby~ 61-70  Uomo   Sì      Altro Raven           35        108
+## 10    1959    64 baby~ 61-70  Donna  Sì      Laur~ The Zo~         12        107
 ## # i 990 more rows
 \end{verbatim}
 
@@ -3765,19 +3771,19 @@ Let's start by loading packages, clearing the workspace, and loading the data fr
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 1,000 x 8
-##    birth.y   age gen   age.br gender nato.it edu         company             
-##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct>       <chr>               
-##  1    2002    21 gen z 21-30  Uomo   Sì      Superiori   Fix Guru            
-##  2    2000    23 gen z 21-30  Donna  Sì      Laurea      My Plumber          
-##  3    2000    23 gen z 21-30  Uomo   Sì      Superiori   Coal Kings          
-##  4    2000    23 gen z 21-30  Uomo   Sì      Superiori   Coal Kings          
-##  5    2000    23 gen z 21-30  Donna  Sì      Laurea      Beep Sports         
-##  6    2000    23 gen z 21-30  Uomo   Sì      Laurea      Raven               
-##  7    1998    25 gen z 21-30  Donna  Sì      Laurea      The Fresh Breakfast 
-##  8    1998    25 gen z 21-30  Donna  Sì      Laurea      My Vegetarian Dinner
-##  9    1997    26 gen z 21-30  Donna  No      Post-laurea Satan's Sister      
-## 10    1997    26 gen z 21-30  Uomo   Sì      Laurea      Art Fade            
+## # A tibble: 1,000 x 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      <dbl> <dbl> <fct> <fct>  <fct>  <chr>   <fct> <chr>        <dbl>      <dbl>
+##  1    2002    21 gen z 21-30  Uomo   Sì      Supe~ Fix Gu~          1         99
+##  2    2000    23 gen z 21-30  Donna  Sì      Laur~ My Plu~          0        111
+##  3    2000    23 gen z 21-30  Uomo   Sì      Supe~ Coal K~          3        115
+##  4    2000    23 gen z 21-30  Uomo   Sì      Supe~ Coal K~          4         96
+##  5    2000    23 gen z 21-30  Donna  Sì      Laur~ Beep S~          0        114
+##  6    2000    23 gen z 21-30  Uomo   Sì      Laur~ Raven            1         98
+##  7    1998    25 gen z 21-30  Donna  Sì      Laur~ The Fr~          1        100
+##  8    1998    25 gen z 21-30  Donna  Sì      Laur~ My Veg~          2        102
+##  9    1997    26 gen z 21-30  Donna  No      Post~ Satan'~          1        104
+## 10    1997    26 gen z 21-30  Uomo   Sì      Laur~ Art Fa~          0         94
 ## # i 990 more rows
 \end{verbatim}
 
@@ -3897,7 +3903,7 @@ It's often useful to save the ``final'' (clean, recoded, etc.) version of your d
 ##                            Values
 ## Name                       data  
 ## Number of rows             1000  
-## Number of columns          8     
+## Number of columns          10    
 ## _______________________          
 ## Column type frequency:           
 ##   numeric                  1     
@@ -4140,7 +4146,7 @@ It's often useful to save the ``final'' (clean, recoded, etc.) version of your d
 ##                            Values
 ## Name                       data  
 ## Number of rows             1000  
-## Number of columns          8     
+## Number of columns          10    
 ## _______________________          
 ## Column type frequency:           
 ##   numeric                  1     
@@ -4208,6 +4214,7 @@ We will now create and discuss data visualizations based on ggplot2 and the gram
 \begin{Highlighting}[]
 \CommentTok{\# Load packages}
 \FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(janitor)}
 
 \CommentTok{\# Clear the workspace}
 \FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
@@ -4231,13 +4238,13 @@ We will now discuss the five graph components that are visible in that code:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{\textless{}Data\textgreater{}}: the underlying data.
+  \texttt{\textless{}Data\textgreater{}}: the underlying \textbf{data}.
 \item
-  \texttt{\textless{}Geom\_Function\textgreater{}}: geometrical objects (or geoms). A plot consists of one or more geoms (one in each \emph{layer} of the plot).
+  \texttt{\textless{}Geom\_Function\textgreater{}}: geometrical objects (or \textbf{geoms}). A plot consists of one or more geoms, one in each \textbf{layer} of the plot. Note that we can add multiple layers (therefore multiple geoms) in the same plot.
 \item
-  \texttt{\textless{}Mappings\textgreater{}}: an aesthetic mapping from variables in the data to visual properties (i.e., \emph{aesthetics}) of a geom. Each geom has one or more aesthetic mappings.
+  \texttt{\textless{}Mappings\textgreater{}}: an aesthetic mapping from variables in the data to visual properties (i.e., \textbf{aesthetics}) of a geom. There are one or more aesthetic mappings for each geom.
 \item
-  \texttt{\textless{}Scale\_Function\textgreater{}}: a scale that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.
+  \texttt{\textless{}Scale\_Function\textgreater{}}: a \textbf{scale} that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.
 \item
   \texttt{\textless{}Theme\_Function\textgreater{}}: general, non-data graphical elements of the plot (e.g., background color, text fonts, etc.).
 \end{itemize}
@@ -4245,10 +4252,10 @@ We will now discuss the five graph components that are visible in that code:
 \hypertarget{univariate-distributions}{%
 \section{Univariate distributions}\label{univariate-distributions}}
 
-\hypertarget{continuous-variables}{%
-\subsection{Continuous variables}\label{continuous-variables}}
+\hypertarget{continuous-variables-histograms-and-boxplots}{%
+\subsection{Continuous variables: histograms and boxplots}\label{continuous-variables-histograms-and-boxplots}}
 
-\textbf{Histograms}.
+\textbf{Histograms.}
 
 Here we only have one aesthetic mapping in \texttt{aes()}: values of \texttt{age} are mapped to values of \texttt{x} (the horizontal axis).
 
@@ -4330,7 +4337,7 @@ Let's add another geom in a new layer: a density plot. Note that now the bin hei
 
 \includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-22-1.pdf}
 
-\textbf{Boxplots}.
+\textbf{Boxplots.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4356,10 +4363,10 @@ In a new layer, we can use a new geom to add the actual data points on top of th
 
 \includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-24-1.pdf}
 
-\hypertarget{categorical-variables}{%
-\subsection{Categorical variables}\label{categorical-variables}}
+\hypertarget{categorical-variables-simple-barplots}{%
+\subsection{Categorical variables: simple barplots}\label{categorical-variables-simple-barplots}}
 
-\textbf{Simple bar plots}.
+\textbf{Simple barplots}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4445,15 +4452,266 @@ Back to the original level order, modify the fill color scale (and theme).
 \hypertarget{two-continuous-variables-scatterplots}{%
 \subsection{Two continuous variables: scatterplots}\label{two-continuous-variables-scatterplots}}
 
-\hypertarget{two-categorical-variables-complext-bar-plots}{%
-\subsection{Two categorical variables: complext bar plots}\label{two-categorical-variables-complext-bar-plots}}
+Let's first consider the association between \texttt{age} and \texttt{work.exp.y} (years of experience in current company). We expect a positive association
 
-\hypertarget{one-continuous-and-one-categorical-variable}{%
-\subsection{One continuous and one categorical variable}\label{one-continuous-and-one-categorical-variable}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ work.exp.y))}
+\end{Highlighting}
+\end{Shaded}
 
-\textbf{Boxplots}.
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-29-1.pdf}
 
-\textbf{Faceted histograms}.
+Note that there is a lot of overplotting: many of those dots represent multiple data points (what makes us suspicious about this is that points are too neatly arranged as in a grid). Indeed, for each unique combination of \texttt{age} and \texttt{work.exp.y} there are multiple data points (i.e.~multiple respondents):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(age, work.exp.y) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{count}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 530 x 3
+## # Groups:   age, work.exp.y [530]
+##      age work.exp.y     n
+##    <dbl>      <dbl> <int>
+##  1    51         30     7
+##  2    53         32     7
+##  3    54         32     7
+##  4    56         35     7
+##  5    30          2     6
+##  6    42         15     6
+##  7    49         22     6
+##  8    56         30     6
+##  9    57         33     6
+## 10    57         35     6
+## # i 520 more rows
+\end{verbatim}
+
+To see this more clearly in the plot, we can change point shape to hollow point and add a little horizontal jittering.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{106}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ work.exp.y), }\AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{w =} \FloatTok{0.3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-31-1.pdf}
+
+The positive association between the \emph{x} and \emph{y} variables can be seen more clearly if we add, in a new layer, the smoothing line that best approximates the relationship between \emph{x} and \emph{y}. Note that now we have two geoms with the same \texttt{aes()} argument, so we move \texttt{aes()} into the \texttt{ggplot()} call to avoid having to repeat it in both geom calls.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{106}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ work.exp.y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{w =} \FloatTok{0.3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+\end{verbatim}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+Let's do the same plot for another pair of continuous variables: \texttt{age} and \texttt{driver.sum}. The latter is the sum of all answers (converted to numeric) to the 24 ``driver'' questions: an overall score of a respondent's tendency to agree that the ``drivers'' listed in the survey are important. We'll change colors and theme just to show some graphical variation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{106}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ driver.sum)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{w =} \FloatTok{0.3}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+\end{verbatim}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\hypertarget{two-categorical-variables-complex-barplots}{%
+\subsection{Two categorical variables: complex barplots}\label{two-categorical-variables-complex-barplots}}
+
+Here we want to visualize the relationship between two categorical variables: generation (\texttt{gen}) and education level (\texttt{edu}). You can think of the data we want to view as a table of counts (\emph{absolute frequencies}) of \texttt{edu} categories in each \texttt{gen} category:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu, gen) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           edu baby boomers gen x millennials gen z
+##  Medie o meno            3    18           2     0
+##     Superiori           62   289          62     3
+##        Laurea           34   166         149    10
+##   Post-laurea            4    66          71     3
+##         Altro            7    37          13     1
+\end{verbatim}
+
+We can also think of the data as \emph{relative frequencies} of \texttt{edu} categories in each \texttt{gen} category:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu, gen) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_percentages}\NormalTok{(}\AttributeTok{denominator =} \StringTok{"col"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_rounding}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           edu baby boomers gen x millennials gen z
+##  Medie o meno         0.03  0.03        0.01  0.00
+##     Superiori         0.56  0.50        0.21  0.18
+##        Laurea         0.31  0.29        0.50  0.59
+##   Post-laurea         0.04  0.11        0.24  0.18
+##         Altro         0.06  0.06        0.04  0.06
+\end{verbatim}
+
+Alternatively, we can look at the relative frequencies of \texttt{gen} categories in each \texttt{edu} category:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{(edu, gen) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_percentages}\NormalTok{(}\AttributeTok{denominator =} \StringTok{"row"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{adorn\_rounding}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           edu baby boomers gen x millennials gen z
+##  Medie o meno         0.13  0.78        0.09  0.00
+##     Superiori         0.15  0.69        0.15  0.01
+##        Laurea         0.09  0.46        0.42  0.03
+##   Post-laurea         0.03  0.46        0.49  0.02
+##         Altro         0.12  0.64        0.22  0.02
+\end{verbatim}
+
+\textbf{Grouped barplots.}
+
+We start by plotting the counts of educational categories in each generation. Here, each bar is an educational category \emph{within} a generation category. Bars are grouped by generation: each generation is a group with one position on the x axis, and all bars for one generation are plotted side by side around that generation's x position. Note that we transform \texttt{gen} with \texttt{fct\_rev()} so as to have younger generations first, that is, younger on the left and older on the right (the transformation is done within the plot, it doesn't affect the \texttt{data} object).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_rev}\NormalTok{(gen), }\AttributeTok{fill =}\NormalTok{ edu), }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+The \texttt{position\ =\ "dodge"} argument is what tells R to put the different \texttt{edu} bars in the same \texttt{gen} category side by side. We can invert \texttt{gen} and \texttt{edu}, by setting \texttt{edu} as the group and x position, and \texttt{gen} as the categories to be plotted side by side in the same \texttt{edu} group:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ edu, }\AttributeTok{fill =} \FunctionTok{fct\_rev}\NormalTok{(gen)), }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+If we omit the \texttt{position} argument, the bars will be plotted one on top of the other: a stacked barplot.
+
+\textbf{Stacked barplots.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_rev}\NormalTok{(gen), }\AttributeTok{fill =}\NormalTok{ edu))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+Note that these are counts: we are not seeing the relative frequencies of \texttt{edu} categories within each generation, and generations with more respondents (e.g., Gen X) correspond to taller bars (counts are larger).
+
+To get relative frequencies (i.e.~proportions or percentages) in each generation, standardizing all bar heights to the same (1 or 100), we set the \texttt{position} argument to \texttt{"fill"}. Now we see a clear pattern of association between generation and education level.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_rev}\NormalTok{(gen), }\AttributeTok{fill =}\NormalTok{ edu), }\AttributeTok{position =} \StringTok{"fill"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+\hypertarget{one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms}{%
+\subsection{One continuous and one categorical variable: boxplots and faceted histograms}\label{one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms}}
+
+\textbf{Boxplots.}
+
+We have already seen boxplots. Since a boxplot is a very parsimonious and concise way of displaying a univariate distribution, we can easily draw multiple boxplots -- one for each group -- to compare the univariate distribution of the same variable (e.g., \texttt{driver.sum}) in different groups (e.g., generations) side by side. All we need is set the continous variable as the \emph{x} aesthetic and the categorical variable as the \emph{y} (or viceversa for vertical boxplots):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ driver.sum, }\AttributeTok{y =}\NormalTok{ gen))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-41-1.pdf}
+
+We do see some pattern here (\emph{what is that?}).
+
+\textbf{Faceted histograms.}
+
+Whenever we have a categorical variable, we can use \textbf{facets} to create the same plot for each group (i.e., category) of that categorical variable. In other words, the same plot will have multiple facets, each facet corresponding to one category. In this way, we can create, for example, the same histogram of \texttt{driver.sum} for each \texttt{gen} category separately. Let's start by creating the one \texttt{driver.sum} histogram we want:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ driver.sum, }\AttributeTok{y =} \FunctionTok{after\_stat}\NormalTok{(density)), }\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-42-1.pdf}
+
+By adding a facet function, we can now create the same plot for each facet (e.g., \texttt{gen} category):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ driver.sum, }\AttributeTok{y =} \FunctionTok{after\_stat}\NormalTok{(density)), }\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ gen) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-43-1.pdf}
+
+Faceting functions in ggplot2 are very flexible and allow us to explore any kind of grouping by one or more categorical variable. For example, we may want to look at intersections of generations and genders, that is, generation-gender groups. With \texttt{facet\_grid()}, we can have a neat matrix with generations as rows and genders as columns, each cell being a generation-gender combination:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# For simplicity, let\textquotesingle{}s first subset the data to just Male and Female genders.}
+\NormalTok{data.mf }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(gender }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Donna"}\NormalTok{, }\StringTok{"Uomo"}\NormalTok{))}
+
+\CommentTok{\# Now plot}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data.mf) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ driver.sum, }\AttributeTok{y =} \FunctionTok{after\_stat}\NormalTok{(density)), }\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(gen }\SpecialCharTok{\textasciitilde{}}\NormalTok{ gender) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R-for-social-research-and-business-analytics_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \hypertarget{reproducible}{%
 \chapter{Creating reproducible reports}\label{reproducible}}

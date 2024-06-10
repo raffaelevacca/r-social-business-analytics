@@ -285,10 +285,10 @@ data <- data |>
 data |> 
   tabyl(gender)
 
-# Only keep variables of interest for the following.
+# Only keep variables of interest for the following analyses.
 # What is this code doing with the age.br variable?
 data <- data |> 
-  select(birth.y, age, gen, age.br = age.br.2, gender, nato.it, edu, company)
+  select(birth.y, age, gen, age.br = age.br.2, gender, nato.it, edu, company, work.exp.y, driver.sum)
 ```
 
 ## Filtering and rearranging cases

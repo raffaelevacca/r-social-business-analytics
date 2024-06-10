@@ -38,10 +38,10 @@ descriptive-statistics-by-group
 export-results
 visualization
 univariate-distributions
-continuous-variables
-categorical-variables
+continuous-variables-histograms-and-boxplots
+categorical-variables-simple-barplots
 associations-between-two-variables
 two-continuous-variables-scatterplots
-two-categorical-variables-complext-bar-plots
-one-continuous-and-one-categorical-variable
+two-categorical-variables-complex-barplots
+one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms
 reproducible

@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-05-15" />
+<meta name="date" content="2024-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,16 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -200,14 +210,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#univariate-distributions"><i class="fa fa-check"></i><b>4.1</b> Univariate distributions</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#continuous-variables"><i class="fa fa-check"></i><b>4.1.1</b> Continuous variables</a></li>
-<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#categorical-variables"><i class="fa fa-check"></i><b>4.1.2</b> Categorical variables</a></li>
+<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#continuous-variables-histograms-and-boxplots"><i class="fa fa-check"></i><b>4.1.1</b> Continuous variables: histograms and boxplots</a></li>
+<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#categorical-variables-simple-barplots"><i class="fa fa-check"></i><b>4.1.2</b> Categorical variables: simple barplots</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#associations-between-two-variables"><i class="fa fa-check"></i><b>4.2</b> Associations between two variables</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="visualization.html"><a href="visualization.html#two-continuous-variables-scatterplots"><i class="fa fa-check"></i><b>4.2.1</b> Two continuous variables: scatterplots</a></li>
-<li class="chapter" data-level="4.2.2" data-path="visualization.html"><a href="visualization.html#two-categorical-variables-complext-bar-plots"><i class="fa fa-check"></i><b>4.2.2</b> Two categorical variables: complext bar plots</a></li>
-<li class="chapter" data-level="4.2.3" data-path="visualization.html"><a href="visualization.html#one-continuous-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.2.3</b> One continuous and one categorical variable</a></li>
+<li class="chapter" data-level="4.2.2" data-path="visualization.html"><a href="visualization.html#two-categorical-variables-complex-barplots"><i class="fa fa-check"></i><b>4.2.2</b> Two categorical variables: complex barplots</a></li>
+<li class="chapter" data-level="4.2.3" data-path="visualization.html"><a href="visualization.html#one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms"><i class="fa fa-check"></i><b>4.2.3</b> One continuous and one categorical variable: boxplots and faceted histograms</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="reproducible.html"><a href="reproducible.html"><i class="fa fa-check"></i><b>5</b> Creating reproducible reports</a></li>
@@ -236,12 +246,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will now create and discuss data visualizations based on ggplot2 and the grammar of graphics. This chapter draws from the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html?_gl=1*10368jz*_ga*MjQ1OTc2NzA0LjE3MTIxMzM1NTU.*_ga_2C0WZ1JHG0*MTcxMzUyMzU4My40LjEuMTcxMzUyMzYxNS4wLjAuMA..">ggplot2 Cheat Sheet</a>, the <a href="https://ggplot2.tidyverse.org/">ggplot2 website</a>, the <a href="https://r4ds.hadley.nz/data-visualize.html">visualization chapter</a> from Wickham and Grolemund’s <em>R for Data Science</em>, and the third edition (in progress) of Wickham’s <a href="https://ggplot2-book.org/">ggplot2 textbook</a>.</p>
 <div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="visualization.html#cb351-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb351-2"><a href="visualization.html#cb351-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb351-3"><a href="visualization.html#cb351-3" tabindex="-1"></a></span>
-<span id="cb351-4"><a href="visualization.html#cb351-4" tabindex="-1"></a><span class="co"># Clear the workspace</span></span>
-<span id="cb351-5"><a href="visualization.html#cb351-5" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb351-6"><a href="visualization.html#cb351-6" tabindex="-1"></a></span>
-<span id="cb351-7"><a href="visualization.html#cb351-7" tabindex="-1"></a><span class="co"># Let&#39;s load the data we cleaned in the previous chapter</span></span>
-<span id="cb351-8"><a href="visualization.html#cb351-8" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
+<span id="cb351-3"><a href="visualization.html#cb351-3" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb351-4"><a href="visualization.html#cb351-4" tabindex="-1"></a></span>
+<span id="cb351-5"><a href="visualization.html#cb351-5" tabindex="-1"></a><span class="co"># Clear the workspace</span></span>
+<span id="cb351-6"><a href="visualization.html#cb351-6" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb351-7"><a href="visualization.html#cb351-7" tabindex="-1"></a></span>
+<span id="cb351-8"><a href="visualization.html#cb351-8" tabindex="-1"></a><span class="co"># Let&#39;s load the data we cleaned in the previous chapter</span></span>
+<span id="cb351-9"><a href="visualization.html#cb351-9" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.rda&quot;</span>)</span></code></pre></div>
 <p>In its simplest form, any ggplot2 graph is created with the following type of code:</p>
 <pre><code>ggplot(data = &lt;Data&gt;) +
   &lt;Geom_Function&gt;(mapping = aes(&lt;Mappings&gt;)) +
@@ -249,21 +260,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   &lt;Theme_Function&gt;</code></pre>
 <p>We will now discuss the five graph components that are visible in that code:</p>
 <ul>
-<li><code>&lt;Data&gt;</code>: the underlying data.</li>
-<li><code>&lt;Geom_Function&gt;</code>: geometrical objects (or geoms). A plot consists of one or more geoms (one in each <em>layer</em> of the plot).</li>
-<li><code>&lt;Mappings&gt;</code>: an aesthetic mapping from variables in the data to visual properties (i.e., <em>aesthetics</em>) of a geom. Each geom has one or more aesthetic mappings.</li>
-<li><code>&lt;Scale_Function&gt;</code>: a scale that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.</li>
+<li><code>&lt;Data&gt;</code>: the underlying <strong>data</strong>.</li>
+<li><code>&lt;Geom_Function&gt;</code>: geometrical objects (or <strong>geoms</strong>). A plot consists of one or more geoms, one in each <strong>layer</strong> of the plot. Note that we can add multiple layers (therefore multiple geoms) in the same plot.</li>
+<li><code>&lt;Mappings&gt;</code>: an aesthetic mapping from variables in the data to visual properties (i.e., <strong>aesthetics</strong>) of a geom. There are one or more aesthetic mappings for each geom.</li>
+<li><code>&lt;Scale_Function&gt;</code>: a <strong>scale</strong> that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.</li>
 <li><code>&lt;Theme_Function&gt;</code>: general, non-data graphical elements of the plot (e.g., background color, text fonts, etc.).</li>
 </ul>
 <div id="univariate-distributions" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Univariate distributions<a href="visualization.html#univariate-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="continuous-variables" class="section level3 hasAnchor" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Continuous variables<a href="visualization.html#continuous-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Histograms</strong>.</p>
+<div id="continuous-variables-histograms-and-boxplots" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Continuous variables: histograms and boxplots<a href="visualization.html#continuous-variables-histograms-and-boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Histograms.</strong></p>
 <p>Here we only have one aesthetic mapping in <code>aes()</code>: values of <code>age</code> are mapped to values of <code>x</code> (the horizontal axis).</p>
 <div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="visualization.html#cb353-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
 <span id="cb353-2"><a href="visualization.html#cb353-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins =
+## 30`. Pick better value with
+## `binwidth`.</code></pre>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Note that there is also a <em>statistical transformation</em> being applied to the data before plotting (<em>which one?</em>). We can modify that transformation of the data: for example, pick a different width for the histogram bins.</p>
 <div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="visualization.html#cb355-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
@@ -295,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb359-5"><a href="visualization.html#cb359-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
 <span id="cb359-6"><a href="visualization.html#cb359-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p><strong>Boxplots</strong>.</p>
+<p><strong>Boxplots.</strong></p>
 <div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="visualization.html#cb360-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
 <span id="cb360-2"><a href="visualization.html#cb360-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age))</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
@@ -308,9 +321,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb361-6"><a href="visualization.html#cb361-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 </div>
-<div id="categorical-variables" class="section level3 hasAnchor" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Categorical variables<a href="visualization.html#categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Simple bar plots</strong>.</p>
+<div id="categorical-variables-simple-barplots" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Categorical variables: simple barplots<a href="visualization.html#categorical-variables-simple-barplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Simple barplots</strong>.</p>
 <div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="visualization.html#cb362-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
 <span id="cb362-2"><a href="visualization.html#cb362-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu))</span></code></pre></div>
 <p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
@@ -352,14 +365,140 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.2</span> Associations between two variables<a href="visualization.html#associations-between-two-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="two-continuous-variables-scatterplots" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Two continuous variables: scatterplots<a href="visualization.html#two-continuous-variables-scatterplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s first consider the association between <code>age</code> and <code>work.exp.y</code> (years of experience in current company). We expect a positive association</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="visualization.html#cb370-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb370-2"><a href="visualization.html#cb370-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> work.exp.y))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>Note that there is a lot of overplotting: many of those dots represent multiple data points (what makes us suspicious about this is that points are too neatly arranged as in a grid). Indeed, for each unique combination of <code>age</code> and <code>work.exp.y</code> there are multiple data points (i.e. multiple respondents):</p>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="visualization.html#cb371-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb371-2"><a href="visualization.html#cb371-2" tabindex="-1"></a>  <span class="fu">group_by</span>(age, work.exp.y) <span class="sc">|&gt;</span> </span>
+<span id="cb371-3"><a href="visualization.html#cb371-3" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb371-4"><a href="visualization.html#cb371-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 530 × 3
+## # Groups:   age, work.exp.y
+## #   [530]
+##      age work.exp.y     n
+##    &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+##  1    51         30     7
+##  2    53         32     7
+##  3    54         32     7
+##  4    56         35     7
+##  5    30          2     6
+##  6    42         15     6
+##  7    49         22     6
+##  8    56         30     6
+##  9    57         33     6
+## 10    57         35     6
+## # ℹ 520 more rows</code></pre>
+<p>To see this more clearly in the plot, we can change point shape to hollow point and add a little horizontal jittering.</p>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="visualization.html#cb373-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">106</span>)</span>
+<span id="cb373-2"><a href="visualization.html#cb373-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb373-3"><a href="visualization.html#cb373-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> work.exp.y), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">w =</span> <span class="fl">0.3</span>))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>The positive association between the <em>x</em> and <em>y</em> variables can be seen more clearly if we add, in a new layer, the smoothing line that best approximates the relationship between <em>x</em> and <em>y</em>. Note that now we have two geoms with the same <code>aes()</code> argument, so we move <code>aes()</code> into the <code>ggplot()</code> call to avoid having to repeat it in both geom calls.</p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="visualization.html#cb374-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">106</span>)</span>
+<span id="cb374-2"><a href="visualization.html#cb374-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> work.exp.y)) <span class="sc">+</span></span>
+<span id="cb374-3"><a href="visualization.html#cb374-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">w =</span> <span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb374-4"><a href="visualization.html#cb374-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method
+## = &#39;gam&#39; and formula = &#39;y ~
+## s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>Let’s do the same plot for another pair of continuous variables: <code>age</code> and <code>driver.sum</code>. The latter is the sum of all answers (converted to numeric) to the 24 “driver” questions: an overall score of a respondent’s tendency to agree that the “drivers” listed in the survey are important. We’ll change colors and theme just to show some graphical variation.</p>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="visualization.html#cb376-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">106</span>)</span>
+<span id="cb376-2"><a href="visualization.html#cb376-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> driver.sum)) <span class="sc">+</span></span>
+<span id="cb376-3"><a href="visualization.html#cb376-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">w =</span> <span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb376-4"><a href="visualization.html#cb376-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb376-5"><a href="visualization.html#cb376-5" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method
+## = &#39;gam&#39; and formula = &#39;y ~
+## s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 </div>
-<div id="two-categorical-variables-complext-bar-plots" class="section level3 hasAnchor" number="4.2.2">
-<h3><span class="header-section-number">4.2.2</span> Two categorical variables: complext bar plots<a href="visualization.html#two-categorical-variables-complext-bar-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="two-categorical-variables-complex-barplots" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Two categorical variables: complex barplots<a href="visualization.html#two-categorical-variables-complex-barplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we want to visualize the relationship between two categorical variables: generation (<code>gen</code>) and education level (<code>edu</code>). You can think of the data we want to view as a table of counts (<em>absolute frequencies</em>) of <code>edu</code> categories in each <code>gen</code> category:</p>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="visualization.html#cb378-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb378-2"><a href="visualization.html#cb378-2" tabindex="-1"></a>  <span class="fu">tabyl</span>(edu, gen) </span></code></pre></div>
+<pre><code>##           edu baby boomers gen x millennials gen z
+##  Medie o meno            3    18           2     0
+##     Superiori           62   289          62     3
+##        Laurea           34   166         149    10
+##   Post-laurea            4    66          71     3
+##         Altro            7    37          13     1</code></pre>
+<p>We can also think of the data as <em>relative frequencies</em> of <code>edu</code> categories in each <code>gen</code> category:</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="visualization.html#cb380-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb380-2"><a href="visualization.html#cb380-2" tabindex="-1"></a>  <span class="fu">tabyl</span>(edu, gen) <span class="sc">|&gt;</span> </span>
+<span id="cb380-3"><a href="visualization.html#cb380-3" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="at">denominator =</span> <span class="st">&quot;col&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb380-4"><a href="visualization.html#cb380-4" tabindex="-1"></a>  <span class="fu">adorn_rounding</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##           edu baby boomers gen x millennials gen z
+##  Medie o meno         0.03  0.03        0.01  0.00
+##     Superiori         0.56  0.50        0.21  0.18
+##        Laurea         0.31  0.29        0.50  0.59
+##   Post-laurea         0.04  0.11        0.24  0.18
+##         Altro         0.06  0.06        0.04  0.06</code></pre>
+<p>Alternatively, we can look at the relative frequencies of <code>gen</code> categories in each <code>edu</code> category:</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="visualization.html#cb382-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb382-2"><a href="visualization.html#cb382-2" tabindex="-1"></a>  <span class="fu">tabyl</span>(edu, gen) <span class="sc">|&gt;</span> </span>
+<span id="cb382-3"><a href="visualization.html#cb382-3" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="at">denominator =</span> <span class="st">&quot;row&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb382-4"><a href="visualization.html#cb382-4" tabindex="-1"></a>  <span class="fu">adorn_rounding</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##           edu baby boomers gen x millennials gen z
+##  Medie o meno         0.13  0.78        0.09  0.00
+##     Superiori         0.15  0.69        0.15  0.01
+##        Laurea         0.09  0.46        0.42  0.03
+##   Post-laurea         0.03  0.46        0.49  0.02
+##         Altro         0.12  0.64        0.22  0.02</code></pre>
+<p><strong>Grouped barplots.</strong></p>
+<p>We start by plotting the counts of educational categories in each generation. Here, each bar is an educational category <em>within</em> a generation category. Bars are grouped by generation: each generation is a group with one position on the x axis, and all bars for one generation are plotted side by side around that generation’s x position. Note that we transform <code>gen</code> with <code>fct_rev()</code> so as to have younger generations first, that is, younger on the left and older on the right (the transformation is done within the plot, it doesn’t affect the <code>data</code> object).</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="visualization.html#cb384-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb384-2"><a href="visualization.html#cb384-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(gen), <span class="at">fill =</span> edu), <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>The <code>position = "dodge"</code> argument is what tells R to put the different <code>edu</code> bars in the same <code>gen</code> category side by side. We can invert <code>gen</code> and <code>edu</code>, by setting <code>edu</code> as the group and x position, and <code>gen</code> as the categories to be plotted side by side in the same <code>edu</code> group:</p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="visualization.html#cb385-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb385-2"><a href="visualization.html#cb385-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu, <span class="at">fill =</span> <span class="fu">fct_rev</span>(gen)), <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>If we omit the <code>position</code> argument, the bars will be plotted one on top of the other: a stacked barplot.</p>
+<p><strong>Stacked barplots.</strong></p>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="visualization.html#cb386-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb386-2"><a href="visualization.html#cb386-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(gen), <span class="at">fill =</span> edu))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Note that these are counts: we are not seeing the relative frequencies of <code>edu</code> categories within each generation, and generations with more respondents (e.g., Gen X) correspond to taller bars (counts are larger).</p>
+<p>To get relative frequencies (i.e. proportions or percentages) in each generation, standardizing all bar heights to the same (1 or 100), we set the <code>position</code> argument to <code>"fill"</code>. Now we see a clear pattern of association between generation and education level.</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="visualization.html#cb387-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb387-2"><a href="visualization.html#cb387-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(gen), <span class="at">fill =</span> edu), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 </div>
-<div id="one-continuous-and-one-categorical-variable" class="section level3 hasAnchor" number="4.2.3">
-<h3><span class="header-section-number">4.2.3</span> One continuous and one categorical variable<a href="visualization.html#one-continuous-and-one-categorical-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Boxplots</strong>.</p>
-<p><strong>Faceted histograms</strong>.</p>
+<div id="one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> One continuous and one categorical variable: boxplots and faceted histograms<a href="visualization.html#one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Boxplots.</strong></p>
+<p>We have already seen boxplots. Since a boxplot is a very parsimonious and concise way of displaying a univariate distribution, we can easily draw multiple boxplots – one for each group – to compare the univariate distribution of the same variable (e.g., <code>driver.sum</code>) in different groups (e.g., generations) side by side. All we need is set the continous variable as the <em>x</em> aesthetic and the categorical variable as the <em>y</em> (or viceversa for vertical boxplots):</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="visualization.html#cb388-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb388-2"><a href="visualization.html#cb388-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> driver.sum, <span class="at">y =</span> gen))</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>We do see some pattern here (<em>what is that?</em>).</p>
+<p><strong>Faceted histograms.</strong></p>
+<p>Whenever we have a categorical variable, we can use <strong>facets</strong> to create the same plot for each group (i.e., category) of that categorical variable. In other words, the same plot will have multiple facets, each facet corresponding to one category. In this way, we can create, for example, the same histogram of <code>driver.sum</code> for each <code>gen</code> category separately. Let’s start by creating the one <code>driver.sum</code> histogram we want:</p>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="visualization.html#cb389-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb389-2"><a href="visualization.html#cb389-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> driver.sum, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb389-3"><a href="visualization.html#cb389-3" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>By adding a facet function, we can now create the same plot for each facet (e.g., <code>gen</code> category):</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="visualization.html#cb390-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data) <span class="sc">+</span></span>
+<span id="cb390-2"><a href="visualization.html#cb390-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> driver.sum, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb390-3"><a href="visualization.html#cb390-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> gen) <span class="sc">+</span></span>
+<span id="cb390-4"><a href="visualization.html#cb390-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>Faceting functions in ggplot2 are very flexible and allow us to explore any kind of grouping by one or more categorical variable. For example, we may want to look at intersections of generations and genders, that is, generation-gender groups. With <code>facet_grid()</code>, we can have a neat matrix with generations as rows and genders as columns, each cell being a generation-gender combination:</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="visualization.html#cb391-1" tabindex="-1"></a><span class="co"># For simplicity, let&#39;s first subset the data to just Male and Female genders.</span></span>
+<span id="cb391-2"><a href="visualization.html#cb391-2" tabindex="-1"></a>data.mf <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb391-3"><a href="visualization.html#cb391-3" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Donna&quot;</span>, <span class="st">&quot;Uomo&quot;</span>))</span>
+<span id="cb391-4"><a href="visualization.html#cb391-4" tabindex="-1"></a></span>
+<span id="cb391-5"><a href="visualization.html#cb391-5" tabindex="-1"></a><span class="co"># Now plot</span></span>
+<span id="cb391-6"><a href="visualization.html#cb391-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data.mf) <span class="sc">+</span></span>
+<span id="cb391-7"><a href="visualization.html#cb391-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> driver.sum, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb391-8"><a href="visualization.html#cb391-8" tabindex="-1"></a>  <span class="fu">facet_grid</span>(gen <span class="sc">~</span> gender) <span class="sc">+</span></span>
+<span id="cb391-9"><a href="visualization.html#cb391-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R-for-social-research-and-business-analytics_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 
 </div>
 </div>

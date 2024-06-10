@@ -5,6 +5,7 @@ We will now create and discuss data visualizations based on ggplot2 and the gram
 ```{r, message=FALSE}
 # Load packages
 library(tidyverse)
+library(janitor)
 
 # Clear the workspace
 rm(list = ls())
@@ -24,17 +25,17 @@ ggplot(data = <Data>) +
 
 We will now discuss the five graph components that are visible in that code:
 
-* `<Data>`: the underlying data.
-* `<Geom_Function>`: geometrical objects (or geoms). A plot consists of one or more geoms (one in each _layer_ of the plot).
-* `<Mappings>`: an aesthetic mapping from variables in the data to visual properties (i.e., _aesthetics_) of a geom. Each geom has one or more aesthetic mappings.
-* `<Scale_Function>`: a scale that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.
+* `<Data>`: the underlying **data**.
+* `<Geom_Function>`: geometrical objects (or **geoms**). A plot consists of one or more geoms, one in each **layer** of the plot. Note that we can add multiple layers (therefore multiple geoms) in the same plot.
+* `<Mappings>`: an aesthetic mapping from variables in the data to visual properties (i.e., **aesthetics**) of a geom. There are one or more aesthetic mappings for each geom.
+* `<Scale_Function>`: a **scale** that assigns a specific visual attribute (i.e., a value of the aesthetic) to each value of a variable in the data. Each aesthetic mapping has one scale.
 * `<Theme_Function>`: general, non-data graphical elements of the plot (e.g., background color, text fonts, etc.). 
 
 ## Univariate distributions
 
-### Continuous variables
+### Continuous variables: histograms and boxplots
 
-**Histograms**.
+**Histograms.**
 
 Here we only have one aesthetic mapping in `aes()`: values of `age` are mapped to values of `x` (the horizontal axis).
 
@@ -88,7 +89,7 @@ ggplot(data = data) +
   theme_bw()
 ```
 
-**Boxplots**.
+**Boxplots.**
 
 ```{r}
 ggplot(data = data) +
@@ -106,9 +107,9 @@ ggplot(data = data) +
   geom_boxplot(aes(x = age), fill = NA, color = "red")
 ```
 
-### Categorical variables
+### Categorical variables: simple barplots
 
-**Simple bar plots**.
+**Simple barplots**.
 
 ```{r}
 ggplot(data = data) +
@@ -159,10 +160,152 @@ ggplot(data = data) +
 
 ### Two continuous variables: scatterplots
 
-### Two categorical variables: complext bar plots
+Let's first consider the association between `age` and `work.exp.y` (years of experience in current company). We expect a positive association
 
-### One continuous and one categorical variable
+```{r}
+ggplot(data = data) +
+  geom_point(aes(x = age, y = work.exp.y))
+```
 
-**Boxplots**.
+Note that there is a lot of overplotting: many of those dots represent multiple data points (what makes us suspicious about this is that points are too neatly arranged as in a grid). Indeed, for each unique combination of `age` and `work.exp.y` there are multiple data points (i.e. multiple respondents):
 
-**Faceted histograms**.
+```{r}
+data |> 
+  group_by(age, work.exp.y) |> 
+  count() |> 
+  arrange(desc(n))
+```
+
+To see this more clearly in the plot, we can change point shape to hollow point and add a little horizontal jittering.
+
+```{r}
+set.seed(106)
+ggplot(data = data) +
+  geom_point(aes(x = age, y = work.exp.y), shape = 21, position = position_jitter(w = 0.3))
+```
+
+The positive association between the _x_ and _y_ variables can be seen more clearly if we add, in a new layer, the smoothing line that best approximates the relationship between _x_ and _y_. Note that now we have two geoms with the same `aes()` argument, so we move `aes()` into the `ggplot()` call to avoid having to repeat it in both geom calls.
+
+```{r}
+set.seed(106)
+ggplot(data = data, aes(x = age, y = work.exp.y)) +
+  geom_point(shape = 21, position = position_jitter(w = 0.3)) +
+  geom_smooth()
+```
+
+Let's do the same plot for another pair of continuous variables: `age` and `driver.sum`. The latter is the sum of all answers (converted to numeric) to the 24 "driver" questions: an overall score of a respondent's tendency to agree that the "drivers" listed in the survey are important. We'll change colors and theme just to show some graphical variation.
+
+```{r}
+set.seed(106)
+ggplot(data = data, aes(x = age, y = driver.sum)) +
+  geom_point(shape = 21, color = "white", position = position_jitter(w = 0.3)) +
+  geom_smooth(color = "red") +
+  theme_dark()
+```
+
+### Two categorical variables: complex barplots
+
+Here we want to visualize the relationship between two categorical variables: generation (`gen`) and education level (`edu`). You can think of the data we want to view as a table of counts (_absolute frequencies_) of `edu` categories in each `gen` category:
+
+```{r}
+data |> 
+  tabyl(edu, gen) 
+```
+
+We can also think of the data as _relative frequencies_ of `edu` categories in each `gen` category:
+
+```{r}
+data |> 
+  tabyl(edu, gen) |> 
+  adorn_percentages(denominator = "col") |> 
+  adorn_rounding(2)
+```
+
+Alternatively, we can look at the relative frequencies of `gen` categories in each `edu` category:
+
+```{r}
+data |> 
+  tabyl(edu, gen) |> 
+  adorn_percentages(denominator = "row") |> 
+  adorn_rounding(2)
+```
+
+**Grouped barplots.**
+
+We start by plotting the counts of educational categories in each generation. Here, each bar is an educational category _within_ a generation category. Bars are grouped by generation: each generation is a group with one position on the x axis, and all bars for one generation are plotted side by side around that generation's x position. Note that we transform `gen` with `fct_rev()` so as to have younger generations first, that is, younger on the left and older on the right (the transformation is done within the plot, it doesn't affect the `data` object).
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = fct_rev(gen), fill = edu), position = "dodge")
+```
+
+The `position = "dodge"` argument is what tells R to put the different `edu` bars in the same `gen` category side by side. We can invert `gen` and `edu`, by setting `edu` as the group and x position, and `gen` as the categories to be plotted side by side in the same `edu` group:
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = edu, fill = fct_rev(gen)), position = "dodge")
+```
+
+If we omit the `position` argument, the bars will be plotted one on top of the other: a stacked barplot.
+
+**Stacked barplots.**
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = fct_rev(gen), fill = edu))
+```
+
+Note that these are counts: we are not seeing the relative frequencies of `edu` categories within each generation, and generations with more respondents (e.g., Gen X) correspond to taller bars (counts are larger).
+
+To get relative frequencies (i.e. proportions or percentages) in each generation, standardizing all bar heights to the same (1 or 100), we set the `position` argument to `"fill"`. Now we see a clear pattern of association between generation and education level.
+
+```{r}
+ggplot(data = data) +
+  geom_bar(aes(x = fct_rev(gen), fill = edu), position = "fill")
+```
+
+### One continuous and one categorical variable: boxplots and faceted histograms
+
+**Boxplots.**
+
+We have already seen boxplots. Since a boxplot is a very parsimonious and concise way of displaying a univariate distribution, we can easily draw multiple boxplots -- one for each group -- to compare the univariate distribution of the same variable (e.g., `driver.sum`) in different groups (e.g., generations) side by side. All we need is set the continous variable as the _x_ aesthetic and the categorical variable as the _y_ (or viceversa for vertical boxplots):
+
+```{r}
+ggplot(data = data) +
+  geom_boxplot(aes(x = driver.sum, y = gen))
+```
+
+We do see some pattern here (_what is that?_).
+
+**Faceted histograms.**
+
+Whenever we have a categorical variable, we can use **facets** to create the same plot for each group (i.e., category) of that categorical variable. In other words, the same plot will have multiple facets, each facet corresponding to one category. In this way, we can create, for example, the same histogram of `driver.sum` for each `gen` category separately. Let's start by creating the one `driver.sum` histogram we want:
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = driver.sum, y = after_stat(density)), binwidth = 5, color = "white") +
+  theme_bw()
+```
+
+By adding a facet function, we can now create the same plot for each facet (e.g., `gen` category):
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = driver.sum, y = after_stat(density)), binwidth = 5, color = "white") +
+  facet_wrap(~ gen) +
+  theme_bw()
+```
+
+Faceting functions in ggplot2 are very flexible and allow us to explore any kind of grouping by one or more categorical variable. For example, we may want to look at intersections of generations and genders, that is, generation-gender groups. With `facet_grid()`, we can have a neat matrix with generations as rows and genders as columns, each cell being a generation-gender combination:
+
+```{r}
+# For simplicity, let's first subset the data to just Male and Female genders.
+data.mf <- data |> 
+  filter(gender %in% c("Donna", "Uomo"))
+
+# Now plot
+ggplot(data = data.mf) +
+  geom_histogram(aes(x = driver.sum, y = after_stat(density)), binwidth = 5, color = "white") +
+  facet_grid(gen ~ gender) +
+  theme_bw()
+```

@@ -23,7 +23,7 @@
 <meta name="author" content="Raffaele Vacca" />
 
 
-<meta name="date" content="2024-05-15" />
+<meta name="date" content="2024-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,16 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -200,14 +210,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#univariate-distributions"><i class="fa fa-check"></i><b>4.1</b> Univariate distributions</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#continuous-variables"><i class="fa fa-check"></i><b>4.1.1</b> Continuous variables</a></li>
-<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#categorical-variables"><i class="fa fa-check"></i><b>4.1.2</b> Categorical variables</a></li>
+<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#continuous-variables-histograms-and-boxplots"><i class="fa fa-check"></i><b>4.1.1</b> Continuous variables: histograms and boxplots</a></li>
+<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#categorical-variables-simple-barplots"><i class="fa fa-check"></i><b>4.1.2</b> Categorical variables: simple barplots</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#associations-between-two-variables"><i class="fa fa-check"></i><b>4.2</b> Associations between two variables</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="visualization.html"><a href="visualization.html#two-continuous-variables-scatterplots"><i class="fa fa-check"></i><b>4.2.1</b> Two continuous variables: scatterplots</a></li>
-<li class="chapter" data-level="4.2.2" data-path="visualization.html"><a href="visualization.html#two-categorical-variables-complext-bar-plots"><i class="fa fa-check"></i><b>4.2.2</b> Two categorical variables: complext bar plots</a></li>
-<li class="chapter" data-level="4.2.3" data-path="visualization.html"><a href="visualization.html#one-continuous-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.2.3</b> One continuous and one categorical variable</a></li>
+<li class="chapter" data-level="4.2.2" data-path="visualization.html"><a href="visualization.html#two-categorical-variables-complex-barplots"><i class="fa fa-check"></i><b>4.2.2</b> Two categorical variables: complex barplots</a></li>
+<li class="chapter" data-level="4.2.3" data-path="visualization.html"><a href="visualization.html#one-continuous-and-one-categorical-variable-boxplots-and-faceted-histograms"><i class="fa fa-check"></i><b>4.2.3</b> One continuous and one categorical variable: boxplots and faceted histograms</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="reproducible.html"><a href="reproducible.html"><i class="fa fa-check"></i><b>5</b> Creating reproducible reports</a></li>
@@ -247,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb223-8"><a href="wrangling.html#cb223-8" tabindex="-1"></a></span>
 <span id="cb223-9"><a href="wrangling.html#cb223-9" tabindex="-1"></a><span class="co"># Let&#39;s read the data in as a tibble data frame.</span></span>
 <span id="cb223-10"><a href="wrangling.html#cb223-10" tabindex="-1"></a>(data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./data/data.csv&quot;</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 5
+<pre><code>## # A tibble: 1,000 × 7
 ##    1. Il tuo anno di nascita è..…¹ 2. Il tuo genere è..…² 4. Sei nato/a in Ita…³
 ##                              &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;                 
 ##  1                            1994 Uomo                   Sì                    
@@ -263,8 +273,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 990 more rows
 ## # ℹ abbreviated names: ¹​`1. Il tuo anno di nascita è...`,
 ## #   ²​`2. Il tuo genere è...`, ³​`4. Sei nato/a in Italia?`
-## # ℹ 2 more variables:
-## #   `11. Il tuo ultimo titolo di studi conseguito è...` &lt;chr&gt;, company &lt;chr&gt;</code></pre>
+## # ℹ 4 more variables:
+## #   `11. Il tuo ultimo titolo di studi conseguito è...` &lt;chr&gt;, company &lt;chr&gt;,
+## #   work.exp.y &lt;dbl&gt;, driver.sum &lt;dbl&gt;</code></pre>
 <div id="subsetting-and-renaming-variables" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Subsetting and renaming variables<a href="wrangling.html#subsetting-and-renaming-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
@@ -279,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb225-4"><a href="wrangling.html#cb225-4" tabindex="-1"></a>    <span class="at">birth.y =</span> <span class="st">`</span><span class="at">1. Il tuo anno di nascita è...</span><span class="st">`</span>,</span>
 <span id="cb225-5"><a href="wrangling.html#cb225-5" tabindex="-1"></a>    <span class="at">gender =</span> <span class="st">`</span><span class="at">2. Il tuo genere è...</span><span class="st">`</span></span>
 <span id="cb225-6"><a href="wrangling.html#cb225-6" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 5
+<pre><code>## # A tibble: 1,000 × 7
 ##    birth.y gender          4. Sei nato/a in Ita…¹ 11. Il tuo ultimo ti…² company
 ##      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;                  &lt;chr&gt;                  &lt;chr&gt;  
 ##  1    1994 Uomo            Sì                     Master post-laurea     My Veg…
@@ -294,14 +305,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10    1971 Uomo            Sì                     Diploma di scuola sup… Coal K…
 ## # ℹ 990 more rows
 ## # ℹ abbreviated names: ¹​`4. Sei nato/a in Italia?`,
-## #   ²​`11. Il tuo ultimo titolo di studi conseguito è...`</code></pre>
+## #   ²​`11. Il tuo ultimo titolo di studi conseguito è...`
+## # ℹ 2 more variables: work.exp.y &lt;dbl&gt;, driver.sum &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="wrangling.html#cb227-1" tabindex="-1"></a><span class="co"># Give better names to the variables: by variable position.</span></span>
 <span id="cb227-2"><a href="wrangling.html#cb227-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb227-3"><a href="wrangling.html#cb227-3" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
 <span id="cb227-4"><a href="wrangling.html#cb227-4" tabindex="-1"></a>    <span class="at">birth.y =</span> <span class="dv">1</span>,</span>
 <span id="cb227-5"><a href="wrangling.html#cb227-5" tabindex="-1"></a>    <span class="at">gender =</span> <span class="dv">2</span></span>
 <span id="cb227-6"><a href="wrangling.html#cb227-6" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 5
+<pre><code>## # A tibble: 1,000 × 7
 ##    birth.y gender          4. Sei nato/a in Ita…¹ 11. Il tuo ultimo ti…² company
 ##      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;                  &lt;chr&gt;                  &lt;chr&gt;  
 ##  1    1994 Uomo            Sì                     Master post-laurea     My Veg…
@@ -316,12 +328,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10    1971 Uomo            Sì                     Diploma di scuola sup… Coal K…
 ## # ℹ 990 more rows
 ## # ℹ abbreviated names: ¹​`4. Sei nato/a in Italia?`,
-## #   ²​`11. Il tuo ultimo titolo di studi conseguito è...`</code></pre>
+## #   ²​`11. Il tuo ultimo titolo di studi conseguito è...`
+## # ℹ 2 more variables: work.exp.y &lt;dbl&gt;, driver.sum &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="wrangling.html#cb229-1" tabindex="-1"></a><span class="co"># Rename all or a collection of variables with a function: .x represents each</span></span>
 <span id="cb229-2"><a href="wrangling.html#cb229-2" tabindex="-1"></a><span class="co"># variable name</span></span>
 <span id="cb229-3"><a href="wrangling.html#cb229-3" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb229-4"><a href="wrangling.html#cb229-4" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">toupper</span>(.x))</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 5
+<pre><code>## # A tibble: 1,000 × 7
 ##    1. IL TUO ANNO DI NASCITA È..…¹ 2. IL TUO GENERE È..…² 4. SEI NATO/A IN ITA…³
 ##                              &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;                 
 ##  1                            1994 Uomo                   Sì                    
@@ -337,8 +350,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 990 more rows
 ## # ℹ abbreviated names: ¹​`1. IL TUO ANNO DI NASCITA È...`,
 ## #   ²​`2. IL TUO GENERE È...`, ³​`4. SEI NATO/A IN ITALIA?`
-## # ℹ 2 more variables:
-## #   `11. IL TUO ULTIMO TITOLO DI STUDI CONSEGUITO È...` &lt;chr&gt;, COMPANY &lt;chr&gt;</code></pre>
+## # ℹ 4 more variables:
+## #   `11. IL TUO ULTIMO TITOLO DI STUDI CONSEGUITO È...` &lt;chr&gt;, COMPANY &lt;chr&gt;,
+## #   WORK.EXP.Y &lt;dbl&gt;, DRIVER.SUM &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="wrangling.html#cb231-1" tabindex="-1"></a><span class="co"># Final names </span></span>
 <span id="cb231-2"><a href="wrangling.html#cb231-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
 <span id="cb231-3"><a href="wrangling.html#cb231-3" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
@@ -348,19 +362,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb231-7"><a href="wrangling.html#cb231-7" tabindex="-1"></a>    <span class="at">edu =</span> <span class="st">`</span><span class="at">11. Il tuo ultimo titolo di studi conseguito è...</span><span class="st">`</span></span>
 <span id="cb231-8"><a href="wrangling.html#cb231-8" tabindex="-1"></a>  )</span>
 <span id="cb231-9"><a href="wrangling.html#cb231-9" tabindex="-1"></a>data</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 5
-##    birth.y gender                    nato.it edu                         company
-##      &lt;dbl&gt; &lt;chr&gt;                     &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;  
-##  1    1994 Uomo                      Sì      Master post-laurea          My Veg…
-##  2    1968 Donna                     No      Laurea                      Urban …
-##  3    1969 Uomo                      Sì      Diploma di scuola superiore Office…
-##  4    1964 Uomo                      Sì      Diploma di scuola superiore Raven  
-##  5    1971 Uomo                      Sì      Diploma di scuola superiore Fix Gu…
-##  6    1961 Preferisco non rispondere Sì      Laurea                      Office…
-##  7    1993 Donna                     Sì      Scuola di specializzazione… House …
-##  8    1981 Uomo                      Sì      Laurea                      Satan&#39;…
-##  9    1979 Donna                     Sì      Laurea                      Fruity…
-## 10    1971 Uomo                      Sì      Diploma di scuola superiore Coal K…
+<pre><code>## # A tibble: 1,000 × 7
+##    birth.y gender                    nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;chr&gt;                     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1994 Uomo                      Sì      Mast… My Veg…          2         88
+##  2    1968 Donna                     No      Laur… Urban …         21        117
+##  3    1969 Uomo                      Sì      Dipl… Office…         32         85
+##  4    1964 Uomo                      Sì      Dipl… Raven            7        116
+##  5    1971 Uomo                      Sì      Dipl… Fix Gu…         22         97
+##  6    1961 Preferisco non rispondere Sì      Laur… Office…         35        109
+##  7    1993 Donna                     Sì      Scuo… House …          2        112
+##  8    1981 Uomo                      Sì      Laur… Satan&#39;…         15        119
+##  9    1979 Donna                     Sì      Laur… Fruity…          0        107
+## 10    1971 Uomo                      Sì      Dipl… Coal K…         30         88
 ## # ℹ 990 more rows</code></pre>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="wrangling.html#cb233-1" tabindex="-1"></a><span class="co"># Subset to specific variables of interest.</span></span>
 <span id="cb233-2"><a href="wrangling.html#cb233-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
@@ -382,35 +396,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="wrangling.html#cb235-1" tabindex="-1"></a><span class="co"># Remove certain variables</span></span>
 <span id="cb235-2"><a href="wrangling.html#cb235-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb235-3"><a href="wrangling.html#cb235-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>gender)</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 4
-##    birth.y nato.it edu                                    company             
-##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                                  &lt;chr&gt;               
-##  1    1994 Sì      Master post-laurea                     My Vegetarian Dinner
-##  2    1968 No      Laurea                                 Urban Gallery       
-##  3    1969 Sì      Diploma di scuola superiore            Office Tile         
-##  4    1964 Sì      Diploma di scuola superiore            Raven               
-##  5    1971 Sì      Diploma di scuola superiore            Fix Guru            
-##  6    1961 Sì      Laurea                                 Office Brush        
-##  7    1993 Sì      Scuola di specializzazione post-laurea House Brush         
-##  8    1981 Sì      Laurea                                 Satan&#39;s Sister      
-##  9    1979 Sì      Laurea                                 FruityFlix          
-## 10    1971 Sì      Diploma di scuola superiore            Coal Kings          
+<pre><code>## # A tibble: 1,000 × 6
+##    birth.y nato.it edu                             company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                           &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1994 Sì      Master post-laurea              My Veg…          2         88
+##  2    1968 No      Laurea                          Urban …         21        117
+##  3    1969 Sì      Diploma di scuola superiore     Office…         32         85
+##  4    1964 Sì      Diploma di scuola superiore     Raven            7        116
+##  5    1971 Sì      Diploma di scuola superiore     Fix Gu…         22         97
+##  6    1961 Sì      Laurea                          Office…         35        109
+##  7    1993 Sì      Scuola di specializzazione pos… House …          2        112
+##  8    1981 Sì      Laurea                          Satan&#39;…         15        119
+##  9    1979 Sì      Laurea                          Fruity…          0        107
+## 10    1971 Sì      Diploma di scuola superiore     Coal K…         30         88
 ## # ℹ 990 more rows</code></pre>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="wrangling.html#cb237-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb237-2"><a href="wrangling.html#cb237-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(gender, edu))</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 3
-##    birth.y nato.it company             
-##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;               
-##  1    1994 Sì      My Vegetarian Dinner
-##  2    1968 No      Urban Gallery       
-##  3    1969 Sì      Office Tile         
-##  4    1964 Sì      Raven               
-##  5    1971 Sì      Fix Guru            
-##  6    1961 Sì      Office Brush        
-##  7    1993 Sì      House Brush         
-##  8    1981 Sì      Satan&#39;s Sister      
-##  9    1979 Sì      FruityFlix          
-## 10    1971 Sì      Coal Kings          
+<pre><code>## # A tibble: 1,000 × 5
+##    birth.y nato.it company              work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                     &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1994 Sì      My Vegetarian Dinner          2         88
+##  2    1968 No      Urban Gallery                21        117
+##  3    1969 Sì      Office Tile                  32         85
+##  4    1964 Sì      Raven                         7        116
+##  5    1971 Sì      Fix Guru                     22         97
+##  6    1961 Sì      Office Brush                 35        109
+##  7    1993 Sì      House Brush                   2        112
+##  8    1981 Sì      Satan&#39;s Sister               15        119
+##  9    1979 Sì      FruityFlix                    0        107
+## 10    1971 Sì      Coal Kings                   30         88
 ## # ℹ 990 more rows</code></pre>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="wrangling.html#cb239-1" tabindex="-1"></a><span class="co"># Reorder variables.</span></span>
 <span id="cb239-2"><a href="wrangling.html#cb239-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
@@ -450,36 +464,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb243-2"><a href="wrangling.html#cb243-2" tabindex="-1"></a><span class="co"># Select variables whose name ends with &quot;y&quot;.</span></span>
 <span id="cb243-3"><a href="wrangling.html#cb243-3" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb243-4"><a href="wrangling.html#cb243-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&quot;y&quot;</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 2
-##    birth.y company             
-##      &lt;dbl&gt; &lt;chr&gt;               
-##  1    1994 My Vegetarian Dinner
-##  2    1968 Urban Gallery       
-##  3    1969 Office Tile         
-##  4    1964 Raven               
-##  5    1971 Fix Guru            
-##  6    1961 Office Brush        
-##  7    1993 House Brush         
-##  8    1981 Satan&#39;s Sister      
-##  9    1979 FruityFlix          
-## 10    1971 Coal Kings          
+<pre><code>## # A tibble: 1,000 × 3
+##    birth.y company              work.exp.y
+##      &lt;dbl&gt; &lt;chr&gt;                     &lt;dbl&gt;
+##  1    1994 My Vegetarian Dinner          2
+##  2    1968 Urban Gallery                21
+##  3    1969 Office Tile                  32
+##  4    1964 Raven                         7
+##  5    1971 Fix Guru                     22
+##  6    1961 Office Brush                 35
+##  7    1993 House Brush                   2
+##  8    1981 Satan&#39;s Sister               15
+##  9    1979 FruityFlix                    0
+## 10    1971 Coal Kings                   30
 ## # ℹ 990 more rows</code></pre>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="wrangling.html#cb245-1" tabindex="-1"></a><span class="co"># Select variables which are numeric.</span></span>
 <span id="cb245-2"><a href="wrangling.html#cb245-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb245-3"><a href="wrangling.html#cb245-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 1
-##    birth.y
-##      &lt;dbl&gt;
-##  1    1994
-##  2    1968
-##  3    1969
-##  4    1964
-##  5    1971
-##  6    1961
-##  7    1993
-##  8    1981
-##  9    1979
-## 10    1971
+<pre><code>## # A tibble: 1,000 × 3
+##    birth.y work.exp.y driver.sum
+##      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1994          2         88
+##  2    1968         21        117
+##  3    1969         32         85
+##  4    1964          7        116
+##  5    1971         22         97
+##  6    1961         35        109
+##  7    1993          2        112
+##  8    1981         15        119
+##  9    1979          0        107
+## 10    1971         30         88
 ## # ℹ 990 more rows</code></pre>
 <div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="wrangling.html#cb247-1" tabindex="-1"></a><span class="co"># See ?select for all options.</span></span>
 <span id="cb247-2"><a href="wrangling.html#cb247-2" tabindex="-1"></a></span>
@@ -835,10 +849,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##            Uomo 467   0.467
 ##  Altra identità   3   0.003
 ##              NR   8   0.008</code></pre>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="wrangling.html#cb293-1" tabindex="-1"></a><span class="co"># Only keep variables of interest for the following.</span></span>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="wrangling.html#cb293-1" tabindex="-1"></a><span class="co"># Only keep variables of interest for the following analyses.</span></span>
 <span id="cb293-2"><a href="wrangling.html#cb293-2" tabindex="-1"></a><span class="co"># What is this code doing with the age.br variable?</span></span>
 <span id="cb293-3"><a href="wrangling.html#cb293-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb293-4"><a href="wrangling.html#cb293-4" tabindex="-1"></a>  <span class="fu">select</span>(birth.y, age, gen, <span class="at">age.br =</span> age.br<span class="fl">.2</span>, gender, nato.it, edu, company)</span></code></pre></div>
+<span id="cb293-4"><a href="wrangling.html#cb293-4" tabindex="-1"></a>  <span class="fu">select</span>(birth.y, age, gen, <span class="at">age.br =</span> age.br<span class="fl">.2</span>, gender, nato.it, edu, company, work.exp.y, driver.sum)</span></code></pre></div>
 </div>
 <div id="filtering-and-rearranging-cases" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Filtering and rearranging cases<a href="wrangling.html#filtering-and-rearranging-cases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -851,134 +865,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="wrangling.html#cb294-1" tabindex="-1"></a><span class="co"># Respondents whose age is exactly 40.</span></span>
 <span id="cb294-2"><a href="wrangling.html#cb294-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb294-3"><a href="wrangling.html#cb294-3" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">==</span> <span class="dv">40</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 26 × 8
-##    birth.y   age gen         age.br gender nato.it edu         company         
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;       &lt;chr&gt;           
-##  1    1983    40 millennials 31-40  Uomo   Sì      Altro       Fix Guru        
-##  2    1983    40 millennials 31-40  Uomo   Sì      Superiori   Bloom Marketing 
-##  3    1983    40 millennials 31-40  Donna  Sì      Post-laurea Urban Philosophy
-##  4    1983    40 millennials 31-40  Donna  Sì      Laurea      Wood Works      
-##  5    1983    40 millennials 31-40  Uomo   Sì      Laurea      Office Tile     
-##  6    1983    40 millennials 31-40  Uomo   Sì      Laurea      The Spice Route 
-##  7    1983    40 millennials 31-40  Uomo   Sì      Superiori   The Zone        
-##  8    1983    40 millennials 31-40  Uomo   Sì      Superiori   Coal Kings      
-##  9    1983    40 millennials 31-40  Uomo   &lt;NA&gt;    Altro       FruityFlix      
-## 10    1983    40 millennials 31-40  Donna  Sì      Superiori   Raven           
+<pre><code>## # A tibble: 26 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1983    40 mill… 31-40  Uomo   Sì      Altro Fix Gu…         17         98
+##  2    1983    40 mill… 31-40  Uomo   Sì      Supe… Bloom …         18        104
+##  3    1983    40 mill… 31-40  Donna  Sì      Post… Urban …          4         97
+##  4    1983    40 mill… 31-40  Donna  Sì      Laur… Wood W…          9        104
+##  5    1983    40 mill… 31-40  Uomo   Sì      Laur… Office…         16        110
+##  6    1983    40 mill… 31-40  Uomo   Sì      Laur… The Sp…          1        103
+##  7    1983    40 mill… 31-40  Uomo   Sì      Supe… The Zo…         20         73
+##  8    1983    40 mill… 31-40  Uomo   Sì      Supe… Coal K…         18        108
+##  9    1983    40 mill… 31-40  Uomo   &lt;NA&gt;    Altro Fruity…          8        112
+## 10    1983    40 mill… 31-40  Donna  Sì      Supe… Raven           17         91
 ## # ℹ 16 more rows</code></pre>
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="wrangling.html#cb296-1" tabindex="-1"></a><span class="co"># With education = Laurea</span></span>
 <span id="cb296-2"><a href="wrangling.html#cb296-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb296-3"><a href="wrangling.html#cb296-3" tabindex="-1"></a>  <span class="fu">filter</span>(edu <span class="sc">==</span> <span class="st">&quot;Laurea&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 359 × 8
-##    birth.y   age gen          age.br gender nato.it edu    company       
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;  &lt;chr&gt;         
-##  1    1968    55 gen x        51-60  Donna  No      Laurea Urban Gallery 
-##  2    1961    62 baby boomers 61-70  NR     Sì      Laurea Office Brush  
-##  3    1981    42 millennials  41-50  Uomo   Sì      Laurea Satan&#39;s Sister
-##  4    1979    44 gen x        41-50  Donna  Sì      Laurea FruityFlix    
-##  5    1975    48 gen x        41-50  Donna  Sì      Laurea Coal Kings    
-##  6    1978    45 gen x        41-50  Uomo   Sì      Laurea The Auto DNA  
-##  7    1972    51 gen x        51-60  Uomo   Sì      Laurea Wood Works    
-##  8    1987    36 millennials  31-40  Donna  Sì      Laurea Garden Store  
-##  9    1984    39 millennials  31-40  Uomo   Sì      Laurea FruityFlix    
-## 10    1981    42 millennials  41-50  Uomo   Sì      Laurea Wood Works    
+<pre><code>## # A tibble: 359 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1968    55 gen x 51-60  Donna  No      Laur… Urban …         21        117
+##  2    1961    62 baby… 61-70  NR     Sì      Laur… Office…         35        109
+##  3    1981    42 mill… 41-50  Uomo   Sì      Laur… Satan&#39;…         15        119
+##  4    1979    44 gen x 41-50  Donna  Sì      Laur… Fruity…          0        107
+##  5    1975    48 gen x 41-50  Donna  Sì      Laur… Coal K…          2        109
+##  6    1978    45 gen x 41-50  Uomo   Sì      Laur… The Au…          5        100
+##  7    1972    51 gen x 51-60  Uomo   Sì      Laur… Wood W…         13        112
+##  8    1987    36 mill… 31-40  Donna  Sì      Laur… Garden…          5        104
+##  9    1984    39 mill… 31-40  Uomo   Sì      Laur… Fruity…          1        112
+## 10    1981    42 mill… 41-50  Uomo   Sì      Laur… Wood W…          2         99
 ## # ℹ 349 more rows</code></pre>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="wrangling.html#cb298-1" tabindex="-1"></a><span class="co"># The %in% operator is useful when you need to select multiple values.</span></span>
 <span id="cb298-2"><a href="wrangling.html#cb298-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb298-3"><a href="wrangling.html#cb298-3" tabindex="-1"></a>  <span class="fu">filter</span>(edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Superiori&quot;</span>, <span class="st">&quot;Laurea&quot;</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 775 × 8
-##    birth.y   age gen          age.br gender nato.it edu       company       
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;     &lt;chr&gt;         
-##  1    1968    55 gen x        51-60  Donna  No      Laurea    Urban Gallery 
-##  2    1969    54 gen x        51-60  Uomo   Sì      Superiori Office Tile   
-##  3    1964    59 baby boomers 51-60  Uomo   Sì      Superiori Raven         
-##  4    1971    52 gen x        51-60  Uomo   Sì      Superiori Fix Guru      
-##  5    1961    62 baby boomers 61-70  NR     Sì      Laurea    Office Brush  
-##  6    1981    42 millennials  41-50  Uomo   Sì      Laurea    Satan&#39;s Sister
-##  7    1979    44 gen x        41-50  Donna  Sì      Laurea    FruityFlix    
-##  8    1971    52 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-##  9    1966    57 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-## 10    1975    48 gen x        41-50  Donna  Sì      Laurea    Coal Kings    
+<pre><code>## # A tibble: 775 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1968    55 gen x 51-60  Donna  No      Laur… Urban …         21        117
+##  2    1969    54 gen x 51-60  Uomo   Sì      Supe… Office…         32         85
+##  3    1964    59 baby… 51-60  Uomo   Sì      Supe… Raven            7        116
+##  4    1971    52 gen x 51-60  Uomo   Sì      Supe… Fix Gu…         22         97
+##  5    1961    62 baby… 61-70  NR     Sì      Laur… Office…         35        109
+##  6    1981    42 mill… 41-50  Uomo   Sì      Laur… Satan&#39;…         15        119
+##  7    1979    44 gen x 41-50  Donna  Sì      Laur… Fruity…          0        107
+##  8    1971    52 gen x 51-60  Uomo   Sì      Supe… Coal K…         30         88
+##  9    1966    57 gen x 51-60  Uomo   Sì      Supe… Coal K…         35         93
+## 10    1975    48 gen x 41-50  Donna  Sì      Laur… Coal K…          2        109
 ## # ℹ 765 more rows</code></pre>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="wrangling.html#cb300-1" tabindex="-1"></a><span class="co"># All education categories except &quot;Medie o meno&quot;</span></span>
 <span id="cb300-2"><a href="wrangling.html#cb300-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb300-3"><a href="wrangling.html#cb300-3" tabindex="-1"></a>  <span class="fu">filter</span>(edu <span class="sc">!=</span> <span class="st">&quot;Medie o meno&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 977 × 8
-##    birth.y   age gen          age.br gender nato.it edu         company         
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;       &lt;chr&gt;           
-##  1    1994    29 millennials  21-30  Uomo   Sì      Post-laurea My Vegetarian D…
-##  2    1968    55 gen x        51-60  Donna  No      Laurea      Urban Gallery   
-##  3    1969    54 gen x        51-60  Uomo   Sì      Superiori   Office Tile     
-##  4    1964    59 baby boomers 51-60  Uomo   Sì      Superiori   Raven           
-##  5    1971    52 gen x        51-60  Uomo   Sì      Superiori   Fix Guru        
-##  6    1961    62 baby boomers 61-70  NR     Sì      Laurea      Office Brush    
-##  7    1993    30 millennials  21-30  Donna  Sì      Altro       House Brush     
-##  8    1981    42 millennials  41-50  Uomo   Sì      Laurea      Satan&#39;s Sister  
-##  9    1979    44 gen x        41-50  Donna  Sì      Laurea      FruityFlix      
-## 10    1971    52 gen x        51-60  Uomo   Sì      Superiori   Coal Kings      
+<pre><code>## # A tibble: 977 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1994    29 mill… 21-30  Uomo   Sì      Post… My Veg…          2         88
+##  2    1968    55 gen x 51-60  Donna  No      Laur… Urban …         21        117
+##  3    1969    54 gen x 51-60  Uomo   Sì      Supe… Office…         32         85
+##  4    1964    59 baby… 51-60  Uomo   Sì      Supe… Raven            7        116
+##  5    1971    52 gen x 51-60  Uomo   Sì      Supe… Fix Gu…         22         97
+##  6    1961    62 baby… 61-70  NR     Sì      Laur… Office…         35        109
+##  7    1993    30 mill… 21-30  Donna  Sì      Altro House …          2        112
+##  8    1981    42 mill… 41-50  Uomo   Sì      Laur… Satan&#39;…         15        119
+##  9    1979    44 gen x 41-50  Donna  Sì      Laur… Fruity…          0        107
+## 10    1971    52 gen x 51-60  Uomo   Sì      Supe… Coal K…         30         88
 ## # ℹ 967 more rows</code></pre>
 <div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="wrangling.html#cb302-1" tabindex="-1"></a><span class="co"># Missing value on nato.it</span></span>
 <span id="cb302-2"><a href="wrangling.html#cb302-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb302-3"><a href="wrangling.html#cb302-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(nato.it))</span></code></pre></div>
-<pre><code>## # A tibble: 4 × 8
-##   birth.y   age gen         age.br gender nato.it edu       company        
-##     &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;     &lt;chr&gt;          
-## 1    1967    56 gen x       51-60  Donna  &lt;NA&gt;    Superiori Fix Guru       
-## 2    1967    56 gen x       51-60  Donna  &lt;NA&gt;    Superiori Bloom Marketing
-## 3    1983    40 millennials 31-40  Uomo   &lt;NA&gt;    Altro     FruityFlix     
-## 4    1974    49 gen x       41-50  Uomo   &lt;NA&gt;    Superiori Art Fade</code></pre>
+<pre><code>## # A tibble: 4 × 10
+##   birth.y   age gen    age.br gender nato.it edu   company work.exp.y driver.sum
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1    1967    56 gen x  51-60  Donna  &lt;NA&gt;    Supe… Fix Gu…         33        109
+## 2    1967    56 gen x  51-60  Donna  &lt;NA&gt;    Supe… Bloom …         23         92
+## 3    1983    40 mille… 31-40  Uomo   &lt;NA&gt;    Altro Fruity…          8        112
+## 4    1974    49 gen x  41-50  Uomo   &lt;NA&gt;    Supe… Art Fa…         29        120</code></pre>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="wrangling.html#cb304-1" tabindex="-1"></a><span class="co"># Multiple conditions can be combined: intersection (&amp;, i.e. AND) or </span></span>
 <span id="cb304-2"><a href="wrangling.html#cb304-2" tabindex="-1"></a><span class="co"># union (|, i.e. OR). </span></span>
 <span id="cb304-3"><a href="wrangling.html#cb304-3" tabindex="-1"></a></span>
 <span id="cb304-4"><a href="wrangling.html#cb304-4" tabindex="-1"></a><span class="co"># Respondents between 30 and 40.</span></span>
 <span id="cb304-5"><a href="wrangling.html#cb304-5" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb304-6"><a href="wrangling.html#cb304-6" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span><span class="dv">40</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 190 × 8
-##    birth.y   age gen         age.br gender nato.it edu         company          
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;       &lt;chr&gt;            
-##  1    1993    30 millennials 21-30  Donna  Sì      Altro       House Brush      
-##  2    1984    39 millennials 31-40  Uomo   Sì      Superiori   Wood Works       
-##  3    1990    33 millennials 31-40  Uomo   Sì      Post-laurea Art Fade         
-##  4    1989    34 millennials 31-40  Donna  Sì      Post-laurea The Loop         
-##  5    1993    30 millennials 21-30  Donna  Sì      Post-laurea Service Scientist
-##  6    1988    35 millennials 31-40  Donna  Sì      Superiori   FruityFlix       
-##  7    1987    36 millennials 31-40  Donna  Sì      Laurea      Garden Store     
-##  8    1983    40 millennials 31-40  Uomo   Sì      Altro       Fix Guru         
-##  9    1984    39 millennials 31-40  Uomo   Sì      Laurea      FruityFlix       
-## 10    1988    35 millennials 31-40  NR     Sì      Post-laurea Wood Works       
+<pre><code>## # A tibble: 190 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1993    30 mill… 21-30  Donna  Sì      Altro House …          2        112
+##  2    1984    39 mill… 31-40  Uomo   Sì      Supe… Wood W…          4        107
+##  3    1990    33 mill… 31-40  Uomo   Sì      Post… Art Fa…          7         98
+##  4    1989    34 mill… 31-40  Donna  Sì      Post… The Lo…          3        117
+##  5    1993    30 mill… 21-30  Donna  Sì      Post… Servic…          0        108
+##  6    1988    35 mill… 31-40  Donna  Sì      Supe… Fruity…         10        116
+##  7    1987    36 mill… 31-40  Donna  Sì      Laur… Garden…          5        104
+##  8    1983    40 mill… 31-40  Uomo   Sì      Altro Fix Gu…         17         98
+##  9    1984    39 mill… 31-40  Uomo   Sì      Laur… Fruity…          1        112
+## 10    1988    35 mill… 31-40  NR     Sì      Post… Wood W…          4        112
 ## # ℹ 180 more rows</code></pre>
 <div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="wrangling.html#cb306-1" tabindex="-1"></a><span class="co"># Respondents who are either younger than 20 or older than 40.</span></span>
 <span id="cb306-2"><a href="wrangling.html#cb306-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb306-3"><a href="wrangling.html#cb306-3" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">|</span> age <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 767 × 8
-##    birth.y   age gen          age.br gender nato.it edu       company       
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;     &lt;chr&gt;         
-##  1    1968    55 gen x        51-60  Donna  No      Laurea    Urban Gallery 
-##  2    1969    54 gen x        51-60  Uomo   Sì      Superiori Office Tile   
-##  3    1964    59 baby boomers 51-60  Uomo   Sì      Superiori Raven         
-##  4    1971    52 gen x        51-60  Uomo   Sì      Superiori Fix Guru      
-##  5    1961    62 baby boomers 61-70  NR     Sì      Laurea    Office Brush  
-##  6    1981    42 millennials  41-50  Uomo   Sì      Laurea    Satan&#39;s Sister
-##  7    1979    44 gen x        41-50  Donna  Sì      Laurea    FruityFlix    
-##  8    1971    52 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-##  9    1966    57 gen x        51-60  Uomo   Sì      Superiori Coal Kings    
-## 10    1975    48 gen x        41-50  Donna  Sì      Laurea    Coal Kings    
+<pre><code>## # A tibble: 767 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1968    55 gen x 51-60  Donna  No      Laur… Urban …         21        117
+##  2    1969    54 gen x 51-60  Uomo   Sì      Supe… Office…         32         85
+##  3    1964    59 baby… 51-60  Uomo   Sì      Supe… Raven            7        116
+##  4    1971    52 gen x 51-60  Uomo   Sì      Supe… Fix Gu…         22         97
+##  5    1961    62 baby… 61-70  NR     Sì      Laur… Office…         35        109
+##  6    1981    42 mill… 41-50  Uomo   Sì      Laur… Satan&#39;…         15        119
+##  7    1979    44 gen x 41-50  Donna  Sì      Laur… Fruity…          0        107
+##  8    1971    52 gen x 51-60  Uomo   Sì      Supe… Coal K…         30         88
+##  9    1966    57 gen x 51-60  Uomo   Sì      Supe… Coal K…         35         93
+## 10    1975    48 gen x 41-50  Donna  Sì      Laur… Coal K…          2        109
 ## # ℹ 757 more rows</code></pre>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="wrangling.html#cb308-1" tabindex="-1"></a><span class="co"># Respondents who are younger than 40 AND whose education is post-laurea</span></span>
 <span id="cb308-2"><a href="wrangling.html#cb308-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb308-3"><a href="wrangling.html#cb308-3" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> edu <span class="sc">==</span> <span class="st">&quot;Post-laurea&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 51 × 8
-##    birth.y   age gen         age.br gender nato.it edu         company          
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;       &lt;chr&gt;            
-##  1    1994    29 millennials 21-30  Uomo   Sì      Post-laurea My Vegetarian Di…
-##  2    1990    33 millennials 31-40  Uomo   Sì      Post-laurea Art Fade         
-##  3    1989    34 millennials 31-40  Donna  Sì      Post-laurea The Loop         
-##  4    1993    30 millennials 21-30  Donna  Sì      Post-laurea Service Scientist
-##  5    1988    35 millennials 31-40  NR     Sì      Post-laurea Wood Works       
-##  6    1984    39 millennials 31-40  Donna  Sì      Post-laurea Raven            
-##  7    1987    36 millennials 31-40  Donna  Sì      Post-laurea The Zone         
-##  8    1985    38 millennials 31-40  Uomo   Sì      Post-laurea Coal Kings       
-##  9    1985    38 millennials 31-40  Uomo   Sì      Post-laurea Beep Sports      
-## 10    1997    26 gen z       21-30  Donna  No      Post-laurea Satan&#39;s Sister   
+<pre><code>## # A tibble: 51 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1994    29 mill… 21-30  Uomo   Sì      Post… My Veg…          2         88
+##  2    1990    33 mill… 31-40  Uomo   Sì      Post… Art Fa…          7         98
+##  3    1989    34 mill… 31-40  Donna  Sì      Post… The Lo…          3        117
+##  4    1993    30 mill… 21-30  Donna  Sì      Post… Servic…          0        108
+##  5    1988    35 mill… 31-40  NR     Sì      Post… Wood W…          4        112
+##  6    1984    39 mill… 31-40  Donna  Sì      Post… Raven           11         93
+##  7    1987    36 mill… 31-40  Donna  Sì      Post… The Zo…         11        109
+##  8    1985    38 mill… 31-40  Uomo   Sì      Post… Coal K…         18        116
+##  9    1985    38 mill… 31-40  Uomo   Sì      Post… Beep S…         13        104
+## 10    1997    26 gen z 21-30  Donna  No      Post… Satan&#39;…          1        104
 ## # ℹ 41 more rows</code></pre>
 <div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="wrangling.html#cb310-1" tabindex="-1"></a><span class="co"># The filtered data can be saved to new objects, for example:</span></span>
 <span id="cb310-2"><a href="wrangling.html#cb310-2" tabindex="-1"></a>data<span class="fl">.40</span> <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
@@ -1005,36 +1019,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="wrangling.html#cb312-1" tabindex="-1"></a><span class="co"># Rearrange rows by increasing values on a variable.</span></span>
 <span id="cb312-2"><a href="wrangling.html#cb312-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb312-3"><a href="wrangling.html#cb312-3" tabindex="-1"></a>  <span class="fu">arrange</span>(birth.y)</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 8
-##    birth.y   age gen          age.br gender nato.it edu          company        
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;        &lt;chr&gt;          
-##  1    1944    79 baby boomers 71-80  Uomo   Sì      Laurea       The Glow Up    
-##  2    1954    69 baby boomers 61-70  NR     Sì      Medie o meno Brunchies      
-##  3    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Raven          
-##  4    1958    65 baby boomers 61-70  Donna  Sì      Laurea       The Spice Route
-##  5    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       The Zone       
-##  6    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Raven          
-##  7    1958    65 baby boomers 61-70  Uomo   Sì      Laurea       Evergrow       
-##  8    1958    65 baby boomers 61-70  Donna  Sì      Superiori    Coal Kings     
-##  9    1958    65 baby boomers 61-70  Uomo   Sì      Altro        Raven          
-## 10    1959    64 baby boomers 61-70  Donna  Sì      Laurea       The Zone       
+<pre><code>## # A tibble: 1,000 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    1944    79 baby… 71-80  Uomo   Sì      Laur… The Gl…         13         83
+##  2    1954    69 baby… 61-70  NR     Sì      Medi… Brunch…         50         72
+##  3    1958    65 baby… 61-70  Uomo   Sì      Laur… Raven           32        113
+##  4    1958    65 baby… 61-70  Donna  Sì      Laur… The Sp…         20        113
+##  5    1958    65 baby… 61-70  Uomo   Sì      Laur… The Zo…         17         84
+##  6    1958    65 baby… 61-70  Uomo   Sì      Laur… Raven           40        106
+##  7    1958    65 baby… 61-70  Uomo   Sì      Laur… Evergr…          6         99
+##  8    1958    65 baby… 61-70  Donna  Sì      Supe… Coal K…         35        113
+##  9    1958    65 baby… 61-70  Uomo   Sì      Altro Raven           35        108
+## 10    1959    64 baby… 61-70  Donna  Sì      Laur… The Zo…         12        107
 ## # ℹ 990 more rows</code></pre>
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="wrangling.html#cb314-1" tabindex="-1"></a><span class="co"># By decreasing value:</span></span>
 <span id="cb314-2"><a href="wrangling.html#cb314-2" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb314-3"><a href="wrangling.html#cb314-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(birth.y))</span></code></pre></div>
-<pre><code>## # A tibble: 1,000 × 8
-##    birth.y   age gen   age.br gender nato.it edu         company             
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt;       &lt;chr&gt;               
-##  1    2002    21 gen z 21-30  Uomo   Sì      Superiori   Fix Guru            
-##  2    2000    23 gen z 21-30  Donna  Sì      Laurea      My Plumber          
-##  3    2000    23 gen z 21-30  Uomo   Sì      Superiori   Coal Kings          
-##  4    2000    23 gen z 21-30  Uomo   Sì      Superiori   Coal Kings          
-##  5    2000    23 gen z 21-30  Donna  Sì      Laurea      Beep Sports         
-##  6    2000    23 gen z 21-30  Uomo   Sì      Laurea      Raven               
-##  7    1998    25 gen z 21-30  Donna  Sì      Laurea      The Fresh Breakfast 
-##  8    1998    25 gen z 21-30  Donna  Sì      Laurea      My Vegetarian Dinner
-##  9    1997    26 gen z 21-30  Donna  No      Post-laurea Satan&#39;s Sister      
-## 10    1997    26 gen z 21-30  Uomo   Sì      Laurea      Art Fade            
+<pre><code>## # A tibble: 1,000 × 10
+##    birth.y   age gen   age.br gender nato.it edu   company work.exp.y driver.sum
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1    2002    21 gen z 21-30  Uomo   Sì      Supe… Fix Gu…          1         99
+##  2    2000    23 gen z 21-30  Donna  Sì      Laur… My Plu…          0        111
+##  3    2000    23 gen z 21-30  Uomo   Sì      Supe… Coal K…          3        115
+##  4    2000    23 gen z 21-30  Uomo   Sì      Supe… Coal K…          4         96
+##  5    2000    23 gen z 21-30  Donna  Sì      Laur… Beep S…          0        114
+##  6    2000    23 gen z 21-30  Uomo   Sì      Laur… Raven            1         98
+##  7    1998    25 gen z 21-30  Donna  Sì      Laur… The Fr…          1        100
+##  8    1998    25 gen z 21-30  Donna  Sì      Laur… My Veg…          2        102
+##  9    1997    26 gen z 21-30  Donna  No      Post… Satan&#39;…          1        104
+## 10    1997    26 gen z 21-30  Uomo   Sì      Laur… Art Fa…          0         94
 ## # ℹ 990 more rows</code></pre>
 </div>
 <div id="saving-the-data" class="section level2 hasAnchor" number="3.4">
@@ -1099,7 +1113,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                            Values
 ## Name                       data  
 ## Number of rows             1000  
-## Number of columns          8     
+## Number of columns          10    
 ## _______________________          
 ## Column type frequency:           
 ##   numeric                  1     
@@ -1224,8 +1238,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb343-9"><a href="wrangling.html#cb343-9" tabindex="-1"></a>    <span class="at">sd.age =</span> <span class="fu">sd</span>(age),</span>
 <span id="cb343-10"><a href="wrangling.html#cb343-10" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb343-11"><a href="wrangling.html#cb343-11" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;gender&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped
+## output by &#39;gender&#39;. You can
+## override using the `.groups`
+## argument.</code></pre>
 <pre><code>## # A tibble: 10 × 6
 ## # Groups:   gender [2]
 ##    gender edu          min.year avg.age sd.age prop.foreign
@@ -1248,7 +1264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                            Values
 ## Name                       data  
 ## Number of rows             1000  
-## Number of columns          8     
+## Number of columns          10    
 ## _______________________          
 ## Column type frequency:           
 ##   numeric                  1     
@@ -1282,8 +1298,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb348-8"><a href="wrangling.html#cb348-8" tabindex="-1"></a>    <span class="at">prop.foreign =</span> <span class="fu">mean</span>(nato.it <span class="sc">==</span> <span class="st">&quot;No&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb348-9"><a href="wrangling.html#cb348-9" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb348-10"><a href="wrangling.html#cb348-10" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;summarize_by_gender-edu.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;gender&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped
+## output by &#39;gender&#39;. You can
+## override using the `.groups`
+## argument.</code></pre>
 <div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="wrangling.html#cb350-1" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb350-2"><a href="wrangling.html#cb350-2" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
 <span id="cb350-3"><a href="wrangling.html#cb350-3" tabindex="-1"></a>  <span class="fu">skim</span>(age) <span class="sc">|&gt;</span> </span>

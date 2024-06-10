@@ -1,5 +1,42 @@
 # Creating reproducible reports {#reproducible}
 
-<!-- * kable() and kableExtra -->
+We'll do this live in class starting from RStudio's [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). 
 
+I'll use the Rmd file for this chapter to store a couple of code chunks you'll be especially interested in.
 
+Load your packages and data:
+
+```{r, message=FALSE}
+# Load packages
+library(tidyverse)
+library(janitor)
+
+# For extra features with tables in final reports.
+library(kableExtra)
+
+# For interactive tables
+library(DT)
+
+# Clear the workspace
+rm(list = ls())
+
+# Let's load the data we cleaned in the previous chapter
+load("my_data.rda")
+```
+
+Create a nice table with absolute frequencies:
+
+```{r}
+data |> 
+  count(gen, gender) |> 
+  kable() |> 
+  kableExtra::kable_styling()
+```
+
+Create an interactive table (searchable and sortable):
+
+```{r}
+data |> 
+  count(gen, gender) |> 
+  DT::datatable()
+```
